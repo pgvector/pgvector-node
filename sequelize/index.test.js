@@ -19,7 +19,7 @@ beforeAll(async () => {
   await sequelize.query('CREATE EXTENSION IF NOT EXISTS vector');
 
   // need to reconnect after the vector extension has been created
-  await sequelize.close();
+  sequelize.close();
   sequelize = connect();
 
   Item.init({
