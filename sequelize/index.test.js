@@ -15,7 +15,6 @@ function connect() {
 
 beforeAll(async () => {
   sequelize = connect();
-  await sequelize.authenticate();
   await sequelize.query('CREATE EXTENSION IF NOT EXISTS vector');
 
   // need to reconnect after the vector extension has been created
