@@ -5,22 +5,32 @@ pgvector.registerType(Sequelize);
 
 class Item extends Model {}
 
-const sequelize = new Sequelize('postgres://localhost/pgvector_node_test', {
-  logging: false
-});
+let sequelize;
 
-Item.init({
-  factors: {
-    type: DataTypes.VECTOR(3)
-  }
-}, {
-  sequelize,
-  modelName: 'Item'
-});
+function connect() {
+  return new Sequelize('postgres://localhost/pgvector_node_test', {
+    logging: false
+  });
+}
 
 beforeAll(async () => {
+  sequelize = connect();
   await sequelize.authenticate();
   await sequelize.query('CREATE EXTENSION IF NOT EXISTS vector');
+
+  // need to reconnect after the vector extension has been created
+  await sequelize.close();
+  sequelize = connect();
+
+  Item.init({
+    factors: {
+      type: DataTypes.VECTOR(3)
+    }
+  }, {
+    sequelize,
+    modelName: 'Item'
+  });
+
   await Item.sync({force: true});
 });
 
@@ -37,13 +47,7 @@ test('works', async () => {
     limit: 5
   });
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
-
-  if (process.env.CI) {
-    // TODO figure out issue on CI
-    expect(items[1].factors).toStrictEqual('[1,1,2]');
-  } else {
-    expect(items[1].factors).toStrictEqual([1, 1, 2]);
-  }
+  expect(items[1].factors).toStrictEqual([1, 1, 2]);
 });
 
 test('bad value', () => {
@@ -61,6 +65,6 @@ test('no dimensions', () => {
 
 test('bad dimensions', () => {
   expect(() => {
-    DataTypes.VECTOR('bad').toSql()
+    DataTypes.VECTOR('bad').toSql();
   }).toThrowError('expected integer');
 });
