@@ -29,17 +29,20 @@ afterAll(() => {
 });
 
 test('works', async () => {
-  await Item.create({factors: [1, 2, 3]});
+  await Item.create({factors: [1, 1, 1]});
+  await Item.create({factors: [2, 2, 2]});
+  await Item.create({factors: [1, 1, 2]});
   const items = await Item.findAll({
     order: [sequelize.literal(`factors <-> '[1, 1, 1]'`)],
     limit: 5
   });
+  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
 
   if (process.env.CI) {
     // TODO figure out issue on CI
-    expect(items[0].factors).toStrictEqual('[1,2,3]');
+    expect(items[1].factors).toStrictEqual('[1,1,2]');
   } else {
-    expect(items[0].factors).toStrictEqual([1, 2, 3]);
+    expect(items[1].factors).toStrictEqual([1, 1, 2]);
   }
 });
 
