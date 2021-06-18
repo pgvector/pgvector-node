@@ -37,16 +37,42 @@ afterAll(() => {
   sequelize.close();
 });
 
-test('works', async () => {
-  await Item.create({factors: [1, 1, 1]});
-  await Item.create({factors: [2, 2, 2]});
-  await Item.create({factors: [1, 1, 2]});
+beforeEach(async () => {
+  await Item.destroy({truncate: true});
+});
+
+async function createItems() {
+  await Item.create({id: 1, factors: [1, 1, 1]});
+  await Item.create({id: 2, factors: [2, 2, 2]});
+  await Item.create({id: 3, factors: [1, 1, 2]});
+}
+
+test('L2 distance', async () => {
+  await createItems();
   const items = await Item.findAll({
     order: [sequelize.literal(`factors <-> '[1, 1, 1]'`)],
     limit: 5
   });
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
   expect(items[1].factors).toStrictEqual([1, 1, 2]);
+});
+
+test('max inner product', async () => {
+  await createItems();
+  const items = await Item.findAll({
+    order: [sequelize.literal(`factors <#> '[1, 1, 1]'`)],
+    limit: 5
+  });
+  expect(items.map(v => v.id)).toStrictEqual([2, 3, 1]);
+});
+
+test('cosine distance', async () => {
+  await createItems();
+  const items = await Item.findAll({
+    order: [sequelize.literal(`factors <=> '[1, 1, 1]'`)],
+    limit: 5
+  });
+  expect(items.map(v => v.id)).toStrictEqual([1, 2, 3]);
 });
 
 test('bad value', () => {
