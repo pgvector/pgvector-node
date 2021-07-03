@@ -30,6 +30,7 @@
   "devDependencies": {
     "jest": "^27.0.4",
     "pg": "^8.6.0",
+    "pg-promise": "^10.10.2",
     "sequelize": "^6.6.2"
   }
 }

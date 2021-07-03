@@ -2,7 +2,7 @@
 
 [pgvector](https://github.com/ankane/pgvector) support for Node.js
 
-Supports [Sequelize](https://github.com/sequelize/sequelize) and [node-postgres](https://github.com/brianc/node-postgres)
+Supports [Sequelize](https://github.com/sequelize/sequelize), [node-postgres](https://github.com/brianc/node-postgres), and [pg-promise](https://github.com/vitaly-t/pg-promise)
 
 [![Build Status](https://github.com/ankane/pgvector-node/workflows/build/badge.svg?branch=master)](https://github.com/ankane/pgvector-node/actions)
 
@@ -18,6 +18,7 @@ And follow the instructions for your database library:
 
 - [Sequelize](#sequelize)
 - [node-postgres](#node-postgres)
+- [pg-promise](#pg-promise)
 
 ## Sequelize
 
@@ -76,6 +77,34 @@ Get the nearest neighbors to a vector
 
 ```js
 const result = await client.query('SELECT * FROM items ORDER BY factors <-> $1 LIMIT 5', [pgvector.toSql(factors)]);
+```
+
+## pg-promise
+
+Register the type
+
+```js
+const pgvector = require('pgvector/pg');
+
+const initOptions = {
+  async connect(client, dc, useCount) {
+    await pgvector.registerType(client);
+  }
+};
+const pgp = require('pg-promise')(initOptions);
+```
+
+Insert a vector
+
+```js
+const factors = [1, 2, 3];
+await db.none('INSERT INTO items (factors) VALUES ($1)', [pgvector.toSql(factors)]);
+```
+
+Get the nearest neighbors to a vector
+
+```js
+const result = await db.any('SELECT * FROM items ORDER BY factors <-> $1 LIMIT 5', [pgvector.toSql(factors)]);
 ```
 
 ## History
