@@ -126,5 +126,6 @@ To get started with development:
 git clone https://github.com/ankane/pgvector-node.git
 cd pgvector-node
 npm install
+createdb pgvector_node_test
 npm test
 ```
