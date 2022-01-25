@@ -1,10 +1,10 @@
 # pgvector-node
 
-[pgvector](https://github.com/ankane/pgvector) support for Node.js
+[pgvector](https://github.com/pgvector/pgvector) support for Node.js
 
 Supports [Sequelize](https://github.com/sequelize/sequelize), [node-postgres](https://github.com/brianc/node-postgres), and [pg-promise](https://github.com/vitaly-t/pg-promise)
 
-[![Build Status](https://github.com/ankane/pgvector-node/workflows/build/badge.svg?branch=master)](https://github.com/ankane/pgvector-node/actions)
+[![Build Status](https://github.com/pgvector/pgvector-node/workflows/build/badge.svg?branch=master)](https://github.com/pgvector/pgvector-node/actions)
 
 ## Installation
 
@@ -109,21 +109,21 @@ const result = await db.any('SELECT * FROM items ORDER BY factors <-> $1 LIMIT 5
 
 ## History
 
-View the [changelog](https://github.com/ankane/pgvector-node/blob/master/CHANGELOG.md)
+View the [changelog](https://github.com/pgvector/pgvector-node/blob/master/CHANGELOG.md)
 
 ## Contributing
 
 Everyone is encouraged to help improve this project. Here are a few ways you can help:
 
-- [Report bugs](https://github.com/ankane/pgvector-node/issues)
-- Fix bugs and [submit pull requests](https://github.com/ankane/pgvector-node/pulls)
+- [Report bugs](https://github.com/pgvector/pgvector-node/issues)
+- Fix bugs and [submit pull requests](https://github.com/pgvector/pgvector-node/pulls)
 - Write, clarify, or fix documentation
 - Suggest or add new features
 
 To get started with development:
 
 ```sh
-git clone https://github.com/ankane/pgvector-node.git
+git clone https://github.com/pgvector/pgvector-node.git
 cd pgvector-node
 npm install
 createdb pgvector_node_test
