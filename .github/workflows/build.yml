@@ -4,15 +4,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
     - run: npm install
     - uses: ankane/setup-postgres@v1
       with:
         database: pgvector_node_test
     - run: |
         sudo apt-get update && sudo apt-get install postgresql-server-dev-14
-        git clone --branch v0.2.7 https://github.com/pgvector/pgvector.git
+        git clone --branch v0.3.0 https://github.com/pgvector/pgvector.git
         cd pgvector
         make
         sudo make install
