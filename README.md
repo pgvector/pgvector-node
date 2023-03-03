@@ -35,7 +35,7 @@ Add a vector field
 
 ```js
 Item.init({
-  factors: {
+  embedding: {
     type: DataTypes.VECTOR(3)
   }
 }, ...);
@@ -44,14 +44,14 @@ Item.init({
 Insert a vector
 
 ```js
-await Item.create({factors: [1, 2, 3]});
+await Item.create({embedding: [1, 2, 3]});
 ```
 
 Get the nearest neighbors to a vector
 
 ```js
 const items = await Item.findAll({
-  order: [sequelize.literal(`factors <-> '[1, 2, 3]'`)],
+  order: [sequelize.literal(`embedding <-> '[1, 2, 3]'`)],
   limit: 5
 });
 ```
@@ -69,14 +69,14 @@ await pgvector.registerType(client);
 Insert a vector
 
 ```js
-const factors = [1, 2, 3];
-await client.query('INSERT INTO items (factors) VALUES ($1)', [pgvector.toSql(factors)]);
+const embedding = [1, 2, 3];
+await client.query('INSERT INTO items (embedding) VALUES ($1)', [pgvector.toSql(embedding)]);
 ```
 
 Get the nearest neighbors to a vector
 
 ```js
-const result = await client.query('SELECT * FROM items ORDER BY factors <-> $1 LIMIT 5', [pgvector.toSql(factors)]);
+const result = await client.query('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql(embedding)]);
 ```
 
 ## pg-promise
@@ -97,14 +97,14 @@ const pgp = require('pg-promise')(initOptions);
 Insert a vector
 
 ```js
-const factors = [1, 2, 3];
-await db.none('INSERT INTO items (factors) VALUES ($1)', [pgvector.toSql(factors)]);
+const embedding = [1, 2, 3];
+await db.none('INSERT INTO items (embedding) VALUES ($1)', [pgvector.toSql(embedding)]);
 ```
 
 Get the nearest neighbors to a vector
 
 ```js
-const result = await db.any('SELECT * FROM items ORDER BY factors <-> $1 LIMIT 5', [pgvector.toSql(factors)]);
+const result = await db.any('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql(embedding)]);
 ```
 
 ## History

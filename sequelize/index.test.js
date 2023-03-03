@@ -22,7 +22,7 @@ beforeAll(async () => {
   sequelize = connect();
 
   Item.init({
-    factors: {
+    embedding: {
       type: DataTypes.VECTOR(3)
     }
   }, {
@@ -42,25 +42,25 @@ beforeEach(async () => {
 });
 
 async function createItems() {
-  await Item.create({id: 1, factors: [1, 1, 1]});
-  await Item.create({id: 2, factors: [2, 2, 2]});
-  await Item.create({id: 3, factors: [1, 1, 2]});
+  await Item.create({id: 1, embedding: [1, 1, 1]});
+  await Item.create({id: 2, embedding: [2, 2, 2]});
+  await Item.create({id: 3, embedding: [1, 1, 2]});
 }
 
 test('L2 distance', async () => {
   await createItems();
   const items = await Item.findAll({
-    order: [sequelize.literal(`factors <-> '[1, 1, 1]'`)],
+    order: [sequelize.literal(`embedding <-> '[1, 1, 1]'`)],
     limit: 5
   });
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
-  expect(items[1].factors).toStrictEqual([1, 1, 2]);
+  expect(items[1].embedding).toStrictEqual([1, 1, 2]);
 });
 
 test('max inner product', async () => {
   await createItems();
   const items = await Item.findAll({
-    order: [sequelize.literal(`factors <#> '[1, 1, 1]'`)],
+    order: [sequelize.literal(`embedding <#> '[1, 1, 1]'`)],
     limit: 5
   });
   expect(items.map(v => v.id)).toStrictEqual([2, 3, 1]);
@@ -69,7 +69,7 @@ test('max inner product', async () => {
 test('cosine distance', async () => {
   await createItems();
   const items = await Item.findAll({
-    order: [sequelize.literal(`factors <=> '[1, 1, 1]'`)],
+    order: [sequelize.literal(`embedding <=> '[1, 1, 1]'`)],
     limit: 5
   });
   expect(items.map(v => v.id)).toStrictEqual([1, 2, 3]);
@@ -77,7 +77,7 @@ test('cosine distance', async () => {
 
 test('bad value', () => {
   expect.assertions(1);
-  return Item.create({factors: 'bad'}).catch(e => expect(e.message).toMatch('malformed vector literal'));
+  return Item.create({embedding: 'bad'}).catch(e => expect(e.message).toMatch('malformed vector literal'));
 });
 
 test('dimensions', () => {

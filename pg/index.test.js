@@ -10,7 +10,7 @@ beforeAll(async () => {
   DROP TABLE IF EXISTS items;
   CREATE TABLE IF NOT EXISTS items (
     id serial primary key,
-    factors vector(3)
+    embedding vector(3)
   );
   `;
   await client.query(sql);
@@ -26,9 +26,9 @@ beforeEach(async () => {
 });
 
 test('works', async () => {
-  await client.query('INSERT INTO items (factors) VALUES ($1)', [pgvector.toSql([1, 2, 3])]);
-  const { rows } = await client.query('SELECT * FROM items ORDER BY factors <-> $1 LIMIT 5', [pgvector.toSql([1, 2, 3])]);
-  expect(rows[0].factors).toStrictEqual([1, 2, 3]);
+  await client.query('INSERT INTO items (embedding) VALUES ($1)', [pgvector.toSql([1, 2, 3])]);
+  const { rows } = await client.query('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql([1, 2, 3])]);
+  expect(rows[0].embedding).toStrictEqual([1, 2, 3]);
 });
 
 test('bad object', () => {
