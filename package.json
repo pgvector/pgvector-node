@@ -12,11 +12,18 @@
     "url": "https://github.com/pgvector/pgvector-node.js"
   },
   "exports": {
-    "./pg": "./pg/index.js",
-    "./sequelize": "./sequelize/index.js",
+    "./pg": {
+      "require": "./pg/index.js",
+      "types": "./dist/pg/index.d.ts"
+    },
+    "./sequelize": {
+      "require": "./sequelize/index.js",
+      "types": "./dist/sequelize/index.d.ts"
+    },
     "./package.json": "./package.json"
   },
   "files": [
+    "dist",
     "pg",
     "sequelize",
     "utils"
@@ -25,12 +32,14 @@
     "node": ">= 12"
   },
   "scripts": {
+    "build": "tsc",
     "test": "jest"
   },
   "devDependencies": {
     "jest": "^27.0.4",
     "pg": "^8.6.0",
     "pg-promise": "^10.10.2",
-    "sequelize": "^6.6.2"
+    "sequelize": "^6.6.2",
+    "typescript": "^4.9.5"
   }
 }
