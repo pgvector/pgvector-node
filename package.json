@@ -13,19 +13,17 @@
   },
   "exports": {
     "./pg": {
-      "require": "./pg/index.js",
+      "require": "./src/pg/index.js",
       "types": "./types/pg/index.d.ts"
     },
     "./sequelize": {
-      "require": "./sequelize/index.js",
+      "require": "./src/sequelize/index.js",
       "types": "./types/sequelize/index.d.ts"
     },
     "./package.json": "./package.json"
   },
   "files": [
-    "pg",
-    "sequelize",
-    "utils"
+    "src"
   ],
   "engines": {
     "node": ">= 12"
