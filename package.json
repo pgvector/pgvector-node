@@ -4,7 +4,6 @@
   "description": "pgvector support for Node.js",
   "homepage": "https://github.com/pgvector/pgvector-node",
   "license": "MIT",
-  "type": "module",
   "authors": [
     "ankane"
   ],
