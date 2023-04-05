@@ -23,7 +23,8 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "src"
+    "src",
+    "types"
   ],
   "engines": {
     "node": ">= 12"
