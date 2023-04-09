@@ -1,4 +1,4 @@
-## 0.1.2 (unreleased)
+## 0.1.2 (2023-04-09)
 
 - Added types to published package
 
