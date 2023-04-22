@@ -9,7 +9,7 @@ beforeAll(async () => {
   CREATE EXTENSION IF NOT EXISTS vector;
   DROP TABLE IF EXISTS items;
   CREATE TABLE IF NOT EXISTS items (
-    id serial primary key,
+    id serial PRIMARY KEY,
     embedding vector(3)
   );
   `;
