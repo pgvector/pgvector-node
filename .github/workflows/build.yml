@@ -17,4 +17,5 @@ jobs:
           cd pgvector
           make
           sudo make install
+      - run: npx prisma migrate dev
       - run: npm test

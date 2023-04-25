@@ -1,3 +1,7 @@
+## 0.1.3 (unreleased)
+
+- Added `utils` export
+
 ## 0.1.2 (2023-04-09)
 
 - Added types to published package

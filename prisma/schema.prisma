@@ -1,0 +1,20 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = "postgresql://postgres@localhost/pgvector_node_test"
+  extensions = [vector]
+}
+
+model Item {
+  id        Int                       @id @default(autoincrement())
+  embedding Unsupported("vector(3)")?
+
+  @@map("prisma_items")
+}

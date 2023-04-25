@@ -2,7 +2,7 @@
 
 [pgvector](https://github.com/pgvector/pgvector) support for Node.js
 
-Supports [Sequelize](https://github.com/sequelize/sequelize), [node-postgres](https://github.com/brianc/node-postgres), and [pg-promise](https://github.com/vitaly-t/pg-promise)
+Supports [Sequelize](https://github.com/sequelize/sequelize), [node-postgres](https://github.com/brianc/node-postgres), [pg-promise](https://github.com/vitaly-t/pg-promise), and [Prisma](https://github.com/prisma/prisma)
 
 [![Build Status](https://github.com/pgvector/pgvector-node/workflows/build/badge.svg?branch=master)](https://github.com/pgvector/pgvector-node/actions)
 
@@ -19,6 +19,7 @@ And follow the instructions for your database library:
 - [Sequelize](#sequelize)
 - [node-postgres](#node-postgres)
 - [pg-promise](#pg-promise)
+- [Prisma](#prisma) [unreleased]
 
 ## Sequelize
 
@@ -107,6 +108,37 @@ Get the nearest neighbors to a vector
 const result = await db.any('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql(embedding)]);
 ```
 
+## Prisma
+
+Import the library
+
+```javascript
+const pgvector = require('pgvector/utils')
+```
+
+Update the schema
+
+```prisma
+model Item {
+  id        Int                       @id @default(autoincrement())
+  embedding Unsupported("vector(3)")?
+}
+```
+
+Insert a vector
+
+```javascript
+const embedding = pgvector.toSql([1, 1, 1])
+await prisma.$executeRaw`INSERT INTO items (embedding) VALUES (${embedding}::vector)`
+```
+
+Get the nearest neighbors to a vector
+
+```javascript
+const embedding = pgvector.toSql([1, 1, 1])
+const items = await prisma.$queryRaw`SELECT id, embedding::text FROM items ORDER BY embedding <-> ${embedding}::vector LIMIT 5`
+```
+
 ## History
 
 View the [changelog](https://github.com/pgvector/pgvector-node/blob/master/CHANGELOG.md)
@@ -127,5 +159,6 @@ git clone https://github.com/pgvector/pgvector-node.git
 cd pgvector-node
 npm install
 createdb pgvector_node_test
+npx prisma migrate dev
 npm test
 ```

@@ -20,6 +20,10 @@
       "require": "./src/sequelize/index.js",
       "types": "./types/sequelize/index.d.ts"
     },
+    "./utils": {
+      "require": "./src/utils/index.js",
+      "types": "./types/utils/index.d.ts"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -34,6 +38,7 @@
     "test": "jest"
   },
   "devDependencies": {
+    "@prisma/client": "^4.13.0",
     "jest": "^29.5.0",
     "pg": "^8.6.0",
     "pg-promise": "^11.4.3",
