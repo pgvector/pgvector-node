@@ -24,7 +24,7 @@ And follow the instructions for your database library:
 
 Register the type
 
-```js
+```javascript
 const { Sequelize } = require('sequelize');
 const pgvector = require('pgvector/sequelize');
 
@@ -33,7 +33,7 @@ pgvector.registerType(Sequelize);
 
 Add a vector field
 
-```js
+```javascript
 Item.init({
   embedding: {
     type: DataTypes.VECTOR(3)
@@ -43,13 +43,13 @@ Item.init({
 
 Insert a vector
 
-```js
+```javascript
 await Item.create({embedding: [1, 2, 3]});
 ```
 
 Get the nearest neighbors to a vector
 
-```js
+```javascript
 const items = await Item.findAll({
   order: [sequelize.literal(`embedding <-> '[1, 2, 3]'`)],
   limit: 5
@@ -60,7 +60,7 @@ const items = await Item.findAll({
 
 Register the type
 
-```js
+```javascript
 const pgvector = require('pgvector/pg');
 
 await pgvector.registerType(client);
@@ -68,14 +68,14 @@ await pgvector.registerType(client);
 
 Insert a vector
 
-```js
+```javascript
 const embedding = [1, 2, 3];
 await client.query('INSERT INTO items (embedding) VALUES ($1)', [pgvector.toSql(embedding)]);
 ```
 
 Get the nearest neighbors to a vector
 
-```js
+```javascript
 const result = await client.query('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql(embedding)]);
 ```
 
@@ -83,7 +83,7 @@ const result = await client.query('SELECT * FROM items ORDER BY embedding <-> $1
 
 Register the type
 
-```js
+```javascript
 const pgvector = require('pgvector/pg');
 
 const initOptions = {
@@ -96,14 +96,14 @@ const pgp = require('pg-promise')(initOptions);
 
 Insert a vector
 
-```js
+```javascript
 const embedding = [1, 2, 3];
 await db.none('INSERT INTO items (embedding) VALUES ($1)', [pgvector.toSql(embedding)]);
 ```
 
 Get the nearest neighbors to a vector
 
-```js
+```javascript
 const result = await db.any('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql(embedding)]);
 ```
 
