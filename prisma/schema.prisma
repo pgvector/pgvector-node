@@ -8,7 +8,7 @@ generator client {
 
 datasource db {
   provider   = "postgresql"
-  url        = "postgresql://runneradmin@localhost/pgvector_node_test"
+  url        = "postgresql://runner@localhost/pgvector_node_test"
   extensions = [vector]
 }
 
