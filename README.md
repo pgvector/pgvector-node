@@ -116,7 +116,22 @@ Import the library
 const pgvector = require('pgvector/utils')
 ```
 
-Update the schema
+Add the extension to the schema
+
+```prisma
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [vector]
+}
+```
+
+Add a vector column to the schema
 
 ```prisma
 model Item {
