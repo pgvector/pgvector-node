@@ -19,7 +19,7 @@ And follow the instructions for your database library:
 - [Sequelize](#sequelize)
 - [node-postgres](#node-postgres)
 - [pg-promise](#pg-promise)
-- [Prisma](#prisma) [unreleased]
+- [Prisma](#prisma)
 
 ## Sequelize
 
