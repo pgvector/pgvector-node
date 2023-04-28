@@ -8,7 +8,7 @@ beforeAll(async () => {
   const sql = `
   CREATE EXTENSION IF NOT EXISTS vector;
   DROP TABLE IF EXISTS items;
-  CREATE TABLE IF NOT EXISTS items (
+  CREATE TABLE items (
     id serial PRIMARY KEY,
     embedding vector(3)
   );
