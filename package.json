@@ -11,6 +11,7 @@
     "type": "git",
     "url": "https://github.com/pgvector/pgvector-node"
   },
+  "type": "module",
   "exports": {
     "./pg": {
       "require": "./src/pg/index.cjs",
@@ -39,7 +40,7 @@
   "scripts": {
     "build": "tsc",
     "build:cjs": "babel src --out-dir src --out-file-extension .cjs --extensions '.mjs'",
-    "test": "jest"
+    "test": "node --experimental-vm-modules ./node_modules/.bin/jest"
   },
   "devDependencies": {
     "@babel/core": "^7.21.5",
@@ -47,9 +48,9 @@
     "@babel/preset-env": "^7.21.5",
     "@prisma/client": "^4.13.0",
     "jest": "^29.5.0",
-    "pg": "^8.6.0",
+    "pg": "^8.10.0",
     "pg-promise": "^11.4.3",
-    "sequelize": "^6.6.2",
-    "typescript": "^5.0.3"
+    "sequelize": "^6.31.1",
+    "typescript": "^5.0.4"
   }
 }

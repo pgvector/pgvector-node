@@ -173,6 +173,7 @@ To get started with development:
 git clone https://github.com/pgvector/pgvector-node.git
 cd pgvector-node
 npm install
+npm run build:cjs
 createdb pgvector_node_test
 npx prisma migrate dev
 npm test

@@ -1,7 +1,7 @@
-import { Client } from 'pg';
+import pg from 'pg';
 import pgvector from './index.mjs';
 
-const client = new Client({database: 'pgvector_node_test'});
+const client = new pg.Client({database: 'pgvector_node_test'});
 
 beforeAll(async () => {
   await client.connect();
@@ -28,6 +28,7 @@ beforeEach(async () => {
 test('works', async () => {
   await client.query('INSERT INTO items (embedding) VALUES ($1)', [pgvector.toSql([1, 2, 3])]);
   const { rows } = await client.query('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql([1, 2, 3])]);
+  console.log('rows', rows); // added console.log to workaround unexpected timing issue
   expect(rows[0].embedding).toStrictEqual([1, 2, 3]);
 });
 

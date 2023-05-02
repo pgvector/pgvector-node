@@ -1,10 +1,12 @@
 import pgvector from '../pg/index.mjs';
+import pgPromise from 'pg-promise';
+
 const initOptions = {
   async connect(e) {
     await pgvector.registerType(e.client);
   }
 };
-const pgp = require('pg-promise')(initOptions);
+const pgp = pgPromise(initOptions);
 
 const db = pgp({database: 'pgvector_node_test'});
 
