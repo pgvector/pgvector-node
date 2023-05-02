@@ -1,4 +1,4 @@
-import pgvector from '../pg/index.js';
+import pgvector from '../pg/index.mjs';
 const initOptions = {
   async connect(e) {
     await pgvector.registerType(e.client);

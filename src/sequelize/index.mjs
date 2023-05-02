@@ -1,5 +1,5 @@
 import util from 'util';
-import utils from '../utils/index.js';
+import utils from '../utils/index.mjs';
 
 function registerType(Sequelize) {
   const DataTypes = Sequelize.DataTypes;

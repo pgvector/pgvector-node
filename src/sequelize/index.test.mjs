@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
-import pgvector from './index.js';
+import pgvector from './index.mjs';
 
 pgvector.registerType(Sequelize);
 

@@ -1,7 +1,7 @@
 "use strict";
 
 var _pg = require("pg");
-var _index = _interopRequireDefault(require("./index.js"));
+var _index = _interopRequireDefault(require("./index.mjs"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const client = new _pg.Client({
   database: 'pgvector_node_test'

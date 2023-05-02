@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _util = _interopRequireDefault(require("util"));
-var _index = _interopRequireDefault(require("../utils/index.js"));
+var _index = _interopRequireDefault(require("../utils/index.mjs"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function registerType(Sequelize) {
   const DataTypes = Sequelize.DataTypes;

@@ -1,7 +1,7 @@
 "use strict";
 
 var _sequelize = require("sequelize");
-var _index = _interopRequireDefault(require("./index.js"));
+var _index = _interopRequireDefault(require("./index.mjs"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 _index.default.registerType(_sequelize.Sequelize);
 class Item extends _sequelize.Model {}

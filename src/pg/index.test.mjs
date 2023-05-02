@@ -1,5 +1,5 @@
 import { Client } from 'pg';
-import pgvector from './index.js';
+import pgvector from './index.mjs';
 
 const client = new Client({database: 'pgvector_node_test'});
 

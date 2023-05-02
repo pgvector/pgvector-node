@@ -1,4 +1,4 @@
-import pgvector from '../utils/index.js';
+import pgvector from '../utils/index.mjs';
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 

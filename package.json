@@ -14,17 +14,17 @@
   "exports": {
     "./pg": {
       "require": "./src/pg/index.cjs",
-      "import": "./src/pg/index.js",
+      "import": "./src/pg/index.mjs",
       "types": "./types/pg/index.d.ts"
     },
     "./sequelize": {
       "require": "./src/sequelize/index.cjs",
-      "import": "./src/sequelize/index.js",
+      "import": "./src/sequelize/index.mjs",
       "types": "./types/sequelize/index.d.ts"
     },
     "./utils": {
       "require": "./src/utils/index.cjs",
-      "import": "./src/utils/index.js",
+      "import": "./src/utils/index.mjs",
       "types": "./types/utils/index.d.ts"
     },
     "./package.json": "./package.json"
@@ -38,7 +38,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "build:cjs": "babel src --out-dir src --out-file-extension .cjs --extensions '.js'",
+    "build:cjs": "babel src --out-dir src --out-file-extension .cjs --extensions '.mjs'",
     "test": "jest"
   },
   "devDependencies": {

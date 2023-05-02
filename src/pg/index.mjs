@@ -1,4 +1,4 @@
-const utils = require('../utils');
+import utils from '../utils/index.mjs';
 
 async function registerType(client) {
   const result = await client.query('SELECT typname, oid, typarray FROM pg_type WHERE typname = $1', ['vector']);
@@ -18,4 +18,4 @@ function toSql(value) {
   return utils.toSql(value);
 }
 
-module.exports = {registerType, toSql};
+export default {registerType, toSql};

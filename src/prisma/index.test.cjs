@@ -1,6 +1,6 @@
 "use strict";
 
-var _index = _interopRequireDefault(require("../utils/index.js"));
+var _index = _interopRequireDefault(require("../utils/index.mjs"));
 var _client = require("@prisma/client");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const prisma = new _client.PrismaClient();

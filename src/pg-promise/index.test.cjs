@@ -1,6 +1,6 @@
 "use strict";
 
-var _index = _interopRequireDefault(require("../pg/index.js"));
+var _index = _interopRequireDefault(require("../pg/index.mjs"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const initOptions = {
   async connect(e) {
