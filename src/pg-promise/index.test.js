@@ -1,10 +1,11 @@
+const pgpromise = require('pg-promise');
 const pgvector = require('../pg/index');
 const initOptions = {
   async connect(e) {
     await pgvector.registerType(e.client);
   }
 };
-const pgp = require('pg-promise')(initOptions);
+const pgp = pgpromise(initOptions);
 
 const db = pgp({database: 'pgvector_node_test'});
 

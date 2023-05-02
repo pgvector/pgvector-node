@@ -85,14 +85,15 @@ const result = await client.query('SELECT * FROM items ORDER BY embedding <-> $1
 Register the type
 
 ```javascript
-const pgvector = require('pgvector/pg');
+import pgpromise from 'pg-promise';
+import pgvector from 'pgvector/pg';
 
 const initOptions = {
   async connect(e) {
     await pgvector.registerType(e.client);
   }
 };
-const pgp = require('pg-promise')(initOptions);
+const pgp = pgpromise(initOptions);
 ```
 
 Insert a vector
