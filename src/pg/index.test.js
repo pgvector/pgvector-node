@@ -1,5 +1,5 @@
-const { Client } = require('pg');
-const pgvector = require('./index');
+import { Client } from 'pg';
+import pgvector from './index.js';
 
 const client = new Client({database: 'pgvector_node_test'});
 

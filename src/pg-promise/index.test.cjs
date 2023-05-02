@@ -1,13 +1,16 @@
-import pgvector from '../pg/index.js';
+"use strict";
+
+var _index = _interopRequireDefault(require("../pg/index.js"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const initOptions = {
   async connect(e) {
-    await pgvector.registerType(e.client);
+    await _index.default.registerType(e.client);
   }
 };
 const pgp = require('pg-promise')(initOptions);
-
-const db = pgp({database: 'pgvector_node_test'});
-
+const db = pgp({
+  database: 'pgvector_node_test'
+});
 beforeAll(async () => {
   const sql = `
   CREATE EXTENSION IF NOT EXISTS vector;
@@ -19,23 +22,21 @@ beforeAll(async () => {
   `;
   await db.none(sql);
 });
-
 afterAll(async () => {
   await pgp.end();
 });
-
 beforeEach(async () => {
   await db.none('DELETE FROM items');
 });
-
 test('works', async () => {
-  await db.none('INSERT INTO items (embedding) VALUES ($1)', [pgvector.toSql([1, 2, 3])]);
-  const rows = await db.any('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql([1, 2, 3])]);
+  await db.none('INSERT INTO items (embedding) VALUES ($1)', [_index.default.toSql([1, 2, 3])]);
+  const rows = await db.any('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [_index.default.toSql([1, 2, 3])]);
   expect(rows[0].embedding).toStrictEqual([1, 2, 3]);
 });
-
 test('bad object', () => {
   expect(() => {
-    pgvector.toSql({hello: 'world'});
+    _index.default.toSql({
+      hello: 'world'
+    });
   }).toThrowError('expected array');
 });

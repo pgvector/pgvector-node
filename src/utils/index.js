@@ -6,4 +6,4 @@ function toSql(value) {
   return JSON.stringify(value);
 }
 
-module.exports = {fromSql, toSql};
+export default {fromSql, toSql};
