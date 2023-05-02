@@ -1,5 +1,6 @@
 const pgvector = require('../utils/index');
 const { PrismaClient } = require('@prisma/client');
+
 const prisma = new PrismaClient();
 
 beforeEach(async () => {

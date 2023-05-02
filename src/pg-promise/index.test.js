@@ -1,5 +1,6 @@
 const pgpromise = require('pg-promise');
 const pgvector = require('../pg/index');
+
 const initOptions = {
   async connect(e) {
     await pgvector.registerType(e.client);
