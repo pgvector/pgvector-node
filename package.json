@@ -13,16 +13,16 @@
   },
   "exports": {
     "./pg": {
-      "require": "./src/pg/index.js",
-      "types": "./types/pg/index.d.ts"
+      "types": "./types/pg/index.d.ts",
+      "default": "./src/pg/index.js"
     },
     "./sequelize": {
-      "require": "./src/sequelize/index.js",
-      "types": "./types/sequelize/index.d.ts"
+      "types": "./types/sequelize/index.d.ts",
+      "default": "./src/sequelize/index.js"
     },
     "./utils": {
-      "require": "./src/utils/index.js",
-      "types": "./types/utils/index.d.ts"
+      "types": "./types/utils/index.d.ts",
+      "default": "./src/utils/index.js"
     },
     "./package.json": "./package.json"
   },
