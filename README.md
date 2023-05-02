@@ -26,8 +26,8 @@ And follow the instructions for your database library:
 Register the type
 
 ```javascript
-const { Sequelize } = require('sequelize');
-const pgvector = require('pgvector/sequelize');
+import { Sequelize } from 'sequelize';
+import pgvector from 'pgvector/sequelize';
 
 pgvector.registerType(Sequelize);
 ```
@@ -62,7 +62,7 @@ const items = await Item.findAll({
 Register the type
 
 ```javascript
-const pgvector = require('pgvector/pg');
+import pgvector from 'pgvector/pg';
 
 await pgvector.registerType(client);
 ```
@@ -113,7 +113,7 @@ const result = await db.any('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT
 Import the library
 
 ```javascript
-const pgvector = require('pgvector/utils')
+import pgvector from 'pgvector/utils';
 ```
 
 Add the extension to the schema
