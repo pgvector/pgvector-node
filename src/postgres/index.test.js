@@ -1,18 +1,24 @@
 const postgres = require('postgres');
 const pgvector = require('../utils/index');
 
-const sql = postgres({database: 'pgvector_node_test'});
+const sql = postgres({database: 'pgvector_node_test', onnotice: function() {}});
+
+beforeAll(async () => {
+  await sql`CREATE EXTENSION IF NOT EXISTS vector`;
+  await sql`DROP TABLE IF EXISTS postgres_items`;
+  await sql`CREATE TABLE postgres_items (id serial PRIMARY KEY, embedding vector(3))`;
+});
+
+afterAll(async () => {
+  await sql.end();
+});
 
 test('works', async () => {
   const items = [
     {embedding: pgvector.toSql([1, 2, 3])},
     {embedding: pgvector.toSql([4, 5, 6])}
   ];
-  await sql`INSERT INTO items ${ sql(items, 'embedding') }`;
-  const rows = await sql`SELECT * FROM items ORDER BY embedding <-> ${ pgvector.toSql([1, 2, 3]) } LIMIT 5`;
+  await sql`INSERT INTO postgres_items ${ sql(items, 'embedding') }`;
+  const rows = await sql`SELECT * FROM postgres_items ORDER BY embedding <-> ${ pgvector.toSql([1, 2, 3]) } LIMIT 5`;
   expect(pgvector.fromSql(rows[0].embedding)).toStrictEqual([1, 2, 3]);
-});
-
-afterAll(async () => {
-  await sql.end();
 });
