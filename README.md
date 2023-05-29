@@ -178,8 +178,8 @@ await sql`INSERT INTO items ${ sql(items, 'embedding') }`;
 Get the nearest neighbors to a vector
 
 ```javascript
-const embedding = [1, 2, 3];
-const items = await sql`SELECT * FROM items ORDER BY embedding <-> ${ pgvector.toSql(embedding) } LIMIT 5`;
+const embedding = pgvector.toSql([1, 2, 3]);
+const items = await sql`SELECT * FROM items ORDER BY embedding <-> ${ embedding } LIMIT 5`;
 ```
 
 ## Drizzle ORM
