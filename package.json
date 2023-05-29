@@ -12,6 +12,10 @@
     "url": "https://github.com/pgvector/pgvector-node"
   },
   "exports": {
+    "./drizzle-orm": {
+      "types": "./types/drizzle-orm/index.d.ts",
+      "default": "./src/drizzle-orm/index.js"
+    },
     "./pg": {
       "types": "./types/pg/index.d.ts",
       "default": "./src/pg/index.js"
@@ -39,6 +43,7 @@
   },
   "devDependencies": {
     "@prisma/client": "^4.13.0",
+    "drizzle-orm": "^0.26.1",
     "jest": "^29.5.0",
     "pg": "^8.6.0",
     "pg-promise": "^11.4.3",

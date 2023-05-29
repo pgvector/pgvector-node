@@ -2,7 +2,7 @@
 
 [pgvector](https://github.com/pgvector/pgvector) support for Node.js
 
-Supports [Sequelize](https://github.com/sequelize/sequelize), [node-postgres](https://github.com/brianc/node-postgres), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), and [Postgres.js](https://github.com/porsager/postgres)
+Supports [Sequelize](https://github.com/sequelize/sequelize), [node-postgres](https://github.com/brianc/node-postgres), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), and [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
 
 [![Build Status](https://github.com/pgvector/pgvector-node/workflows/build/badge.svg?branch=master)](https://github.com/pgvector/pgvector-node/actions)
 
@@ -21,6 +21,7 @@ And follow the instructions for your database library:
 - [pg-promise](#pg-promise)
 - [Prisma](#prisma)
 - [Postgres.js](#postgresjs)
+- [Drizzle ORM](#drizzle-orm) [unreleased]
 
 ## Sequelize
 
@@ -179,6 +180,38 @@ Get the nearest neighbors to a vector
 ```javascript
 const embedding = [1, 2, 3];
 const items = await sql`SELECT * FROM items ORDER BY embedding <-> ${ pgvector.toSql(embedding) } LIMIT 5`;
+```
+
+## Drizzle ORM
+
+Add a vector field
+
+```javascript
+import { vector } from 'pgvector/drizzle-orm';
+
+const items = pgTable('items', {
+  id: serial('id').primaryKey(),
+  embedding: vector('embedding', {dimensions: 3})
+});
+```
+
+Insert vectors
+
+```javascript
+const newItems = [
+  {embedding: [1, 2, 3]},
+  {embedding: [4, 5, 6]}
+];
+await db.insert(items).values(newItems);
+```
+
+Get the nearest neighbors to a vector
+
+```javascript
+import { sql } from 'drizzle-orm';
+
+const embedding = items.embedding.mapToDriverValue([1, 2, 3]);
+const allItems = await db.select().from(items).orderBy(sql`${items.embedding} <-> ${embedding}`).limit(5);
 ```
 
 ## History
