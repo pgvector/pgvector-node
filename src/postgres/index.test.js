@@ -19,6 +19,8 @@ test('works', async () => {
     {embedding: pgvector.toSql([4, 5, 6])}
   ];
   await sql`INSERT INTO postgres_items ${ sql(items, 'embedding') }`;
-  const rows = await sql`SELECT * FROM postgres_items ORDER BY embedding <-> ${ pgvector.toSql([1, 2, 3]) } LIMIT 5`;
+
+  const embedding = pgvector.toSql([1, 2, 3]);
+  const rows = await sql`SELECT * FROM postgres_items ORDER BY embedding <-> ${ embedding } LIMIT 5`;
   expect(pgvector.fromSql(rows[0].embedding)).toStrictEqual([1, 2, 3]);
 });
