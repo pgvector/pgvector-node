@@ -208,11 +208,13 @@ await db.insert(items).values(newItems);
 Get the nearest neighbors to a vector
 
 ```javascript
-import { sql } from 'drizzle-orm';
+import { l2Distance } from 'pgvector/drizzle-orm';
 
-const embedding = items.embedding.mapToDriverValue([1, 2, 3]);
-const allItems = await db.select().from(items).orderBy(sql`${items.embedding} <-> ${embedding}`).limit(5);
+const embedding = [1, 2, 3];
+const allItems = await db.select().from(items).orderBy(l2Distance(items.embedding, embedding)).limit(5);
 ```
+
+Also supports `maxInnerProduct` and `cosineDistance`
 
 ## History
 

@@ -1,3 +1,4 @@
+const { sql } = require('drizzle-orm');
 const { customType } = require('drizzle-orm/pg-core');
 const util = require('util');
 const utils = require('../utils');
@@ -18,4 +19,21 @@ const vector = customType({
   }
 });
 
-module.exports = {vector};
+function l2Distance(column, value) {
+  return sql`${column} <-> ${utils.toSql(value)}`
+}
+
+function maxInnerProduct(column, value) {
+  return sql`${column} <#> ${utils.toSql(value)}`
+}
+
+function cosineDistance(column, value) {
+  return sql`${column} <=> ${utils.toSql(value)}`
+}
+
+module.exports = {
+  vector,
+  l2Distance,
+  maxInnerProduct,
+  cosineDistance
+};
