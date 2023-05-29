@@ -168,8 +168,8 @@ Insert vectors
 
 ```javascript
 const items = [
-  {'embedding': pgvector.toSql([1, 2, 3])},
-  {'embedding': pgvector.toSql([4, 5, 6])}
+  {embedding: pgvector.toSql([1, 2, 3])},
+  {embedding: pgvector.toSql([4, 5, 6])}
 ];
 await sql`INSERT INTO items ${ sql(items, 'embedding') }`;
 ```
