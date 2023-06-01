@@ -5,8 +5,8 @@ const utils = require('../utils');
 
 const vector = customType({
   dataType(config) {
-    const dimensions = config.dimensions;
-    if (dimensions === undefined) {
+    const dimensions = config && config.dimensions;
+    if (typeof dimensions === 'undefined') {
       return 'vector';
     }
     return util.format('vector(%d)', dimensions);
