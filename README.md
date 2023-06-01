@@ -21,7 +21,7 @@ And follow the instructions for your database library:
 - [pg-promise](#pg-promise)
 - [Prisma](#prisma)
 - [Postgres.js](#postgresjs)
-- [Drizzle ORM](#drizzle-orm) [unreleased]
+- [Drizzle ORM](#drizzle-orm) (experimental, unreleased)
 
 ## Sequelize
 
@@ -183,6 +183,8 @@ const items = await sql`SELECT * FROM items ORDER BY embedding <-> ${ embedding 
 ```
 
 ## Drizzle ORM
+
+Note: This is currently experimental and does not work with Drizzle Kit
 
 Add a vector field
 
