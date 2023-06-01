@@ -20,15 +20,15 @@ const vector = customType({
 });
 
 function l2Distance(column, value) {
-  return sql`${column} <-> ${utils.toSql(value)}`
+  return sql`${column} <-> ${utils.toSql(value)}`;
 }
 
 function maxInnerProduct(column, value) {
-  return sql`${column} <#> ${utils.toSql(value)}`
+  return sql`${column} <#> ${utils.toSql(value)}`;
 }
 
 function cosineDistance(column, value) {
-  return sql`${column} <=> ${utils.toSql(value)}`
+  return sql`${column} <=> ${utils.toSql(value)}`;
 }
 
 module.exports = {
