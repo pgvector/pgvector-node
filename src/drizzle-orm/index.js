@@ -1,23 +1,45 @@
 const { sql } = require('drizzle-orm');
-const { customType } = require('drizzle-orm/pg-core');
+const { PgColumn, PgColumnBuilder } = require('drizzle-orm/pg-core');
 const util = require('util');
 const utils = require('../utils');
 
-const vector = customType({
-  dataType(config) {
-    const dimensions = config && config.dimensions;
-    if (typeof dimensions === 'undefined') {
+class PgVectorBuilder extends PgColumnBuilder {
+  constructor(name, dimensions) {
+    super(name);
+    this.config.dimensions = dimensions;
+  }
+
+  build(table) {
+    return new PgVector(table, this.config);
+  }
+}
+
+class PgVector extends PgColumn {
+  constructor(table, config) {
+    super(table, config);
+    this.dimensions = config.dimensions;
+  }
+
+  getSQLType() {
+    const dimensions = this.dimensions;
+    if (dimensions === undefined) {
       return 'vector';
     }
     return util.format('vector(%d)', dimensions);
-  },
-  toDriver(value) {
-    return utils.toSql(value);
-  },
-  fromDriver(value) {
+  }
+
+  mapFromDriverValue(value) {
     return utils.fromSql(value);
   }
-});
+
+  mapToDriverValue(value) {
+    return utils.toSql(value);
+  }
+}
+
+function vector(name, config) {
+  return new PgVectorBuilder(name, config && config.dimensions);
+}
 
 function l2Distance(column, value) {
   return sql`${column} <-> ${utils.toSql(value)}`;
