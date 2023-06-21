@@ -18,4 +18,8 @@ function toSql(value) {
   return utils.toSql(value);
 }
 
-module.exports = {registerType, toSql};
+function fromSql(value) {
+  return utils.fromSql(value)
+}
+
+module.exports = {registerType, toSql, fromSql};
