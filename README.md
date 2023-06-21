@@ -69,6 +69,28 @@ import pgvector from 'pgvector/pg';
 await pgvector.registerType(client);
 ```
 
+If using pg pool in typescript
+
+```typescript
+import { Pool, types } from 'pg'
+import * as pgvector from 'pgvector/pg';
+
+const pgPool = new Pool({
+  host: "<database ip>",
+  port: "<database port>",
+  database: "<database name>",
+  user: "<database user>",
+  password: "<database pasword",
+})
+
+await pgvector.registerType({
+  setTypeParser: types.setTypeParser,
+  query: async (queryString: string, arg: string[]) => {
+    return await pgPool.query(queryString, arg)
+  },
+})
+```
+
 Insert a vector
 
 ```javascript
@@ -80,6 +102,13 @@ Get the nearest neighbors to a vector
 
 ```javascript
 const result = await client.query('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql(embedding)]);
+```
+
+Fetch a vector from the database
+
+```javascript
+const result = await client.query('SELECT embedding FROM items WHERE id = $1', [id]);
+const embedding = pgvector.fromSql(result.rows[0].embedding);
 ```
 
 ## pg-promise
