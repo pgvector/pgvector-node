@@ -104,7 +104,7 @@ Get the nearest neighbors to a vector
 const result = await client.query('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql(embedding)]);
 ```
 
-Fetch a vector from the database
+Fetch a vector from the database (if you can't use registerType such as when working with Kysely)
 
 ```javascript
 const result = await client.query('SELECT embedding FROM items WHERE id = $1', [id]);
