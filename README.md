@@ -61,12 +61,20 @@ const items = await Item.findAll({
 
 ## node-postgres
 
-Register the type
+Register the type for a client
 
 ```javascript
 import pgvector from 'pgvector/pg';
 
 await pgvector.registerType(client);
+```
+
+or a pool
+
+```javascript
+pool.on('connect', async function (client) {
+  await pgvector.registerType(client);
+});
 ```
 
 Insert a vector
