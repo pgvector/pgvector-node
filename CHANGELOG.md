@@ -1,6 +1,7 @@
 ## 0.1.5 (unreleased)
 
 - Added experimental support for Drizzle ORM
+- Improved TypeScript support
 
 ## 0.1.4 (2023-05-02)
 

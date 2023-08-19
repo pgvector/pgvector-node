@@ -30,6 +30,14 @@
     },
     "./package.json": "./package.json"
   },
+  "typesVersions": {
+    "*": {
+      "drizzle-orm": ["types/drizzle-orm/index.d.ts"],
+      "pg": ["types/pg/index.d.ts"],
+      "sequelize": ["types/sequelize/index.d.ts"],
+      "utils": ["types/utils/index.d.ts"]
+    }
+  },
   "files": [
     "src",
     "types"
