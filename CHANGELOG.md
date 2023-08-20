@@ -1,4 +1,4 @@
-## 0.1.5 (unreleased)
+## 0.1.5 (2023-08-19)
 
 - Added experimental support for Drizzle ORM
 - Improved TypeScript support

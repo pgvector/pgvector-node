@@ -21,7 +21,7 @@ And follow the instructions for your database library:
 - [pg-promise](#pg-promise)
 - [Prisma](#prisma)
 - [Postgres.js](#postgresjs)
-- [Drizzle ORM](#drizzle-orm) (experimental, unreleased)
+- [Drizzle ORM](#drizzle-orm) (experimental)
 
 ## Sequelize
 
