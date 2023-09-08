@@ -2,7 +2,7 @@
 
 [pgvector](https://github.com/pgvector/pgvector) support for Node.js
 
-Supports [Sequelize](https://github.com/sequelize/sequelize), [node-postgres](https://github.com/brianc/node-postgres), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), and [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
+Supports [node-postgres](https://github.com/brianc/node-postgres), [Sequelize](https://github.com/sequelize/sequelize), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), and [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
 
 [![Build Status](https://github.com/pgvector/pgvector-node/workflows/build/badge.svg?branch=master)](https://github.com/pgvector/pgvector-node/actions)
 
@@ -16,8 +16,8 @@ npm install pgvector
 
 And follow the instructions for your database library:
 
-- [Sequelize](#sequelize)
 - [node-postgres](#node-postgres)
+- [Sequelize](#sequelize)
 - [pg-promise](#pg-promise)
 - [Prisma](#prisma)
 - [Postgres.js](#postgresjs)
@@ -26,6 +26,37 @@ And follow the instructions for your database library:
 Or check out an example:
 
 - [Embeddings](examples/openai/example.js) with OpenAI
+
+## node-postgres
+
+Register the type for a client
+
+```javascript
+import pgvector from 'pgvector/pg';
+
+await pgvector.registerType(client);
+```
+
+or a pool
+
+```javascript
+pool.on('connect', async function (client) {
+  await pgvector.registerType(client);
+});
+```
+
+Insert a vector
+
+```javascript
+const embedding = [1, 2, 3];
+await client.query('INSERT INTO items (embedding) VALUES ($1)', [pgvector.toSql(embedding)]);
+```
+
+Get the nearest neighbors to a vector
+
+```javascript
+const result = await client.query('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql(embedding)]);
+```
 
 ## Sequelize
 
@@ -61,37 +92,6 @@ const items = await Item.findAll({
   order: [sequelize.literal(`embedding <-> '[1, 2, 3]'`)],
   limit: 5
 });
-```
-
-## node-postgres
-
-Register the type for a client
-
-```javascript
-import pgvector from 'pgvector/pg';
-
-await pgvector.registerType(client);
-```
-
-or a pool
-
-```javascript
-pool.on('connect', async function (client) {
-  await pgvector.registerType(client);
-});
-```
-
-Insert a vector
-
-```javascript
-const embedding = [1, 2, 3];
-await client.query('INSERT INTO items (embedding) VALUES ($1)', [pgvector.toSql(embedding)]);
-```
-
-Get the nearest neighbors to a vector
-
-```javascript
-const result = await client.query('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql(embedding)]);
 ```
 
 ## pg-promise
