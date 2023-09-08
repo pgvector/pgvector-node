@@ -5,9 +5,9 @@ import pgvector from 'pgvector/pg';
 const client = new pg.Client({database: 'pgvector_node_test'});
 await client.connect();
 
+await client.query('CREATE EXTENSION IF NOT EXISTS vector');
 await pgvector.registerType(client);
 
-await client.query('CREATE EXTENSION IF NOT EXISTS vector');
 await client.query('DROP TABLE IF EXISTS articles');
 await client.query('CREATE TABLE articles (id bigserial PRIMARY KEY, content text, embedding vector(1536))');
 
