@@ -12,16 +12,16 @@ await client.query('DROP TABLE IF EXISTS articles');
 await client.query('CREATE TABLE articles (id bigserial PRIMARY KEY, content text, embedding vector(1536))');
 
 const input = [
-    'The dog is barking',
-    'The cat is purring',
-    'The bear is growling'
+  'The dog is barking',
+  'The cat is purring',
+  'The bear is growling'
 ];
 const openai = new OpenAI();
 const response = await openai.embeddings.create({input: input, model: 'text-embedding-ada-002'});
 const embeddings = response.data.map((v) => v.embedding);
 
 for (let [i, content] of input.entries()) {
-    await client.query('INSERT INTO articles (content, embedding) VALUES ($1, $2)', [content, pgvector.toSql(embeddings[i])]);
+  await client.query('INSERT INTO articles (content, embedding) VALUES ($1, $2)', [content, pgvector.toSql(embeddings[i])]);
 }
 
 const articleId = 2;
