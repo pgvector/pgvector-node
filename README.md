@@ -23,6 +23,10 @@ And follow the instructions for your database library:
 - [Postgres.js](#postgresjs)
 - [Drizzle ORM](#drizzle-orm) (experimental)
 
+Or check out an example:
+
+- [Embeddings](examples/openai/example.js) with OpenAI
+
 ## Sequelize
 
 Register the type

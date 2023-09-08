@@ -1,0 +1,9 @@
+{
+    "private": true,
+    "type": "module",
+    "dependencies": {
+        "openai": "^4.5.0",
+        "pg": "^8.11.3",
+        "pgvector": "file:../.."
+    }
+}
