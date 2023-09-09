@@ -16,7 +16,9 @@ const input = [
   'The cat is purring',
   'The bear is growling'
 ];
+
 const extractor = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+
 for (let [i, content] of input.entries()) {
   const output = await extractor(content, {pooling: 'mean', normalize: true});
   const embedding = Array.from(output.data);

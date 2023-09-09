@@ -16,6 +16,7 @@ const input = [
   'The cat is purring',
   'The bear is growling'
 ];
+
 const openai = new OpenAI();
 const response = await openai.embeddings.create({input: input, model: 'text-embedding-ada-002'});
 const embeddings = response.data.map((v) => v.embedding);
