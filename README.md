@@ -23,9 +23,10 @@ And follow the instructions for your database library:
 - [Postgres.js](#postgresjs)
 - [Drizzle ORM](#drizzle-orm) (experimental)
 
-Or check out an example:
+Or check out some examples:
 
 - [Embeddings](examples/openai/example.js) with OpenAI
+- [Sentence embeddings](examples/transformers/example.js) with Transformers.js
 
 ## node-postgres
 
