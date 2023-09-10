@@ -2,7 +2,7 @@ const { sql } = require('drizzle-orm');
 const { drizzle } = require('drizzle-orm/postgres-js');
 const { pgTable, serial } = require('drizzle-orm/pg-core');
 const postgres = require('postgres');
-const { l2Distance, vector } = require('../drizzle-orm/index');
+const { l2Distance, vector } = require('pgvector/drizzle-orm');
 
 const client = postgres({database: 'pgvector_node_test', onnotice: function() {}});
 const db = drizzle(client);

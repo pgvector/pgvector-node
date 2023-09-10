@@ -1,4 +1,4 @@
-const pgvector = require('../utils/index');
+const pgvector = require('pgvector/utils');
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();

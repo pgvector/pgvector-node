@@ -1,5 +1,5 @@
 const postgres = require('postgres');
-const pgvector = require('../utils/index');
+const pgvector = require('pgvector/utils');
 
 const sql = postgres({database: 'pgvector_node_test', onnotice: function() {}});
 

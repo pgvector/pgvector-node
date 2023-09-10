@@ -1,5 +1,5 @@
 const { Client, Pool } = require('pg');
-const pgvector = require('./index');
+const pgvector = require('pgvector/pg');
 
 const client = new Client({database: 'pgvector_node_test'});
 

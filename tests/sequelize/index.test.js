@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes, Model } = require('sequelize');
-const pgvector = require('./index');
+const pgvector = require('pgvector/sequelize');
 
 pgvector.registerType(Sequelize);
 

@@ -1,5 +1,5 @@
 const pgpromise = require('pg-promise');
-const pgvector = require('../pg/index');
+const pgvector = require('pgvector/pg');
 
 const initOptions = {
   async connect(e) {
