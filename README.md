@@ -31,6 +31,12 @@ Or check out some examples:
 
 ## node-postgres
 
+Enable the extension
+
+```javascript
+await client.query('CREATE EXTENSION IF NOT EXISTS vector');
+```
+
 Register the type for a client
 
 ```javascript
@@ -61,6 +67,12 @@ const result = await client.query('SELECT * FROM items ORDER BY embedding <-> $1
 ```
 
 ## Sequelize
+
+Enable the extension
+
+```javascript
+await sequelize.query('CREATE EXTENSION IF NOT EXISTS vector');
+```
 
 Register the type
 
@@ -97,6 +109,12 @@ const items = await Item.findAll({
 ```
 
 ## pg-promise
+
+Enable the extension
+
+```javascript
+await db.none('CREATE EXTENSION IF NOT EXISTS vector');
+```
 
 Register the type
 
@@ -173,6 +191,12 @@ const items = await prisma.$queryRaw`SELECT id, embedding::text FROM items ORDER
 
 ## Postgres.js
 
+Enable the extension
+
+```javascript
+await sql`CREATE EXTENSION IF NOT EXISTS vector`;
+```
+
 Import the library
 
 ```javascript
@@ -199,6 +223,12 @@ const items = await sql`SELECT * FROM items ORDER BY embedding <-> ${ embedding 
 ## Drizzle ORM
 
 Note: This is currently experimental and does not work with Drizzle Kit
+
+Enable the extension
+
+```javascript
+await client`CREATE EXTENSION IF NOT EXISTS vector`;
+```
 
 Add a vector field
 
