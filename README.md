@@ -1,6 +1,6 @@
 # pgvector-node
 
-[pgvector](https://github.com/pgvector/pgvector) support for Node.js and TypeScript
+[pgvector](https://github.com/pgvector/pgvector) support for Node.js (and TypeScript)
 
 Supports [node-postgres](https://github.com/brianc/node-postgres), [Sequelize](https://github.com/sequelize/sequelize), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), and [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
 
