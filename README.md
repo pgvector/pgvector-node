@@ -327,7 +327,7 @@ Get the nearest neighbors to a vector
 const items = await itemRepository
   .createQueryBuilder('item')
   .orderBy('embedding <-> :embedding')
-  .setParameters({embedding: pgvector.toSql([1, 1, 1])})
+  .setParameters({embedding: pgvector.toSql([1, 2, 3])})
   .limit(5)
   .getMany();
 ```
