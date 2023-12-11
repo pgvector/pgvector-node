@@ -48,10 +48,8 @@ test('works', async () => {
   await itemRepository.save({embedding: pgvector.toSql([2, 2, 2])});
   await itemRepository.save({embedding: pgvector.toSql([1, 1, 2])});
 
-  const items = await AppDataSource
-    .createQueryBuilder()
-    .select('item')
-    .from(Item, 'item')
+  const items = await itemRepository
+    .createQueryBuilder('item')
     .orderBy('embedding <-> :embedding')
     .setParameters({embedding: pgvector.toSql([1, 1, 1])})
     .limit(5)

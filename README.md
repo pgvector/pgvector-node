@@ -2,7 +2,7 @@
 
 [pgvector](https://github.com/pgvector/pgvector) support for Node.js (and TypeScript)
 
-Supports [node-postgres](https://github.com/brianc/node-postgres), [Sequelize](https://github.com/sequelize/sequelize), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), [Knex.js](https://github.com/knex/knex), and [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
+Supports [node-postgres](https://github.com/brianc/node-postgres), [Sequelize](https://github.com/sequelize/sequelize), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), [Knex.js](https://github.com/knex/knex), [TypeORM](https://github.com/typeorm/typeorm), and [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
 
 [![Build Status](https://github.com/pgvector/pgvector-node/workflows/build/badge.svg?branch=master)](https://github.com/pgvector/pgvector-node/actions)
 
@@ -22,6 +22,7 @@ And follow the instructions for your database library:
 - [Prisma](#prisma)
 - [Postgres.js](#postgresjs)
 - [Knex.js](#knexjs)
+- [TypeORM](#typeorm)
 - [Drizzle ORM](#drizzle-orm) (experimental)
 
 Or check out some examples:
@@ -278,6 +279,57 @@ Get the nearest neighbors to a vector
 const items = await knex('items')
   .orderByRaw('embedding <-> ?', pgvector.toSql([1, 2, 3]))
   .limit(5);
+```
+
+## TypeORM
+
+Import the library
+
+```javascript
+import pgvector from 'pgvector/utils';
+```
+
+Enable the extension
+
+```javascript
+await AppDataSource.query('CREATE EXTENSION IF NOT EXISTS vector');
+```
+
+Create a table
+
+```javascript
+await AppDataSource.query('CREATE TABLE item (id bigserial PRIMARY KEY, embedding vector(3))');
+```
+
+Define a model
+
+```typescript
+@Entity()
+class Item {
+    @PrimaryGeneratedColumn()
+    id: number
+
+    @Column()
+    embedding: string
+}
+```
+
+Insert a vector
+
+```javascript
+const itemRepository = AppDataSource.getRepository(Item);
+await itemRepository.save({embedding: pgvector.toSql([1, 2, 3])});
+```
+
+Get the nearest neighbors to a vector
+
+```javascript
+const items = await itemRepository
+  .createQueryBuilder('item')
+  .orderBy('embedding <-> :embedding')
+  .setParameters({embedding: pgvector.toSql([1, 1, 1])})
+  .limit(5)
+  .getMany();
 ```
 
 ## Drizzle ORM
