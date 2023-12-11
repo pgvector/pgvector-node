@@ -216,6 +216,12 @@ Enable the extension
 await sql`CREATE EXTENSION IF NOT EXISTS vector`;
 ```
 
+Create a table
+
+```javascript
+await sql`CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3))`;
+```
+
 Insert vectors
 
 ```javascript
