@@ -2,7 +2,7 @@
 
 [pgvector](https://github.com/pgvector/pgvector) support for Node.js (and TypeScript)
 
-Supports [node-postgres](https://github.com/brianc/node-postgres), [Sequelize](https://github.com/sequelize/sequelize), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), and [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
+Supports [node-postgres](https://github.com/brianc/node-postgres), [Sequelize](https://github.com/sequelize/sequelize), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), [Knex.js](https://github.com/knex/knex), and [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
 
 [![Build Status](https://github.com/pgvector/pgvector-node/workflows/build/badge.svg?branch=master)](https://github.com/pgvector/pgvector-node/actions)
 
@@ -21,6 +21,7 @@ And follow the instructions for your database library:
 - [pg-promise](#pg-promise)
 - [Prisma](#prisma)
 - [Postgres.js](#postgresjs)
+- [Knex.js](#knexjs)
 - [Drizzle ORM](#drizzle-orm) (experimental)
 
 Or check out some examples:
@@ -218,6 +219,43 @@ Get the nearest neighbors to a vector
 ```javascript
 const embedding = pgvector.toSql([1, 2, 3]);
 const items = await sql`SELECT * FROM items ORDER BY embedding <-> ${ embedding } LIMIT 5`;
+```
+
+## Knex.js
+
+Import the library
+
+```javascript
+import pgvector from 'pgvector/utils';
+```
+
+Enable the extension
+
+```javascript
+await knex.schema.raw('CREATE EXTENSION IF NOT EXISTS vector');
+```
+
+Create a table
+
+```javascript
+await knex.schema.createTable('items', (table) => {
+  table.increments('id');
+  table.specificType('embedding', 'vector(3)');
+});
+```
+
+Insert a vector
+
+```javascript
+await knex('items').insert({embedding: pgvector.toSql([1, 2, 3])});
+```
+
+Get the nearest neighbors to a vector
+
+```javascript
+const items = await knex('items')
+  .orderByRaw('embedding <-> ?', pgvector.toSql([1, 2, 3]))
+  .limit(5);
 ```
 
 ## Drizzle ORM
