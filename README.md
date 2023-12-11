@@ -244,10 +244,14 @@ await knex.schema.createTable('items', (table) => {
 });
 ```
 
-Insert a vector
+Insert vectors
 
 ```javascript
-await knex('items').insert({embedding: pgvector.toSql([1, 2, 3])});
+const newItems = [
+  {embedding: pgvector.toSql([1, 2, 3])},
+  {embedding: pgvector.toSql([4, 5, 6])}
+];
+await knex('items').insert(newItems);
 ```
 
 Get the nearest neighbors to a vector

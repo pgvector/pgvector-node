@@ -23,9 +23,12 @@ beforeEach(async () => {
 });
 
 test('works', async () => {
-  await knex('knex_items').insert({embedding: pgvector.toSql([1, 1, 1])});
-  await knex('knex_items').insert({embedding: pgvector.toSql([2, 2, 2])});
-  await knex('knex_items').insert({embedding: pgvector.toSql([1, 1, 2])});
+  const newItems = [
+    {embedding: pgvector.toSql([1, 1, 1])},
+    {embedding: pgvector.toSql([2, 2, 2])},
+    {embedding: pgvector.toSql([1, 1, 2])}
+  ];
+  await knex('knex_items').insert(newItems);
   const items = await knex('knex_items').orderByRaw('embedding <-> ?', pgvector.toSql([1, 1, 1])).limit(5);
   expect(pgvector.fromSql(items[0].embedding)).toStrictEqual([1, 1, 1]);
   expect(pgvector.fromSql(items[1].embedding)).toStrictEqual([1, 1, 2]);
