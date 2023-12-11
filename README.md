@@ -137,6 +137,12 @@ const initOptions = {
 const pgp = pgpromise(initOptions);
 ```
 
+Create a table
+
+```javascript
+await db.none('CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3))');
+```
+
 Insert a vector
 
 ```javascript

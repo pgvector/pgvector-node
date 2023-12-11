@@ -11,15 +11,9 @@ const pgp = pgpromise(initOptions);
 const db = pgp({database: 'pgvector_node_test'});
 
 beforeAll(async () => {
-  const sql = `
-  CREATE EXTENSION IF NOT EXISTS vector;
-  DROP TABLE IF EXISTS items;
-  CREATE TABLE items (
-    id serial PRIMARY KEY,
-    embedding vector(3)
-  );
-  `;
-  await db.none(sql);
+  await db.none('CREATE EXTENSION IF NOT EXISTS vector');
+  await db.none('DROP TABLE IF EXISTS items');
+  await db.none('CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3))');
 });
 
 afterAll(async () => {
