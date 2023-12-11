@@ -2,7 +2,7 @@ const pgvector = require('pgvector/utils');
 
 const knex = require('knex')({
   client: 'pg',
-  connection: 'postgres://localhost/pgvector_node_test'
+  connection: {database: 'pgvector_node_test'}
 });
 
 beforeAll(async () => {
