@@ -204,16 +204,16 @@ const items = await prisma.$queryRaw`SELECT id, embedding::text FROM items ORDER
 
 ## Postgres.js
 
-Enable the extension
-
-```javascript
-await sql`CREATE EXTENSION IF NOT EXISTS vector`;
-```
-
 Import the library
 
 ```javascript
 import pgvector from 'pgvector/utils';
+```
+
+Enable the extension
+
+```javascript
+await sql`CREATE EXTENSION IF NOT EXISTS vector`;
 ```
 
 Insert vectors
