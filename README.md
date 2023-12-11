@@ -225,11 +225,11 @@ await sql`CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3))`;
 Insert vectors
 
 ```javascript
-const items = [
+const newItems = [
   {embedding: pgvector.toSql([1, 2, 3])},
   {embedding: pgvector.toSql([4, 5, 6])}
 ];
-await sql`INSERT INTO items ${ sql(items, 'embedding') }`;
+await sql`INSERT INTO items ${ sql(newItems, 'embedding') }`;
 ```
 
 Get the nearest neighbors to a vector
