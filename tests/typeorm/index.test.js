@@ -55,7 +55,7 @@ test('works', async () => {
     .orderBy('embedding <-> :embedding')
     .setParameters({embedding: pgvector.toSql([1, 1, 1])})
     .limit(5)
-    .getMany()
+    .getMany();
   expect(pgvector.fromSql(items[0].embedding)).toStrictEqual([1, 1, 1]);
   expect(pgvector.fromSql(items[1].embedding)).toStrictEqual([1, 1, 2]);
   expect(pgvector.fromSql(items[2].embedding)).toStrictEqual([2, 2, 2]);
