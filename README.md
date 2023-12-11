@@ -306,11 +306,11 @@ Define a model
 ```typescript
 @Entity()
 class Item {
-    @PrimaryGeneratedColumn()
-    id: number
+  @PrimaryGeneratedColumn()
+  id: number
 
-    @Column()
-    embedding: string
+  @Column()
+  embedding: string
 }
 ```
 
