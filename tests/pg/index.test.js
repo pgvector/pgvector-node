@@ -5,15 +5,9 @@ const client = new Client({database: 'pgvector_node_test'});
 
 beforeAll(async () => {
   await client.connect();
-  const sql = `
-  CREATE EXTENSION IF NOT EXISTS vector;
-  DROP TABLE IF EXISTS items;
-  CREATE TABLE items (
-    id serial PRIMARY KEY,
-    embedding vector(3)
-  );
-  `;
-  await client.query(sql);
+  await client.query('CREATE EXTENSION IF NOT EXISTS vector');
+  await client.query('DROP TABLE IF EXISTS items');
+  await client.query('CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3))');
   await pgvector.registerType(client);
 });
 

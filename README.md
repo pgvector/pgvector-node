@@ -54,6 +54,12 @@ pool.on('connect', async function (client) {
 });
 ```
 
+Create a table
+
+```javascript
+await client.query('CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3))');
+```
+
 Insert a vector
 
 ```javascript
