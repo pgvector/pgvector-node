@@ -66,6 +66,7 @@
     "pg-promise": "^11.4.3",
     "postgres": "^3.3.4",
     "sequelize": "^6.6.2",
+    "typeorm": "^0.3.17",
     "typescript": "^5.0.3"
   }
 }
