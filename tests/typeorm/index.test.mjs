@@ -2,6 +2,8 @@ import pgvector from 'pgvector/utils';
 import { DataSource, EntitySchema } from 'typeorm';
 
 test('example', async () => {
+  // entity definition without decorators
+  // https://typeorm.io/separating-entity-definition
   const Item = new EntitySchema({
     name: 'Item',
     tableName: 'typeorm_items',
@@ -13,6 +15,7 @@ test('example', async () => {
       },
       embedding: {
         // vector type not supported
+        // https://github.com/typeorm/typeorm/issues/10056
         type: String
       }
     }
