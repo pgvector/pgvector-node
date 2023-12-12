@@ -39,6 +39,9 @@
       "drizzle-orm": [
         "types/drizzle-orm/index.d.ts"
       ],
+      "knex": [
+        "types/knex/index.d.ts"
+      ],
       "pg": [
         "types/pg/index.d.ts"
       ],
