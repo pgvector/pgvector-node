@@ -2,7 +2,7 @@ const knex = require('knex');
 const { fromSql, toSql, sqlType } = require('../utils');
 
 knex.SchemaBuilder.extend('enableExtension', function(name) {
-  return this.raw('CREATE EXTENSION IF NOT EXISTS ??', name);
+  return this.raw('CREATE EXTENSION IF NOT EXISTS ??', [name]);
 });
 
 knex.TableBuilder.extend('vector', function(name, options) {
