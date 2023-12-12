@@ -23,10 +23,9 @@ test('example', async () => {
   ];
   await db.insert(items).values(newItems);
 
-  const embedding = [1, 2, 3];
   const allItems = await db.select()
     .from(items)
-    .orderBy(l2Distance(items.embedding, embedding))
+    .orderBy(l2Distance(items.embedding, [1, 2, 3]))
     .limit(5);
   expect(allItems[0].embedding).toStrictEqual([1, 2, 3]);
 
