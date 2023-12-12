@@ -9,7 +9,7 @@ test('example', async () => {
   await pgvector.registerType(client);
 
   await client.query('DROP TABLE IF EXISTS pg_items');
-  await client.query('CREATE TABLE pg_items (id bigserial PRIMARY KEY, embedding vector(3))');
+  await client.query('CREATE TABLE pg_items (id serial PRIMARY KEY, embedding vector(3))');
 
   const params = [
     pgvector.toSql([1, 1, 1]),
@@ -19,6 +19,7 @@ test('example', async () => {
   await client.query('INSERT INTO pg_items (embedding) VALUES ($1), ($2), ($3)', params);
 
   const { rows } = await client.query('SELECT * FROM pg_items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql([1, 1, 1])]);
+  expect(rows.map(r => r.id)).toStrictEqual([1, 3, 2]);
   expect(rows[0].embedding).toStrictEqual([1, 1, 1]);
   expect(rows[1].embedding).toStrictEqual([1, 1, 2]);
   expect(rows[2].embedding).toStrictEqual([2, 2, 2]);
@@ -34,12 +35,20 @@ test('pool', async () => {
   });
 
   await pool.query('DROP TABLE IF EXISTS pg_items');
-  await pool.query('CREATE TABLE pg_items (id bigserial PRIMARY KEY, embedding vector(3))');
+  await pool.query('CREATE TABLE pg_items (id serial PRIMARY KEY, embedding vector(3))');
 
-  await pool.query('INSERT INTO pg_items (embedding) VALUES ($1)', [pgvector.toSql([1, 2, 3])]);
+  const params = [
+    pgvector.toSql([1, 1, 1]),
+    pgvector.toSql([2, 2, 2]),
+    pgvector.toSql([1, 1, 2])
+  ];
+  await pool.query('INSERT INTO pg_items (embedding) VALUES ($1), ($2), ($3)', params);
 
-  const { rows } = await pool.query('SELECT * FROM pg_items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql([1, 2, 3])]);
-  expect(rows[0].embedding).toStrictEqual([1, 2, 3]);
+  const { rows } = await pool.query('SELECT * FROM pg_items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql([1, 1, 1])]);
+  expect(rows.map(r => r.id)).toStrictEqual([1, 3, 2]);
+  expect(rows[0].embedding).toStrictEqual([1, 1, 1]);
+  expect(rows[1].embedding).toStrictEqual([1, 1, 2]);
+  expect(rows[2].embedding).toStrictEqual([2, 2, 2]);
 
   await pool.end();
 });
