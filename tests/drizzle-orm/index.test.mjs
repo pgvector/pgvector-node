@@ -18,16 +18,19 @@ test('example', async () => {
   });
 
   const newItems = [
-    {embedding: [1, 2, 3]},
-    {embedding: [4, 5, 6]}
+    {embedding: [1, 1, 1]},
+    {embedding: [2, 2, 2]},
+    {embedding: [1, 1, 2]}
   ];
   await db.insert(items).values(newItems);
 
   const allItems = await db.select()
     .from(items)
-    .orderBy(l2Distance(items.embedding, [1, 2, 3]))
+    .orderBy(l2Distance(items.embedding, [1, 1, 1]))
     .limit(5);
-  expect(allItems[0].embedding).toStrictEqual([1, 2, 3]);
+  expect(allItems[0].embedding).toStrictEqual([1, 1, 1]);
+  expect(allItems[1].embedding).toStrictEqual([1, 1, 2]);
+  expect(allItems[2].embedding).toStrictEqual([2, 2, 2]);
 
   await client.end();
 });

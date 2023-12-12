@@ -11,10 +11,17 @@ test('example', async () => {
   await client.query('DROP TABLE IF EXISTS pg_items');
   await client.query('CREATE TABLE pg_items (id bigserial PRIMARY KEY, embedding vector(3))');
 
-  await client.query('INSERT INTO pg_items (embedding) VALUES ($1)', [pgvector.toSql([1, 2, 3])]);
+  const params = [
+    pgvector.toSql([1, 1, 1]),
+    pgvector.toSql([2, 2, 2]),
+    pgvector.toSql([1, 1, 2])
+  ];
+  await client.query('INSERT INTO pg_items (embedding) VALUES ($1), ($2), ($3)', params);
 
-  const { rows } = await client.query('SELECT * FROM pg_items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql([1, 2, 3])]);
-  expect(rows[0].embedding).toStrictEqual([1, 2, 3]);
+  const { rows } = await client.query('SELECT * FROM pg_items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql([1, 1, 1])]);
+  expect(rows[0].embedding).toStrictEqual([1, 1, 1]);
+  expect(rows[1].embedding).toStrictEqual([1, 1, 2]);
+  expect(rows[2].embedding).toStrictEqual([2, 2, 2]);
 
   await client.end();
 });
