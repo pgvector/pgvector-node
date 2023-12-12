@@ -1,13 +1,9 @@
-const pgvector = require('pgvector/utils');
-const { PrismaClient } = require('@prisma/client');
+import pgvector from 'pgvector/utils';
+import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
+test('example', async () => {
+  const prisma = new PrismaClient();
 
-beforeEach(async () => {
-  await prisma.item.deleteMany({});
-});
-
-test('works', async () => {
   // TODO use create when possible (field is not available in the generated client)
   // https://www.prisma.io/docs/concepts/components/prisma-schema/features-without-psl-equivalent#unsupported-field-types
   const embedding1 = pgvector.toSql([1, 1, 1]);
@@ -22,4 +18,9 @@ test('works', async () => {
   expect(pgvector.fromSql(items[0].embedding)).toStrictEqual([1, 1, 1]);
   expect(pgvector.fromSql(items[1].embedding)).toStrictEqual([1, 1, 2]);
   expect(pgvector.fromSql(items[2].embedding)).toStrictEqual([2, 2, 2]);
+});
+
+beforeAll(async () => {
+  const prisma = new PrismaClient();
+  await prisma.item.deleteMany({});
 });

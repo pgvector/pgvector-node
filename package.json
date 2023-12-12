@@ -55,7 +55,11 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+  },
+  "jest": {
+    "testMatch": ["**/*.test.mjs"],
+    "transform": {}
   },
   "devDependencies": {
     "@prisma/client": "^5.7.0",

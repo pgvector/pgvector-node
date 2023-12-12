@@ -74,6 +74,8 @@ Get the nearest neighbors to a vector
 const result = await client.query('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql(embedding)]);
 ```
 
+See a [full example](tests/pg/index.test.mjs)
+
 ## Sequelize
 
 Enable the extension
@@ -116,6 +118,8 @@ const items = await Item.findAll({
 });
 ```
 
+See a [full example](tests/sequelize/index.test.mjs)
+
 ## pg-promise
 
 Enable the extension
@@ -156,6 +160,8 @@ Get the nearest neighbors to a vector
 ```javascript
 const result = await db.any('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql(embedding)]);
 ```
+
+See a [full example](tests/pg-promise/index.test.mjs)
 
 ## Prisma
 
@@ -203,6 +209,8 @@ const embedding = pgvector.toSql([1, 1, 1])
 const items = await prisma.$queryRaw`SELECT id, embedding::text FROM items ORDER BY embedding <-> ${embedding}::vector LIMIT 5`
 ```
 
+See a [full example](tests/prisma/index.test.mjs) (and the [schema](prisma/schema.prisma))
+
 ## Postgres.js
 
 Import the library
@@ -239,6 +247,8 @@ Get the nearest neighbors to a vector
 const embedding = pgvector.toSql([1, 2, 3]);
 const items = await sql`SELECT * FROM items ORDER BY embedding <-> ${ embedding } LIMIT 5`;
 ```
+
+See a [full example](tests/postgres/index.test.mjs)
 
 ## Knex.js
 
@@ -280,6 +290,8 @@ const items = await knex('items')
   .orderByRaw('embedding <-> ?', pgvector.toSql([1, 2, 3]))
   .limit(5);
 ```
+
+See a [full example](tests/knex/index.test.mjs)
 
 ## TypeORM
 
@@ -332,6 +344,8 @@ const items = await itemRepository
   .getMany();
 ```
 
+See a [full example](tests/typeorm/index.test.mjs)
+
 ## Drizzle ORM
 
 Note: This is currently experimental and does not work with Drizzle Kit
@@ -368,11 +382,15 @@ Get the nearest neighbors to a vector
 ```javascript
 import { l2Distance } from 'pgvector/drizzle-orm';
 
-const embedding = [1, 2, 3];
-const allItems = await db.select().from(items).orderBy(l2Distance(items.embedding, embedding)).limit(5);
+const allItems = await db.select()
+  .from(items)
+  .orderBy(l2Distance(items.embedding, [1, 2, 3]))
+  .limit(5);
 ```
 
 Also supports `maxInnerProduct` and `cosineDistance`
+
+See a [full example](tests/drizzle-orm/index.test.mjs)
 
 ## History
 
