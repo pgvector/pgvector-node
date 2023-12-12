@@ -21,11 +21,7 @@ class PgVector extends PgColumn {
   }
 
   getSQLType() {
-    const dimensions = this.dimensions;
-    if (dimensions === undefined) {
-      return 'vector';
-    }
-    return util.format('vector(%d)', dimensions);
+    return utils.sqlType(this.dimensions);
   }
 
   mapFromDriverValue(value) {

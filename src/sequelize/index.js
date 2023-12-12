@@ -13,13 +13,7 @@ function registerType(Sequelize) {
     }
 
     toSql() {
-      if (this._dimensions === undefined) {
-        return 'VECTOR';
-      }
-      if (!Number.isInteger(this._dimensions)) {
-        throw new Error('expected integer');
-      }
-      return util.format('VECTOR(%d)', this._dimensions);
+      return utils.sqlType(this._dimensions).toUpperCase();
     }
 
     _stringify(value) {
