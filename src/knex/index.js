@@ -6,7 +6,7 @@ knex.SchemaBuilder.extend('enableExtension', function(name) {
 });
 
 knex.TableBuilder.extend('vector', function(name, options) {
-  const dimensions = options && options.dimensions;
+  const dimensions = options && (Number.isInteger(options) ? options : options.dimensions);
   return this.specificType(name, sqlType(dimensions));
 });
 
