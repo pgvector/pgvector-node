@@ -9,8 +9,8 @@ test('example', async () => {
     tableName: 'typeorm_items',
     columns: {
       id: {
-        primary: true,
         type: Number,
+        primary: true,
         generated: true
       },
       embedding: {
