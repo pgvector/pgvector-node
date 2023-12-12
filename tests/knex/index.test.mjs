@@ -29,7 +29,7 @@ test('example', async () => {
   expect(pgvector.fromSql(items[1].embedding)).toStrictEqual([1, 1, 2]);
   expect(pgvector.fromSql(items[2].embedding)).toStrictEqual([2, 2, 2]);
 
-  knex.schema.alterTable('knex_items', function(table) {
+  await knex.schema.alterTable('knex_items', function(table) {
     table.index(knex.raw('embedding vector_l2_ops'), 'knex_items_embedding_idx', 'hnsw');
   });
 

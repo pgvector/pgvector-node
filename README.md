@@ -130,7 +130,7 @@ const items = await knex('items')
 Add an approximate index
 
 ```javascript
-knex.schema.alterTable('items', function(table) {
+await knex.schema.alterTable('items', function(table) {
   table.index(knex.raw('embedding vector_l2_ops'), 'index_name', 'hnsw');
 });
 ```
