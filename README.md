@@ -301,6 +301,16 @@ const items = await knex('items')
   .limit(5);
 ```
 
+Add an approximate index
+
+```javascript
+knex.schema.alterTable('items', function(table) {
+  table.index(knex.raw('embedding vector_l2_ops'), 'index_name', 'hnsw');
+});
+```
+
+Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
+
 See a [full example](tests/knex/index.test.mjs)
 
 ## TypeORM
