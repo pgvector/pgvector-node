@@ -1,4 +1,4 @@
-## 0.1.6 (unreleased)
+## 0.1.6 (2023-12-12)
 
 - Improved support for Knex.js
 

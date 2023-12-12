@@ -91,13 +91,13 @@ See a [full example](tests/pg/index.test.mjs)
 Import the library
 
 ```javascript
-import pgvector from 'pgvector/utils';
+import pgvector from 'pgvector/knex';
 ```
 
 Enable the extension
 
 ```javascript
-await knex.schema.raw('CREATE EXTENSION IF NOT EXISTS vector');
+await knex.schema.enableExtension('vector');
 ```
 
 Create a table
@@ -105,7 +105,7 @@ Create a table
 ```javascript
 await knex.schema.createTable('items', (table) => {
   table.increments('id');
-  table.specificType('embedding', 'vector(3)');
+  table.vector('embedding', {dimensions: 3});
 });
 ```
 
@@ -123,7 +123,7 @@ Get the nearest neighbors to a vector
 
 ```javascript
 const items = await knex('items')
-  .orderByRaw('embedding <-> ?', pgvector.toSql([1, 2, 3]))
+  .orderBy(knex.l2Distance('embedding', [1, 2, 3]))
   .limit(5);
 ```
 
