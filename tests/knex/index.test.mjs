@@ -7,7 +7,7 @@ test('example', async () => {
     connection: {database: 'pgvector_node_test'}
   });
 
-  await knex.schema.enableVectorExtension();
+  await knex.schema.enableExtension('vector');
   await knex.schema.dropTableIfExists('knex_items');
   await knex.schema.createTable('knex_items', (table) => {
     table.increments('id');
