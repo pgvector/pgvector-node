@@ -1,7 +1,7 @@
 {
   "name": "pgvector",
   "version": "0.1.6",
-  "description": "pgvector support for Node.js (and TypeScript)",
+  "description": "pgvector support for Node.js and Bun (and TypeScript)",
   "homepage": "https://github.com/pgvector/pgvector-node",
   "license": "MIT",
   "authors": [
