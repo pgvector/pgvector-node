@@ -24,6 +24,8 @@ test('example', async () => {
   expect(rows[1].embedding).toStrictEqual([1, 1, 2]);
   expect(rows[2].embedding).toStrictEqual([2, 2, 2]);
 
+  await client.query('CREATE INDEX ON pg_items USING hnsw (embedding vector_l2_ops)');
+
   await client.end();
 });
 
@@ -49,6 +51,8 @@ test('pool', async () => {
   expect(rows[0].embedding).toStrictEqual([1, 1, 1]);
   expect(rows[1].embedding).toStrictEqual([1, 1, 2]);
   expect(rows[2].embedding).toStrictEqual([2, 2, 2]);
+
+  await pool.query('CREATE INDEX ON pg_items USING hnsw (embedding vector_l2_ops)');
 
   await pool.end();
 });

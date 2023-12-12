@@ -74,6 +74,16 @@ Get the nearest neighbors to a vector
 const result = await client.query('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql(embedding)]);
 ```
 
+Add an approximate index
+
+```javascript
+await client.query('CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)');
+// or
+await client.query('CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)');
+```
+
+Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
+
 See a [full example](tests/pg/index.test.mjs)
 
 ## Sequelize
