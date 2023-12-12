@@ -1,5 +1,5 @@
 import Knex from 'knex';
-import pgvector from 'pgvector/utils';
+import pgvector from 'pgvector/knex';
 
 test('example', async () => {
   const knex = Knex({
@@ -11,7 +11,7 @@ test('example', async () => {
   await knex.schema.dropTableIfExists('knex_items');
   await knex.schema.createTable('knex_items', (table) => {
     table.increments('id');
-    table.specificType('embedding', 'vector(3)');
+    table.vector('embedding', {dimensions: 3});
   });
 
   const newItems = [

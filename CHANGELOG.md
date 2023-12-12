@@ -1,3 +1,7 @@
+## 0.1.6 (unreleased)
+
+- Improved support for Knex.js
+
 ## 0.1.5 (2023-08-19)
 
 - Added experimental support for Drizzle ORM
