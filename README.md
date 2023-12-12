@@ -313,7 +313,7 @@ Create a table
 await AppDataSource.query('CREATE TABLE item (id bigserial PRIMARY KEY, embedding vector(3))');
 ```
 
-Define a model
+Define an entity
 
 ```typescript
 @Entity()
