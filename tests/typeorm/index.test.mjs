@@ -8,12 +8,12 @@ test('example', async () => {
     columns: {
       id: {
         primary: true,
-        type: 'int',
+        type: Number,
         generated: true
       },
       embedding: {
         // vector type not supported
-        type: 'text'
+        type: String
       }
     }
   });
