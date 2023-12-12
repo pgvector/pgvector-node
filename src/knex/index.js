@@ -11,4 +11,16 @@ knex.TableBuilder.extend('vector', function(name, options) {
   return this.specificType(name, sqlType(dimensions));
 });
 
+knex.QueryBuilder.extend('l2Distance', function(column, value) {
+  return this.client.raw('?? <-> ?', [column, toSql(value)]);
+});
+
+knex.QueryBuilder.extend('maxInnerProduct', function(column, value) {
+  return this.client.raw('?? <#> ?', [column, toSql(value)]);
+});
+
+knex.QueryBuilder.extend('cosineDistance', function(column, value) {
+  return this.client.raw('?? <=> ?', [column, toSql(value)]);
+});
+
 module.exports = {fromSql, toSql};
