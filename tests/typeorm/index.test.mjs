@@ -44,6 +44,7 @@ test('example', async () => {
     .setParameters({embedding: pgvector.toSql([1, 1, 1])})
     .limit(5)
     .getMany();
+  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
   expect(pgvector.fromSql(items[0].embedding)).toStrictEqual([1, 1, 1]);
   expect(pgvector.fromSql(items[1].embedding)).toStrictEqual([1, 1, 2]);
   expect(pgvector.fromSql(items[2].embedding)).toStrictEqual([2, 2, 2]);
