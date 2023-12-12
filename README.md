@@ -178,7 +178,7 @@ Get the nearest neighbors to a vector
 
 ```javascript
 const items = await Item.findAll({
-  order: [sequelize.literal(`embedding <-> '[1, 2, 3]'`)],
+  order: sequelize.literal(`embedding <-> '[1, 2, 3]'`),
   limit: 5
 });
 ```

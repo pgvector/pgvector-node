@@ -34,7 +34,7 @@ test('example', async () => {
 
   // L2 distance
   let items = await Item.findAll({
-    order: [sequelize.literal(`embedding <-> '[1, 1, 1]'`)],
+    order: sequelize.literal(`embedding <-> '[1, 1, 1]'`),
     limit: 5
   });
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
@@ -42,14 +42,14 @@ test('example', async () => {
 
   // max inner product
   items = await Item.findAll({
-    order: [sequelize.literal(`embedding <#> '[1, 1, 1]'`)],
+    order: sequelize.literal(`embedding <#> '[1, 1, 1]'`),
     limit: 5
   });
   expect(items.map(v => v.id)).toStrictEqual([2, 3, 1]);
 
   // cosine distance
   items = await Item.findAll({
-    order: [sequelize.literal(`embedding <=> '[1, 1, 1]'`)],
+    order: sequelize.literal(`embedding <=> '[1, 1, 1]'`),
     limit: 5
   });
   expect(items[2].id).toEqual(3);
