@@ -1,5 +1,4 @@
 const knex = require('knex');
-const util = require('util');
 const { fromSql, toSql, sqlType } = require('../utils');
 
 knex.SchemaBuilder.extend('enableExtension', function(name) {
