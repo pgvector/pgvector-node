@@ -127,6 +127,8 @@ const items = await knex('items')
   .limit(5);
 ```
 
+Also supports `maxInnerProduct` and `cosineDistance`
+
 Add an approximate index
 
 ```javascript
