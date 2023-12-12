@@ -2,7 +2,7 @@
 
 [pgvector](https://github.com/pgvector/pgvector) support for Node.js (and TypeScript)
 
-Supports [node-postgres](https://github.com/brianc/node-postgres), [Sequelize](https://github.com/sequelize/sequelize), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), [Knex.js](https://github.com/knex/knex), [TypeORM](https://github.com/typeorm/typeorm), and [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
+Supports [node-postgres](https://github.com/brianc/node-postgres), [Knex.js](https://github.com/knex/knex), [Sequelize](https://github.com/sequelize/sequelize), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), [TypeORM](https://github.com/typeorm/typeorm), and [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
 
 [![Build Status](https://github.com/pgvector/pgvector-node/workflows/build/badge.svg?branch=master)](https://github.com/pgvector/pgvector-node/actions)
 
@@ -17,11 +17,11 @@ npm install pgvector
 And follow the instructions for your database library:
 
 - [node-postgres](#node-postgres)
+- [Knex.js](#knexjs)
 - [Sequelize](#sequelize)
 - [pg-promise](#pg-promise)
 - [Prisma](#prisma)
 - [Postgres.js](#postgresjs)
-- [Knex.js](#knexjs)
 - [TypeORM](#typeorm)
 - [Drizzle ORM](#drizzle-orm) (experimental)
 
@@ -85,6 +85,59 @@ await client.query('CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)')
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
 
 See a [full example](tests/pg/index.test.mjs)
+
+## Knex.js
+
+Import the library
+
+```javascript
+import pgvector from 'pgvector/utils';
+```
+
+Enable the extension
+
+```javascript
+await knex.schema.raw('CREATE EXTENSION IF NOT EXISTS vector');
+```
+
+Create a table
+
+```javascript
+await knex.schema.createTable('items', (table) => {
+  table.increments('id');
+  table.specificType('embedding', 'vector(3)');
+});
+```
+
+Insert vectors
+
+```javascript
+const newItems = [
+  {embedding: pgvector.toSql([1, 2, 3])},
+  {embedding: pgvector.toSql([4, 5, 6])}
+];
+await knex('items').insert(newItems);
+```
+
+Get the nearest neighbors to a vector
+
+```javascript
+const items = await knex('items')
+  .orderByRaw('embedding <-> ?', pgvector.toSql([1, 2, 3]))
+  .limit(5);
+```
+
+Add an approximate index
+
+```javascript
+knex.schema.alterTable('items', function(table) {
+  table.index(knex.raw('embedding vector_l2_ops'), 'index_name', 'hnsw');
+});
+```
+
+Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
+
+See a [full example](tests/knex/index.test.mjs)
 
 ## Sequelize
 
@@ -259,59 +312,6 @@ const items = await sql`SELECT * FROM items ORDER BY embedding <-> ${ embedding 
 ```
 
 See a [full example](tests/postgres/index.test.mjs)
-
-## Knex.js
-
-Import the library
-
-```javascript
-import pgvector from 'pgvector/utils';
-```
-
-Enable the extension
-
-```javascript
-await knex.schema.raw('CREATE EXTENSION IF NOT EXISTS vector');
-```
-
-Create a table
-
-```javascript
-await knex.schema.createTable('items', (table) => {
-  table.increments('id');
-  table.specificType('embedding', 'vector(3)');
-});
-```
-
-Insert vectors
-
-```javascript
-const newItems = [
-  {embedding: pgvector.toSql([1, 2, 3])},
-  {embedding: pgvector.toSql([4, 5, 6])}
-];
-await knex('items').insert(newItems);
-```
-
-Get the nearest neighbors to a vector
-
-```javascript
-const items = await knex('items')
-  .orderByRaw('embedding <-> ?', pgvector.toSql([1, 2, 3]))
-  .limit(5);
-```
-
-Add an approximate index
-
-```javascript
-knex.schema.alterTable('items', function(table) {
-  table.index(knex.raw('embedding vector_l2_ops'), 'index_name', 'hnsw');
-});
-```
-
-Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
-
-See a [full example](tests/knex/index.test.mjs)
 
 ## TypeORM
 
