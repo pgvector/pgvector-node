@@ -1,7 +1,7 @@
 const { Type } = require('@mikro-orm/core');
 const utils = require('../utils');
 
-class Vector extends Type {
+class VectorType extends Type {
   convertToDatabaseValue(value, platform) {
     if (value === null) {
       return null;
@@ -37,4 +37,4 @@ function cosineDistance(column, value, em) {
   return distance('<=>', column, value, em);
 }
 
-module.exports = {Vector, l2Distance, maxInnerProduct, cosineDistance};
+module.exports = {VectorType, l2Distance, maxInnerProduct, cosineDistance};

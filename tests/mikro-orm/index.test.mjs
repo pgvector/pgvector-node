@@ -1,6 +1,6 @@
 import { EntitySchema, MikroORM } from '@mikro-orm/core';
 import { EntityManager } from '@mikro-orm/postgresql';
-import { Vector, l2Distance, maxInnerProduct, cosineDistance } from 'pgvector/mikro-orm';
+import { VectorType, l2Distance, maxInnerProduct, cosineDistance } from 'pgvector/mikro-orm';
 
 test('example', async () => {
   const Item = new EntitySchema({
@@ -8,7 +8,7 @@ test('example', async () => {
     tableName: 'mikro_items',
     properties: {
       id: {type: Number, primary: true},
-      embedding: {type: Vector, dimensions: 3, nullable: true}
+      embedding: {type: VectorType, dimensions: 3, nullable: true}
     },
   });
 

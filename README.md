@@ -539,7 +539,7 @@ class Item {
   @PrimaryKey()
   id: number;
 
-  @Property({type: Vector})
+  @Property({type: VectorType})
   embedding: number[];
 }
 ```
