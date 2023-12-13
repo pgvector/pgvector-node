@@ -32,7 +32,7 @@ test('example', async () => {
 
   // L2 distance
   let items = await em.createQueryBuilder(Item)
-    .orderBy({[l2Distance(em, 'embedding', [1, 1, 1])]: 'ASC'})
+    .orderBy({[l2Distance('embedding', [1, 1, 1], em)]: 'ASC'})
     .limit(5)
     .getResult();
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
@@ -42,14 +42,14 @@ test('example', async () => {
 
   // max inner product
   items = await em.createQueryBuilder(Item)
-    .orderBy({[maxInnerProduct(em, 'embedding', [1, 1, 1])]: 'ASC'})
+    .orderBy({[maxInnerProduct('embedding', [1, 1, 1], em)]: 'ASC'})
     .limit(5)
     .getResult();
   expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
 
   // cosine distance
   items = await em.createQueryBuilder(Item)
-    .orderBy({[cosineDistance(em, 'embedding', [1, 1, 1])]: 'ASC'})
+    .orderBy({[cosineDistance('embedding', [1, 1, 1], em)]: 'ASC'})
     .limit(5)
     .getResult();
   expect(items.map(v => v.id).slice(2)).toStrictEqual([3, 4]);

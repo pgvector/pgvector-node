@@ -406,7 +406,7 @@ Get the nearest neighbors to a vector
 import { l2Distance } from 'pgvector/mikro-orm';
 
 const items = await em.createQueryBuilder(Item)
-  .orderBy({[l2Distance(em, 'embedding', [1, 2, 3])]: 'ASC'})
+  .orderBy({[l2Distance('embedding', [1, 2, 3], em)]: 'ASC'})
   .limit(5)
   .getResult();
 ```

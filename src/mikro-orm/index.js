@@ -21,20 +21,20 @@ class Vector extends Type {
   }
 }
 
-function distance(op, em, column, value) {
+function distance(op, column, value, em) {
   return em.raw(`?? ${op} ?`, [column, utils.toSql(value)]);
 }
 
-function l2Distance(em, column, value) {
-  return distance('<->', em, column, value);
+function l2Distance(column, value, em) {
+  return distance('<->', column, value, em);
 }
 
-function maxInnerProduct(em, column, value) {
-  return distance('<#>', em, column, value);
+function maxInnerProduct(column, value, em) {
+  return distance('<#>', column, value, em);
 }
 
-function cosineDistance(em, column, value) {
-  return distance('<=>', em, column, value);
+function cosineDistance(column, value, em) {
+  return distance('<=>', column, value, em);
 }
 
 module.exports = {Vector, l2Distance, maxInnerProduct, cosineDistance};
