@@ -15,6 +15,7 @@ test('example', async () => {
   const orm = await MikroORM.init({
     entities: [Item],
     dbName: 'pgvector_node_test',
+    user: process.env['USER'],
     type: 'postgresql'
   });
   const em = orm.em.fork();
