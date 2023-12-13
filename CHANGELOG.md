@@ -1,6 +1,7 @@
 ## 0.1.7 (unreleased)
 
 - Added experimental `mikro-orm` module
+- Added distance functions for Sequelize
 
 ## 0.1.6 (2023-12-12)
 

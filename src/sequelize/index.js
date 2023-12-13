@@ -42,4 +42,22 @@ function registerType(Sequelize) {
   DataTypes.postgres.VECTOR.key = 'vector';
 }
 
-module.exports = {registerType};
+function distance(op, column, value, sequelize) {
+  const quotedColumn = sequelize.dialect.queryGenerator.quoteIdentifier(column);
+  const escapedValue = sequelize.escape(utils.toSql(value));
+  return sequelize.literal(`${quotedColumn} ${op} ${escapedValue}`);
+}
+
+function l2Distance(column, value, sequelize) {
+  return distance('<->', column, value, sequelize);
+}
+
+function maxInnerProduct(column, value, sequelize) {
+  return distance('<#>', column, value, sequelize);
+}
+
+function cosineDistance(column, value, sequelize) {
+  return distance('<=>', column, value, sequelize);
+}
+
+module.exports = {registerType, l2Distance, maxInnerProduct, cosineDistance};

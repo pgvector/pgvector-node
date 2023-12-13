@@ -1,5 +1,6 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 import pgvector from 'pgvector/sequelize';
+import { l2Distance, maxInnerProduct, cosineDistance } from 'pgvector/sequelize';
 
 test('example', async () => {
   pgvector.registerType(Sequelize);
@@ -39,7 +40,7 @@ test('example', async () => {
 
   // L2 distance
   let items = await Item.findAll({
-    order: sequelize.literal(`embedding <-> '[1, 1, 1]'`),
+    order: l2Distance('embedding', [1, 1, 1], sequelize),
     limit: 5
   });
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
@@ -49,14 +50,14 @@ test('example', async () => {
 
   // max inner product
   items = await Item.findAll({
-    order: sequelize.literal(`embedding <#> '[1, 1, 1]'`),
+    order: maxInnerProduct('embedding', [1, 1, 1], sequelize),
     limit: 5
   });
   expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
 
   // cosine distance
   items = await Item.findAll({
-    order: sequelize.literal(`embedding <=> '[1, 1, 1]'`),
+    order: cosineDistance('embedding', [1, 1, 1], sequelize),
     limit: 5
   });
   expect(items.map(v => v.id).slice(2)).toStrictEqual([3, 4]);
