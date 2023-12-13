@@ -23,7 +23,7 @@ And follow the instructions for your database library:
 - [Prisma](#prisma)
 - [Postgres.js](#postgresjs)
 - [TypeORM](#typeorm)
-- [MicroORM](#microorm)
+- [MikroORM](#mikroorm)
 - [Drizzle ORM](#drizzle-orm) (experimental)
 
 Or check out some examples:
