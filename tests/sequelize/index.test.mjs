@@ -1,8 +1,6 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 import pgvector from 'pgvector/sequelize';
 
-class Item extends Model {}
-
 test('example', async () => {
   pgvector.registerType(Sequelize);
 
@@ -17,21 +15,21 @@ test('example', async () => {
     logging: false
   });
 
-  Item.init({
+  const Item = sequelize.define('Item', {
     embedding: {
       type: DataTypes.VECTOR(3)
     }
   }, {
-    sequelize,
-    modelName: 'Item'
+    modelName: 'Item',
+    tableName: 'sequelize_items'
   });
 
   await Item.sync({force: true});
 
-  await Item.create({id: 1, embedding: [1, 1, 1]});
-  await Item.create({id: 2, embedding: [2, 2, 2]});
-  await Item.create({id: 3, embedding: [1, 1, 2]});
-  await Item.create({id: 4});
+  await Item.create({embedding: [1, 1, 1]});
+  await Item.create({embedding: [2, 2, 2]});
+  await Item.create({embedding: [1, 1, 2]});
+  await Item.create({});
 
   // L2 distance
   let items = await Item.findAll({
