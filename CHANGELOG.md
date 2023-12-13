@@ -1,6 +1,10 @@
+## 0.1.7 (unreleased)
+
+- Added `mikro-orm` export
+
 ## 0.1.6 (2023-12-12)
 
-- Improved support for Knex.js
+- Added `knex` export
 
 ## 0.1.5 (2023-08-19)
 

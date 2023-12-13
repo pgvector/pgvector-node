@@ -20,6 +20,10 @@
       "types": "./types/knex/index.d.ts",
       "default": "./src/knex/index.js"
     },
+    "./mikro-orm": {
+      "types": "./types/mikro-orm/index.d.ts",
+      "default": "./src/mikro-orm/index.js"
+    },
     "./pg": {
       "types": "./types/pg/index.d.ts",
       "default": "./src/pg/index.js"
@@ -41,6 +45,9 @@
       ],
       "knex": [
         "types/knex/index.d.ts"
+      ],
+      "mikro-orm": [
+        "types/mikro-orm/index.d.ts"
       ],
       "pg": [
         "types/pg/index.d.ts"
