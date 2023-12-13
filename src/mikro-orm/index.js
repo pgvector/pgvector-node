@@ -3,10 +3,16 @@ const utils = require('../utils');
 
 class Vector extends Type {
   convertToDatabaseValue(value, platform) {
+    if (value === null) {
+      return null;
+    }
     return utils.toSql(value);
   }
 
   convertToJSValue(value, platform) {
+    if (value === null) {
+      return null;
+    }
     return utils.fromSql(value);
   }
 

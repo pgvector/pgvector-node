@@ -8,7 +8,7 @@ test('example', async () => {
     tableName: 'mikro_items',
     properties: {
       id: {type: Number, primary: true},
-      embedding: {type: Vector, dimensions: 3}
+      embedding: {type: Vector, dimensions: 3, nullable: true}
     },
   });
 
@@ -27,13 +27,14 @@ test('example', async () => {
   em.create(Item, {embedding: [1, 1, 1]});
   em.create(Item, {embedding: [2, 2, 2]});
   em.create(Item, {embedding: [1, 1, 2]});
+  em.create(Item, {});
 
   const qb = em.createQueryBuilder(Item);
   const items = await qb
     .orderBy({[qb.raw("embedding <-> '[1,1,1]'")]: 'ASC'})
     .limit(5)
     .getResult();
-  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
+  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
   expect(items[0].embedding).toStrictEqual([1, 1, 1]);
   expect(items[1].embedding).toStrictEqual([1, 1, 2]);
   expect(items[2].embedding).toStrictEqual([2, 2, 2]);
