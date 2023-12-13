@@ -86,7 +86,7 @@
     "types"
   ],
   "engines": {
-    "node": ">= 12"
+    "node": ">= 18"
   },
   "scripts": {
     "build": "tsc",

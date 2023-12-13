@@ -1,9 +1,10 @@
-## 0.1.7 (unreleased)
+## 0.2.0 (unreleased)
 
 - Added `kysely` module
 - Added `objection` module
 - Added experimental `mikro-orm` module
 - Added distance functions for Sequelize
+- Dropped support for Node < 18
 
 ## 0.1.6 (2023-12-12)
 
