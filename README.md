@@ -23,7 +23,7 @@ And follow the instructions for your database library:
 - [Prisma](#prisma)
 - [Postgres.js](#postgresjs)
 - [TypeORM](#typeorm)
-- [MikroORM](#mikroorm) (unreleased)
+- [MikroORM](#mikroorm) (experimental, unreleased)
 - [Drizzle ORM](#drizzle-orm) (experimental)
 
 Or check out some examples:
@@ -371,7 +371,7 @@ See a [full example](tests/typeorm/index.test.mjs)
 
 ## MikroORM
 
-Note: This is currently unreleased
+Note: This is currently experimental and unreleased
 
 Enable the extension
 

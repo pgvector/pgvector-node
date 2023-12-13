@@ -1,6 +1,6 @@
 ## 0.1.7 (unreleased)
 
-- Added `mikro-orm` module
+- Added experimental `mikro-orm` module
 
 ## 0.1.6 (2023-12-12)
 
