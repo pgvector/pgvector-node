@@ -12,6 +12,10 @@
     "url": "https://github.com/pgvector/pgvector-node"
   },
   "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./src/index.js"
+    },
     "./drizzle-orm": {
       "types": "./types/drizzle-orm/index.d.ts",
       "default": "./src/drizzle-orm/index.js"
@@ -48,6 +52,9 @@
   },
   "typesVersions": {
     "*": {
+      "*": [
+        "types/index.d.ts"
+      ],
       "drizzle-orm": [
         "types/drizzle-orm/index.d.ts"
       ],
