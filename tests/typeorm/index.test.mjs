@@ -1,4 +1,4 @@
-import pgvector from 'pgvector/utils';
+import { vector } from 'pgvector';
 import { DataSource, EntitySchema } from 'typeorm';
 
 test('example', async () => {
@@ -34,20 +34,20 @@ test('example', async () => {
   await AppDataSource.query('CREATE TABLE typeorm_items (id bigserial PRIMARY KEY, embedding vector(3))');
 
   const itemRepository = AppDataSource.getRepository(Item);
-  await itemRepository.save({embedding: pgvector.toSql([1, 1, 1])});
-  await itemRepository.save({embedding: pgvector.toSql([2, 2, 2])});
-  await itemRepository.save({embedding: pgvector.toSql([1, 1, 2])});
+  await itemRepository.save({embedding: vector([1, 1, 1])});
+  await itemRepository.save({embedding: vector([2, 2, 2])});
+  await itemRepository.save({embedding: vector([1, 1, 2])});
 
   const items = await itemRepository
     .createQueryBuilder('item')
     .orderBy('embedding <-> :embedding')
-    .setParameters({embedding: pgvector.toSql([1, 1, 1])})
+    .setParameters({embedding: vector([1, 1, 1])})
     .limit(5)
     .getMany();
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
-  expect(pgvector.fromSql(items[0].embedding)).toStrictEqual([1, 1, 1]);
-  expect(pgvector.fromSql(items[1].embedding)).toStrictEqual([1, 1, 2]);
-  expect(pgvector.fromSql(items[2].embedding)).toStrictEqual([2, 2, 2]);
+  expect(vector(items[0].embedding).toArray()).toStrictEqual([1, 1, 1]);
+  expect(vector(items[1].embedding).toArray()).toStrictEqual([1, 1, 2]);
+  expect(vector(items[2].embedding).toArray()).toStrictEqual([2, 2, 2]);
 
   await AppDataSource.destroy();
 });

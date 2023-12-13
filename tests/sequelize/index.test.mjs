@@ -44,7 +44,9 @@ test('example', async () => {
     limit: 5
   });
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
+  expect(items[0].embedding).toStrictEqual([1, 1, 1]);
   expect(items[1].embedding).toStrictEqual([1, 1, 2]);
+  expect(items[2].embedding).toStrictEqual([2, 2, 2]);
 
   await Item.create({});
 
