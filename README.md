@@ -2,7 +2,7 @@
 
 [pgvector](https://github.com/pgvector/pgvector) support for Node.js and Bun (and TypeScript)
 
-Supports [node-postgres](https://github.com/brianc/node-postgres), [Knex.js](https://github.com/knex/knex), [Objection.js](https://github.com/vincit/objection.js), [Sequelize](https://github.com/sequelize/sequelize), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), [TypeORM](https://github.com/typeorm/typeorm), [MikroORM](https://github.com/mikro-orm/mikro-orm), and [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
+Supports [node-postgres](https://github.com/brianc/node-postgres), [Knex.js](https://github.com/knex/knex), [Objection.js](https://github.com/vincit/objection.js), [Kysely](https://github.com/kysely-org/kysely), [Sequelize](https://github.com/sequelize/sequelize), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), [TypeORM](https://github.com/typeorm/typeorm), [MikroORM](https://github.com/mikro-orm/mikro-orm), and [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
 
 [![Build Status](https://github.com/pgvector/pgvector-node/workflows/build/badge.svg?branch=master)](https://github.com/pgvector/pgvector-node/actions)
 
@@ -19,6 +19,7 @@ And follow the instructions for your database library:
 - [node-postgres](#node-postgres)
 - [Knex.js](#knexjs)
 - [Objection.js](#objectionjs)
+- [Kysely](#kysely)
 - [Sequelize](#sequelize)
 - [pg-promise](#pg-promise)
 - [Prisma](#prisma)
@@ -197,6 +198,65 @@ await knex.schema.alterTable('items', function(table) {
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
 
 See a [full example](tests/objection/index.test.mjs)
+
+## Kysely
+
+Import the library
+
+```javascript
+import pgvector from 'pgvector/utils';
+```
+
+Enable the extension
+
+```javascript
+await sql`CREATE EXTENSION IF NOT EXISTS vector`.execute(db);
+```
+
+Create a table
+
+```javascript
+await db.schema.createTable('items')
+  .addColumn('id', 'serial', (cb) => cb.primaryKey())
+  .addColumn('embedding', 'vector(3)')
+  .execute();
+```
+
+Insert vectors
+
+```javascript
+const newItems = [
+  {embedding: pgvector.toSql([1, 2, 3])},
+  {embedding: pgvector.toSql([4, 5, 6])}
+];
+await db.insertInto('items').values(newItems).execute();
+```
+
+Get the nearest neighbors to a vector
+
+```javascript
+const items = await db.selectFrom('items')
+  .selectAll()
+  .orderBy(sql`embedding <-> '[1,1,1]'`)
+  .limit(5)
+  .execute();
+```
+
+Also supports `maxInnerProduct` and `cosineDistance`
+
+Add an approximate index
+
+```javascript
+await db.schema.createIndex('index_name')
+  .on('items')
+  .using('hnsw')
+  .expression(sql`embedding vector_l2_ops`)
+  .execute();
+```
+
+Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
+
+See a [full example](tests/kysely/index.test.mjs)
 
 ## Sequelize
 
