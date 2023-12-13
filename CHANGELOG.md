@@ -1,5 +1,6 @@
 ## 0.1.7 (unreleased)
 
+- Added `kysely` module
 - Added `objection` module
 - Added experimental `mikro-orm` module
 - Added distance functions for Sequelize
