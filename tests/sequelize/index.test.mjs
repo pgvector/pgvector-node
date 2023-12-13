@@ -31,13 +31,14 @@ test('example', async () => {
   await Item.create({id: 1, embedding: [1, 1, 1]});
   await Item.create({id: 2, embedding: [2, 2, 2]});
   await Item.create({id: 3, embedding: [1, 1, 2]});
+  await Item.create({id: 4});
 
   // L2 distance
   let items = await Item.findAll({
     order: sequelize.literal(`embedding <-> '[1, 1, 1]'`),
     limit: 5
   });
-  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
+  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
   expect(items[1].embedding).toStrictEqual([1, 1, 2]);
 
   // max inner product
@@ -45,7 +46,7 @@ test('example', async () => {
     order: sequelize.literal(`embedding <#> '[1, 1, 1]'`),
     limit: 5
   });
-  expect(items.map(v => v.id)).toStrictEqual([2, 3, 1]);
+  expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
 
   // cosine distance
   items = await Item.findAll({
@@ -53,6 +54,7 @@ test('example', async () => {
     limit: 5
   });
   expect(items[2].id).toEqual(3);
+  expect(items[3].id).toEqual(4);
 
   // bad value
   await Item.create({embedding: 'bad'}).catch(e => expect(e.message).toMatch('malformed vector literal'));
