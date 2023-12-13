@@ -23,7 +23,7 @@ And follow the instructions for your database library:
 - [Prisma](#prisma)
 - [Postgres.js](#postgresjs)
 - [TypeORM](#typeorm)
-- [MikroORM](#mikroorm)
+- [MikroORM](#mikroorm) (unreleased)
 - [Drizzle ORM](#drizzle-orm) (experimental)
 
 Or check out some examples:
@@ -371,11 +371,7 @@ See a [full example](tests/typeorm/index.test.mjs)
 
 ## MikroORM
 
-Import the library
-
-```javascript
-import pgvector from 'pgvector/utils';
-```
+Note: This is currently unreleased
 
 Enable the extension
 
@@ -383,29 +379,25 @@ Enable the extension
 await em.execute('CREATE EXTENSION IF NOT EXISTS vector');
 ```
 
-Create a table
-
-```javascript
-await em.execute('CREATE TABLE items (id serial PRIMARY KEY, embedding vector(3))');
-```
-
 Define an entity
 
 ```typescript
+import { Vector } from 'pgvector/mikro-orm';
+
 @Entity()
 class Item {
   @PrimaryKey()
-  id: number
+  id: number;
 
-  @Property()
-  embedding: string
+  @Property({type: Vector})
+  embedding: number[];
 }
 ```
 
 Insert a vector
 
 ```javascript
-em.create(Item, {embedding: pgvector.toSql([1, 2, 3])});
+em.create(Item, {embedding: [1, 2, 3]});
 ```
 
 Get the nearest neighbors to a vector
