@@ -53,8 +53,7 @@ test('example', async () => {
     order: sequelize.literal(`embedding <=> '[1, 1, 1]'`),
     limit: 5
   });
-  expect(items[2].id).toEqual(3);
-  expect(items[3].id).toEqual(4);
+  expect(items.map(v => v.id).slice(2)).toStrictEqual([3, 4]);
 
   // bad value
   await Item.create({embedding: 'bad'}).catch(e => expect(e.message).toMatch('malformed vector literal'));
