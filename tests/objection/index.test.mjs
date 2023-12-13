@@ -1,7 +1,6 @@
 import Knex from 'knex';
 import { Model } from 'objection';
-import pgvector from 'pgvector/objection';
-import { l2Distance, maxInnerProduct, cosineDistance } from 'pgvector/objection';
+import { vector, l2Distance, maxInnerProduct, cosineDistance } from 'pgvector/objection';
 
 test('example', async () => {
   const knex = Knex({
@@ -25,9 +24,9 @@ test('example', async () => {
   });
 
   const newItems = [
-    {embedding: pgvector.toSql([1, 1, 1])},
-    {embedding: pgvector.toSql([2, 2, 2])},
-    {embedding: pgvector.toSql([1, 1, 2])}
+    {embedding: vector([1, 1, 1])},
+    {embedding: vector([2, 2, 2])},
+    {embedding: vector([1, 1, 2])}
   ];
   await Item.query().insert(newItems);
 
@@ -36,9 +35,9 @@ test('example', async () => {
     .orderBy(l2Distance('embedding', [1, 1, 1]))
     .limit(5);
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
-  expect(pgvector.fromSql(items[0].embedding)).toStrictEqual([1, 1, 1]);
-  expect(pgvector.fromSql(items[1].embedding)).toStrictEqual([1, 1, 2]);
-  expect(pgvector.fromSql(items[2].embedding)).toStrictEqual([2, 2, 2]);
+  expect(vector(items[0].embedding).toArray()).toStrictEqual([1, 1, 1]);
+  expect(vector(items[1].embedding).toArray()).toStrictEqual([1, 1, 2]);
+  expect(vector(items[2].embedding).toArray()).toStrictEqual([2, 2, 2]);
 
   // max inner product
   items = await Item.query()
