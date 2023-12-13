@@ -1,3 +1,4 @@
+const { vector } = require('..');
 const utils = require('../utils');
 
 async function registerType(client) {
@@ -18,4 +19,4 @@ function toSql(value) {
   return utils.toSql(value);
 }
 
-module.exports = {registerType, toSql};
+module.exports = {vector, registerType, toSql};
