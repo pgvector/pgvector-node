@@ -236,7 +236,7 @@ Get the nearest neighbors to a vector
 ```javascript
 const items = await db.selectFrom('items')
   .selectAll()
-  .orderBy(sql`embedding <-> '[1,1,1]'`)
+  .orderBy(sql`embedding <-> ${pgvector.toSql([1, 2, 3])}`)
   .limit(5)
   .execute();
 ```

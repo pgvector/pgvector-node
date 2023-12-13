@@ -35,7 +35,7 @@ test('example', async () => {
 
   const items = await db.selectFrom('kysely_items')
     .selectAll()
-    .orderBy(sql`embedding <-> '[1,1,1]'`)
+    .orderBy(sql`embedding <-> ${pgvector.toSql([1, 1, 1])}`)
     .limit(5)
     .execute();
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
