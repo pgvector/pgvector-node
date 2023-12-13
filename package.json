@@ -65,10 +65,14 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "jest": {
-    "testMatch": ["**/*.test.mjs"],
+    "testMatch": [
+      "**/*.test.mjs"
+    ],
     "transform": {}
   },
   "devDependencies": {
+    "@mikro-orm/core": "^5.9.4",
+    "@mikro-orm/postgresql": "^5.9.4",
     "@prisma/client": "^5.7.0",
     "drizzle-orm": "^0.29.1",
     "jest": "^29.5.0",

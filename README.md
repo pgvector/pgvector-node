@@ -2,7 +2,7 @@
 
 [pgvector](https://github.com/pgvector/pgvector) support for Node.js and Bun (and TypeScript)
 
-Supports [node-postgres](https://github.com/brianc/node-postgres), [Knex.js](https://github.com/knex/knex), [Sequelize](https://github.com/sequelize/sequelize), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), [TypeORM](https://github.com/typeorm/typeorm), and [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
+Supports [node-postgres](https://github.com/brianc/node-postgres), [Knex.js](https://github.com/knex/knex), [Sequelize](https://github.com/sequelize/sequelize), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), [TypeORM](https://github.com/typeorm/typeorm), [MikroORM](https://github.com/mikro-orm/mikro-orm), and [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
 
 [![Build Status](https://github.com/pgvector/pgvector-node/workflows/build/badge.svg?branch=master)](https://github.com/pgvector/pgvector-node/actions)
 
@@ -23,6 +23,7 @@ And follow the instructions for your database library:
 - [Prisma](#prisma)
 - [Postgres.js](#postgresjs)
 - [TypeORM](#typeorm)
+- [MicroORM](#microorm)
 - [Drizzle ORM](#drizzle-orm) (experimental)
 
 Or check out some examples:
@@ -367,6 +368,57 @@ const items = await itemRepository
 ```
 
 See a [full example](tests/typeorm/index.test.mjs)
+
+## MikroORM
+
+Import the library
+
+```javascript
+import pgvector from 'pgvector/utils';
+```
+
+Enable the extension
+
+```javascript
+await em.execute('CREATE EXTENSION IF NOT EXISTS vector');
+```
+
+Create a table
+
+```javascript
+await em.execute('CREATE TABLE items (id serial PRIMARY KEY, embedding vector(3))');
+```
+
+Define an entity
+
+```typescript
+@Entity()
+class Item {
+  @PrimaryKey()
+  id: number
+
+  @Property()
+  embedding: string
+}
+```
+
+Insert a vector
+
+```javascript
+em.create(Item, {embedding: pgvector.toSql([1, 2, 3])});
+```
+
+Get the nearest neighbors to a vector
+
+```javascript
+const qb = em.createQueryBuilder(Item);
+const items = await qb
+  .orderBy({[qb.raw("embedding <-> '[1,1,1]'")]: 'ASC'})
+  .limit(5)
+  .getResult();
+```
+
+See a [full example](tests/mikro-orm/index.test.mjs)
 
 ## Drizzle ORM
 
