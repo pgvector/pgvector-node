@@ -1,5 +1,6 @@
 ## 0.2.0 (unreleased)
 
+- Added `vector` function
 - Added `kysely` module
 - Added `objection` module
 - Added experimental `mikro-orm` module
