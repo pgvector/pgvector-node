@@ -20,8 +20,9 @@ test('example', async () => {
   const em = orm.em.fork();
 
   await em.execute('CREATE EXTENSION IF NOT EXISTS vector');
-  await em.execute('DROP TABLE IF EXISTS mikro_items');
-  await em.execute('CREATE TABLE mikro_items (id serial PRIMARY KEY, embedding vector(3))');
+
+  const generator = orm.getSchemaGenerator();
+  await generator.refreshDatabase();
 
   em.create(Item, {embedding: [1, 1, 1]});
   em.create(Item, {embedding: [2, 2, 2]});
