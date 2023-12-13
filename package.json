@@ -24,6 +24,10 @@
       "types": "./types/mikro-orm/index.d.ts",
       "default": "./src/mikro-orm/index.js"
     },
+    "./objection": {
+      "types": "./types/objection/index.d.ts",
+      "default": "./src/objection/index.js"
+    },
     "./pg": {
       "types": "./types/pg/index.d.ts",
       "default": "./src/pg/index.js"
@@ -48,6 +52,9 @@
       ],
       "mikro-orm": [
         "types/mikro-orm/index.d.ts"
+      ],
+      "objection": [
+        "types/objection/index.d.ts"
       ],
       "pg": [
         "types/pg/index.d.ts"

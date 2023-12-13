@@ -148,7 +148,7 @@ See a [full example](tests/knex/index.test.mjs)
 Import the library
 
 ```javascript
-import pgvector from 'pgvector/knex';
+import pgvector from 'pgvector/objection';
 ```
 
 Enable the extension
@@ -179,8 +179,10 @@ await Item.query().insert(newItems);
 Get the nearest neighbors to a vector
 
 ```javascript
+import { l2Distance } from 'pgvector/objection';
+
 const items = await Item.query()
-  .orderBy(knex.l2Distance('embedding', [1, 2, 3]))
+  .orderBy(l2Distance('embedding', [1, 2, 3]))
   .limit(5);
 ```
 

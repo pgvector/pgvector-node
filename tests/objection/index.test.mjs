@@ -1,6 +1,7 @@
 import Knex from 'knex';
 import { Model } from 'objection';
-import pgvector from 'pgvector/knex';
+import pgvector from 'pgvector/objection';
+import { l2Distance, maxInnerProduct, cosineDistance } from 'pgvector/objection';
 
 test('example', async () => {
   const knex = Knex({
@@ -32,7 +33,7 @@ test('example', async () => {
 
   // L2 distance
   let items = await Item.query()
-    .orderBy(knex.l2Distance('embedding', [1, 1, 1]))
+    .orderBy(l2Distance('embedding', [1, 1, 1]))
     .limit(5);
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
   expect(pgvector.fromSql(items[0].embedding)).toStrictEqual([1, 1, 1]);
@@ -41,13 +42,13 @@ test('example', async () => {
 
   // max inner product
   items = await Item.query()
-    .orderBy(knex.maxInnerProduct('embedding', [1, 1, 1]))
+    .orderBy(maxInnerProduct('embedding', [1, 1, 1]))
     .limit(5);
   expect(items.map(v => v.id)).toStrictEqual([2, 3, 1]);
 
   // cosine distance
   items = await Item.query()
-    .orderBy(knex.cosineDistance('embedding', [1, 1, 1]))
+    .orderBy(cosineDistance('embedding', [1, 1, 1]))
     .limit(5);
   expect(items[2].id).toEqual(3);
 
