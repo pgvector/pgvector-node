@@ -1,5 +1,6 @@
 const knex = require('knex');
 const { fromSql, toSql, sqlType } = require('../utils');
+const { vector } = require('..');
 
 knex.SchemaBuilder.extend('enableExtension', function(name) {
   return this.raw('CREATE EXTENSION IF NOT EXISTS ??', [name]);
@@ -22,4 +23,4 @@ knex.QueryBuilder.extend('cosineDistance', function(column, value) {
   return this.client.raw('?? <=> ?', [column, toSql(value)]);
 });
 
-module.exports = {fromSql, toSql};
+module.exports = {vector, fromSql, toSql};

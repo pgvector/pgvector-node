@@ -1,5 +1,4 @@
-require('../knex');
-const { vector } = require('..');
+const { vector } = require('../knex');
 const { raw } = require('objection');
 
 function l2Distance(column, value) {
