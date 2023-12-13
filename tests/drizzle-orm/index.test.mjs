@@ -46,7 +46,7 @@ test('example', async () => {
     .from(items)
     .orderBy(cosineDistance(items.embedding, [1, 1, 1]))
     .limit(5);
-  expect(allItems[2].id).toEqual(3);
+  expect(allItems.map(v => v.id).slice(2)).toStrictEqual([3]);
 
   await client.end();
 });

@@ -40,7 +40,7 @@ test('example', async () => {
   items = await knex('knex_items')
     .orderBy(knex.cosineDistance('embedding', [1, 1, 1]))
     .limit(5);
-  expect(items[2].id).toEqual(3);
+  expect(items.map(v => v.id).slice(2)).toStrictEqual([3]);
 
   await knex.schema.alterTable('knex_items', function(table) {
     table.index(knex.raw('embedding vector_l2_ops'), 'knex_items_embedding_idx', 'hnsw');
