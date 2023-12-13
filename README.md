@@ -202,12 +202,6 @@ See a [full example](tests/objection/index.test.mjs)
 
 ## Kysely
 
-Import the library
-
-```javascript
-import pgvector from 'pgvector/kysely';
-```
-
 Enable the extension
 
 ```javascript
@@ -226,6 +220,8 @@ await db.schema.createTable('items')
 Insert vectors
 
 ```javascript
+import pgvector from 'pgvector/kysely';
+
 const newItems = [
   {embedding: pgvector.toSql([1, 2, 3])},
   {embedding: pgvector.toSql([4, 5, 6])}
