@@ -67,14 +67,13 @@ await client.query('CREATE TABLE items (id bigserial PRIMARY KEY, embedding vect
 Insert a vector
 
 ```javascript
-const embedding = [1, 2, 3];
-await client.query('INSERT INTO items (embedding) VALUES ($1)', [pgvector.toSql(embedding)]);
+await client.query('INSERT INTO items (embedding) VALUES ($1)', [pgvector.toSql([1, 2, 3])]);
 ```
 
 Get the nearest neighbors to a vector
 
 ```javascript
-const result = await client.query('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql(embedding)]);
+const result = await client.query('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql([1, 2, 3])]);
 ```
 
 Add an approximate index
@@ -349,14 +348,13 @@ await db.none('CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3)
 Insert a vector
 
 ```javascript
-const embedding = [1, 2, 3];
-await db.none('INSERT INTO items (embedding) VALUES ($1)', [pgvector.toSql(embedding)]);
+await db.none('INSERT INTO items (embedding) VALUES ($1)', [pgvector.toSql([1, 2, 3])]);
 ```
 
 Get the nearest neighbors to a vector
 
 ```javascript
-const result = await db.any('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql(embedding)]);
+const result = await db.any('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql([1, 2, 3])]);
 ```
 
 Add an approximate index
@@ -406,14 +404,14 @@ model Item {
 Insert a vector
 
 ```javascript
-const embedding = pgvector.toSql([1, 1, 1])
+const embedding = pgvector.toSql([1, 2, 3])
 await prisma.$executeRaw`INSERT INTO items (embedding) VALUES (${embedding}::vector)`
 ```
 
 Get the nearest neighbors to a vector
 
 ```javascript
-const embedding = pgvector.toSql([1, 1, 1])
+const embedding = pgvector.toSql([1, 2, 3])
 const items = await prisma.$queryRaw`SELECT id, embedding::text FROM items ORDER BY embedding <-> ${embedding}::vector LIMIT 5`
 ```
 
