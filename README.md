@@ -536,7 +536,7 @@ await em.execute('CREATE EXTENSION IF NOT EXISTS vector');
 Define an entity
 
 ```typescript
-import { Vector } from 'pgvector/mikro-orm';
+import { VectorType } from 'pgvector/mikro-orm';
 
 @Entity()
 class Item {
