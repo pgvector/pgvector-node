@@ -403,12 +403,15 @@ em.create(Item, {embedding: [1, 2, 3]});
 Get the nearest neighbors to a vector
 
 ```javascript
-const qb = em.createQueryBuilder(Item);
-const items = await qb
-  .orderBy({[qb.raw("embedding <-> '[1,1,1]'")]: 'ASC'})
+import { l2Distance } from 'pgvector/mikro-orm';
+
+const items = await em.createQueryBuilder(Item)
+  .orderBy({[l2Distance(em, 'embedding', [1, 2, 3])]: 'ASC'})
   .limit(5)
   .getResult();
 ```
+
+Also supports `maxInnerProduct` and `cosineDistance`
 
 See a [full example](tests/mikro-orm/index.test.mjs)
 

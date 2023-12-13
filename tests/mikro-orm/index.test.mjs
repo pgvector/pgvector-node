@@ -1,6 +1,6 @@
 import { EntitySchema, MikroORM } from '@mikro-orm/core';
 import { EntityManager } from '@mikro-orm/postgresql';
-import { Vector } from 'pgvector/mikro-orm';
+import { Vector, l2Distance, maxInnerProduct, cosineDistance } from 'pgvector/mikro-orm';
 
 test('example', async () => {
   const Item = new EntitySchema({
@@ -30,15 +30,29 @@ test('example', async () => {
   em.create(Item, {embedding: [1, 1, 2]});
   em.create(Item, {});
 
-  const qb = em.createQueryBuilder(Item);
-  const items = await qb
-    .orderBy({[qb.raw("embedding <-> '[1,1,1]'")]: 'ASC'})
+  // L2 distance
+  let items = await em.createQueryBuilder(Item)
+    .orderBy({[l2Distance(em, 'embedding', [1, 1, 1])]: 'ASC'})
     .limit(5)
     .getResult();
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
   expect(items[0].embedding).toStrictEqual([1, 1, 1]);
   expect(items[1].embedding).toStrictEqual([1, 1, 2]);
   expect(items[2].embedding).toStrictEqual([2, 2, 2]);
+
+  // max inner product
+  items = await em.createQueryBuilder(Item)
+    .orderBy({[maxInnerProduct(em, 'embedding', [1, 1, 1])]: 'ASC'})
+    .limit(5)
+    .getResult();
+  expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
+
+  // cosine distance
+  items = await em.createQueryBuilder(Item)
+    .orderBy({[cosineDistance(em, 'embedding', [1, 1, 1])]: 'ASC'})
+    .limit(5)
+    .getResult();
+  expect(items.map(v => v.id).slice(2)).toStrictEqual([3, 4]);
 
   orm.close();
 });

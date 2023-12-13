@@ -21,4 +21,20 @@ class Vector extends Type {
   }
 }
 
-module.exports = {Vector};
+function distance(op, em, column, value) {
+  return em.raw(`?? ${op} ?`, [column, utils.toSql(value)]);
+}
+
+function l2Distance(em, column, value) {
+  return distance('<->', em, column, value);
+}
+
+function maxInnerProduct(em, column, value) {
+  return distance('<#>', em, column, value);
+}
+
+function cosineDistance(em, column, value) {
+  return distance('<=>', em, column, value);
+}
+
+module.exports = {Vector, l2Distance, maxInnerProduct, cosineDistance};
