@@ -162,7 +162,7 @@ pgvector.registerType(Sequelize);
 Add a vector field
 
 ```javascript
-Item.init({
+const Item = sequelize.define('Item', {
   embedding: {
     type: DataTypes.VECTOR(3)
   }
@@ -183,6 +183,22 @@ const items = await Item.findAll({
   limit: 5
 });
 ```
+
+Add an approximate index
+
+```javascript
+const Item = sequelize.define('Item', ..., {
+  indexes: [
+    {
+      fields: ['embedding'],
+      using: 'hnsw',
+      operator: 'vector_l2_ops'
+    }
+  ]
+});
+```
+
+Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
 
 See a [full example](tests/sequelize/index.test.mjs)
 

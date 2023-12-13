@@ -21,7 +21,14 @@ test('example', async () => {
     }
   }, {
     modelName: 'Item',
-    tableName: 'sequelize_items'
+    tableName: 'sequelize_items',
+    indexes: [
+      {
+        fields: ['embedding'],
+        using: 'hnsw',
+        operator: 'vector_l2_ops'
+      }
+    ]
   });
 
   await Item.sync({force: true});
@@ -29,15 +36,16 @@ test('example', async () => {
   await Item.create({embedding: [1, 1, 1]});
   await Item.create({embedding: [2, 2, 2]});
   await Item.create({embedding: [1, 1, 2]});
-  await Item.create({});
 
   // L2 distance
   let items = await Item.findAll({
     order: sequelize.literal(`embedding <-> '[1, 1, 1]'`),
     limit: 5
   });
-  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
+  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
   expect(items[1].embedding).toStrictEqual([1, 1, 2]);
+
+  await Item.create({});
 
   // max inner product
   items = await Item.findAll({
