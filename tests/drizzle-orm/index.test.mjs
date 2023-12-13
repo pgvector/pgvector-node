@@ -20,7 +20,8 @@ test('example', async () => {
   const newItems = [
     {embedding: [1, 1, 1]},
     {embedding: [2, 2, 2]},
-    {embedding: [1, 1, 2]}
+    {embedding: [1, 1, 2]},
+    {embedding: null}
   ];
   await db.insert(items).values(newItems);
 
@@ -29,7 +30,7 @@ test('example', async () => {
     .from(items)
     .orderBy(l2Distance(items.embedding, [1, 1, 1]))
     .limit(5);
-  expect(allItems.map(v => v.id)).toStrictEqual([1, 3, 2]);
+  expect(allItems.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
   expect(allItems[0].embedding).toStrictEqual([1, 1, 1]);
   expect(allItems[1].embedding).toStrictEqual([1, 1, 2]);
   expect(allItems[2].embedding).toStrictEqual([2, 2, 2]);
@@ -39,14 +40,14 @@ test('example', async () => {
     .from(items)
     .orderBy(maxInnerProduct(items.embedding, [1, 1, 1]))
     .limit(5);
-  expect(allItems.map(v => v.id)).toStrictEqual([2, 3, 1]);
+  expect(allItems.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
 
   // cosine distance
   allItems = await db.select()
     .from(items)
     .orderBy(cosineDistance(items.embedding, [1, 1, 1]))
     .limit(5);
-  expect(allItems.map(v => v.id).slice(2)).toStrictEqual([3]);
+  expect(allItems.map(v => v.id).slice(2)).toStrictEqual([3, 4]);
 
   await client.end();
 });

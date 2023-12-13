@@ -28,7 +28,7 @@ test('example', async () => {
   em.create(Item, {embedding: [1, 1, 1]});
   em.create(Item, {embedding: [2, 2, 2]});
   em.create(Item, {embedding: [1, 1, 2]});
-  em.create(Item, {});
+  em.create(Item, {embedding: null});
 
   // L2 distance
   let items = await em.createQueryBuilder(Item)
