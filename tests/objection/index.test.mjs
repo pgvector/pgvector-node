@@ -20,7 +20,7 @@ test('example', async () => {
   await knex.schema.dropTableIfExists('objection_items');
   await knex.schema.createTable('objection_items', (table) => {
     table.increments('id');
-    table.vector('embedding', {dimensions: 3});
+    table.vector('embedding', 3);
   });
 
   const newItems = [

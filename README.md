@@ -162,7 +162,7 @@ Create a table
 ```javascript
 await knex.schema.createTable('items', (table) => {
   table.increments('id');
-  table.vector('embedding', {dimensions: 3});
+  table.vector('embedding', 3);
 });
 ```
 
