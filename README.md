@@ -18,7 +18,7 @@ And follow the instructions for your database library:
 
 - [node-postgres](#node-postgres)
 - [Knex.js](#knexjs)
-- [Objection.js](#objectionjs)
+- [Objection.js](#objectionjs) (unreleased)
 - [Kysely](#kysely)
 - [Sequelize](#sequelize)
 - [pg-promise](#pg-promise)
