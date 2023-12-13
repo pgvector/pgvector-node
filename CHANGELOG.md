@@ -1,14 +1,14 @@
 ## 0.1.7 (unreleased)
 
-- Added `mikro-orm` export
+- Added `mikro-orm` module
 
 ## 0.1.6 (2023-12-12)
 
-- Added `knex` export
+- Added `knex` module
 
 ## 0.1.5 (2023-08-19)
 
-- Added experimental support for Drizzle ORM
+- Added experimental `drizzle-orm` module
 - Improved TypeScript support
 
 ## 0.1.4 (2023-05-02)
@@ -17,7 +17,7 @@
 
 ## 0.1.3 (2023-04-25)
 
-- Added `utils` export
+- Added `utils` module
 
 ## 0.1.2 (2023-04-09)
 
