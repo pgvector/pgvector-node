@@ -19,7 +19,7 @@ And follow the instructions for your database library:
 - [node-postgres](#node-postgres)
 - [Knex.js](#knexjs)
 - [Objection.js](#objectionjs) (unreleased)
-- [Kysely](#kysely)
+- [Kysely](#kysely) (unreleased)
 - [Sequelize](#sequelize)
 - [pg-promise](#pg-promise)
 - [Prisma](#prisma)
@@ -205,7 +205,7 @@ See a [full example](tests/objection/index.test.mjs)
 Import the library
 
 ```javascript
-import pgvector from 'pgvector/utils';
+import pgvector from 'pgvector/kysely';
 ```
 
 Enable the extension
@@ -236,9 +236,11 @@ await db.insertInto('items').values(newItems).execute();
 Get the nearest neighbors to a vector
 
 ```javascript
+import { l2Distance } from 'pgvector/kysely';
+
 const items = await db.selectFrom('items')
   .selectAll()
-  .orderBy(sql`embedding <-> ${pgvector.toSql([1, 2, 3])}`)
+  .orderBy(l2Distance('embedding', [1, 2, 3]))
   .limit(5)
   .execute();
 ```
