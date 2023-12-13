@@ -243,6 +243,16 @@ Get the nearest neighbors to a vector
 const result = await db.any('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql(embedding)]);
 ```
 
+Add an approximate index
+
+```javascript
+await db.none('CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)');
+// or
+await db.none('CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)');
+```
+
+Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
+
 See a [full example](tests/pg-promise/index.test.mjs)
 
 ## Prisma

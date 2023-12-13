@@ -27,5 +27,7 @@ test('example', async () => {
   expect(items[1].embedding).toStrictEqual([1, 1, 2]);
   expect(items[2].embedding).toStrictEqual([2, 2, 2]);
 
+  await db.none('CREATE INDEX ON pg_promise_items USING hnsw (embedding vector_l2_ops)');
+
   await pgp.end();
 });
