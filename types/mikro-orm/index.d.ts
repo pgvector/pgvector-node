@@ -1,4 +1,4 @@
-export class Vector extends Type<string, string> {
+export class VectorType extends Type<string, string> {
     constructor();
     convertToDatabaseValue(value: any, platform: any): string;
     convertToJSValue(value: any, platform: any): any;
