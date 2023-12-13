@@ -1,5 +1,5 @@
 import pgpromise from 'pg-promise';
-import { vector, registerType } from 'pgvector/pg';
+import { vector, registerType } from 'pgvector/pg-promise';
 
 test('example', async () => {
   const initOptions = {

@@ -3,6 +3,7 @@
 - Added `vector` function
 - Added `kysely` module
 - Added `objection` module
+- Added `pg-promise` module
 - Added experimental `mikro-orm` module
 - Added distance functions for Sequelize
 - Dropped support for Node < 18

@@ -40,6 +40,10 @@
       "types": "./types/pg/index.d.ts",
       "default": "./src/pg/index.js"
     },
+    "./pg-promise": {
+      "types": "./types/pg-promise/index.d.ts",
+      "default": "./src/pg-promise/index.js"
+    },
     "./sequelize": {
       "types": "./types/sequelize/index.d.ts",
       "default": "./src/sequelize/index.js"
@@ -72,6 +76,9 @@
       ],
       "pg": [
         "types/pg/index.d.ts"
+      ],
+      "pg-promise": [
+        "types/pg-promise/index.d.ts"
       ],
       "sequelize": [
         "types/sequelize/index.d.ts"
