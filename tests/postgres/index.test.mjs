@@ -22,5 +22,7 @@ test('example', async () => {
   expect(pgvector.fromSql(items[1].embedding)).toStrictEqual([1, 1, 2]);
   expect(pgvector.fromSql(items[2].embedding)).toStrictEqual([2, 2, 2]);
 
+  await sql`CREATE INDEX ON postgres_items USING hnsw (embedding vector_l2_ops)`;
+
   await sql.end();
 });

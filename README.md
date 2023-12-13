@@ -340,6 +340,16 @@ const embedding = pgvector.toSql([1, 2, 3]);
 const items = await sql`SELECT * FROM items ORDER BY embedding <-> ${ embedding } LIMIT 5`;
 ```
 
+Add an approximate index
+
+```javascript
+await sql`CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)`;
+// or
+await sql`CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)`;
+```
+
+Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
+
 See a [full example](tests/postgres/index.test.mjs)
 
 ## TypeORM
