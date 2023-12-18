@@ -18,14 +18,14 @@ And follow the instructions for your database library:
 
 - [node-postgres](#node-postgres)
 - [Knex.js](#knexjs)
-- [Objection.js](#objectionjs) (unreleased)
-- [Kysely](#kysely) (unreleased)
+- [Objection.js](#objectionjs)
+- [Kysely](#kysely)
 - [Sequelize](#sequelize)
 - [pg-promise](#pg-promise)
 - [Prisma](#prisma)
 - [Postgres.js](#postgresjs)
 - [TypeORM](#typeorm)
-- [MikroORM](#mikroorm) (experimental, unreleased)
+- [MikroORM](#mikroorm)
 - [Drizzle ORM](#drizzle-orm) (experimental)
 
 Or check out some examples:
@@ -107,7 +107,7 @@ Create a table
 ```javascript
 await knex.schema.createTable('items', (table) => {
   table.increments('id');
-  table.vector('embedding', {dimensions: 3});
+  table.vector('embedding', 3);
 });
 ```
 
@@ -294,10 +294,12 @@ Get the nearest neighbors to a vector
 
 ```javascript
 const items = await Item.findAll({
-  order: sequelize.literal(`embedding <-> '[1, 2, 3]'`),
+  order: l2Distance('embedding', [1, 1, 1], sequelize),
   limit: 5
 });
 ```
+
+Also supports `maxInnerProduct` and `cosineDistance`
 
 Add an approximate index
 
@@ -329,7 +331,7 @@ Register the type
 
 ```javascript
 import pgpromise from 'pg-promise';
-import pgvector from 'pgvector/pg';
+import pgvector from 'pgvector/pg-promise';
 
 const initOptions = {
   async connect(e) {
@@ -374,7 +376,7 @@ See a [full example](tests/pg-promise/index.test.mjs)
 Import the library
 
 ```javascript
-import pgvector from 'pgvector/utils';
+import pgvector from 'pgvector';
 ```
 
 Add the extension to the schema
@@ -422,7 +424,7 @@ See a [full example](tests/prisma/index.test.mjs) (and the [schema](prisma/schem
 Import the library
 
 ```javascript
-import pgvector from 'pgvector/utils';
+import pgvector from 'pgvector';
 ```
 
 Enable the extension
@@ -471,7 +473,7 @@ See a [full example](tests/postgres/index.test.mjs)
 Import the library
 
 ```javascript
-import pgvector from 'pgvector/utils';
+import pgvector from 'pgvector';
 ```
 
 Enable the extension
@@ -520,8 +522,6 @@ const items = await itemRepository
 See a [full example](tests/typeorm/index.test.mjs)
 
 ## MikroORM
-
-Note: This is currently experimental and unreleased
 
 Enable the extension
 

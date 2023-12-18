@@ -1,9 +1,10 @@
-## 0.1.7 (unreleased)
+## 0.1.7 (2023-12-18)
 
+- Added main module
 - Added `kysely` module
+- Added `mikro-orm` module
 - Added `objection` module
 - Added `pg-promise` module
-- Added experimental `mikro-orm` module
 - Added distance functions for Sequelize
 
 ## 0.1.6 (2023-12-12)
