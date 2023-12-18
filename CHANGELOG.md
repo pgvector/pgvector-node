@@ -1,4 +1,4 @@
-## 0.2.0 (unreleased)
+## 0.1.7 (unreleased)
 
 - Added `vector` function
 - Added `kysely` module
@@ -6,7 +6,6 @@
 - Added `pg-promise` module
 - Added experimental `mikro-orm` module
 - Added distance functions for Sequelize
-- Dropped support for Node < 18
 
 ## 0.1.6 (2023-12-12)
 
