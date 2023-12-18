@@ -1,6 +1,5 @@
 ## 0.1.7 (unreleased)
 
-- Added `vector` function
 - Added `kysely` module
 - Added `objection` module
 - Added `pg-promise` module

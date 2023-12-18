@@ -1,3 +1,3 @@
-import { vector } from "../pg";
 import { registerType } from "../pg";
-export { vector, registerType };
+import { toSql } from "../pg";
+export { registerType, toSql };

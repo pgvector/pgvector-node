@@ -1,3 +1,3 @@
-const { vector, registerType } = require('../pg');
+const { registerType, toSql } = require('../pg');
 
-module.exports = {vector, registerType};
+module.exports = {registerType, toSql};

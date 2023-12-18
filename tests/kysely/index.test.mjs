@@ -1,6 +1,7 @@
 import pg from 'pg';
 import { Kysely, PostgresDialect, sql } from 'kysely';
-import { vector, l2Distance, maxInnerProduct, cosineDistance } from 'pgvector/kysely';
+import pgvector from 'pgvector/kysely';
+import { l2Distance, maxInnerProduct, cosineDistance } from 'pgvector/kysely';
 
 test('example', async () => {
   const dialect = new PostgresDialect({
@@ -25,9 +26,9 @@ test('example', async () => {
     .execute();
 
   const newItems = [
-    {embedding: vector([1, 1, 1])},
-    {embedding: vector([2, 2, 2])},
-    {embedding: vector([1, 1, 2])},
+    {embedding: pgvector.toSql([1, 1, 1])},
+    {embedding: pgvector.toSql([2, 2, 2])},
+    {embedding: pgvector.toSql([1, 1, 2])},
     {embedding: null}
   ];
   await db.insertInto('kysely_items')
@@ -40,9 +41,9 @@ test('example', async () => {
     .limit(5)
     .execute();
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
-  expect(vector(items[0].embedding).toArray()).toStrictEqual([1, 1, 1]);
-  expect(vector(items[1].embedding).toArray()).toStrictEqual([1, 1, 2]);
-  expect(vector(items[2].embedding).toArray()).toStrictEqual([2, 2, 2]);
+  expect(pgvector.fromSql(items[0].embedding)).toStrictEqual([1, 1, 1]);
+  expect(pgvector.fromSql(items[1].embedding)).toStrictEqual([1, 1, 2]);
+  expect(pgvector.fromSql(items[2].embedding)).toStrictEqual([2, 2, 2]);
 
   items = await db.selectFrom('kysely_items')
     .selectAll()

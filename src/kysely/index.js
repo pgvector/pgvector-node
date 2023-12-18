@@ -1,16 +1,16 @@
 const { sql } = require('kysely');
-const { vector } = require('..');
+const { fromSql, toSql } = require('..');
 
 function l2Distance(column, value) {
-  return sql`${sql.ref(column)} <-> ${vector(value)}`;
+  return sql`${sql.ref(column)} <-> ${toSql(value)}`;
 }
 
 function maxInnerProduct(column, value) {
-  return sql`${sql.ref(column)} <#> ${vector(value)}`;
+  return sql`${sql.ref(column)} <#> ${toSql(value)}`;
 }
 
 function cosineDistance(column, value) {
-  return sql`${sql.ref(column)} <=> ${vector(value)}`;
+  return sql`${sql.ref(column)} <=> ${toSql(value)}`;
 }
 
-module.exports = {vector, l2Distance, maxInnerProduct, cosineDistance};
+module.exports = {fromSql, toSql, l2Distance, maxInnerProduct, cosineDistance};

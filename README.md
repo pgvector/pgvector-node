@@ -148,7 +148,7 @@ See a [full example](tests/knex/index.test.mjs)
 Import the library
 
 ```javascript
-import { vector } from 'pgvector/objection';
+import pgvector from 'pgvector/objection';
 ```
 
 Enable the extension
@@ -170,8 +170,8 @@ Insert vectors
 
 ```javascript
 const newItems = [
-  {embedding: vector([1, 2, 3])},
-  {embedding: vector([4, 5, 6])}
+  {embedding: pgvector.toSql([1, 2, 3])},
+  {embedding: pgvector.toSql([4, 5, 6])}
 ];
 await Item.query().insert(newItems);
 ```
@@ -220,11 +220,11 @@ await db.schema.createTable('items')
 Insert vectors
 
 ```javascript
-import { vector } from 'pgvector/kysely';
+import pgvector from 'pgvector/kysely';
 
 const newItems = [
-  {embedding: vector([1, 2, 3])},
-  {embedding: vector([4, 5, 6])}
+  {embedding: pgvector.toSql([1, 2, 3])},
+  {embedding: pgvector.toSql([4, 5, 6])}
 ];
 await db.insertInto('items').values(newItems).execute();
 ```
