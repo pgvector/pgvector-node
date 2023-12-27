@@ -2,7 +2,7 @@
 
 [pgvector](https://github.com/pgvector/pgvector) support for Node.js and Bun (and TypeScript)
 
-Supports [node-postgres](https://github.com/brianc/node-postgres), [Knex.js](https://github.com/knex/knex), [Objection.js](https://github.com/vincit/objection.js), [Kysely](https://github.com/kysely-org/kysely), [Sequelize](https://github.com/sequelize/sequelize), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), [TypeORM](https://github.com/typeorm/typeorm), [MikroORM](https://github.com/mikro-orm/mikro-orm), and [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
+Supports [node-postgres](https://github.com/brianc/node-postgres), [Knex.js](https://github.com/knex/knex), [Objection.js](https://github.com/vincit/objection.js), [Kysely](https://github.com/kysely-org/kysely), [Sequelize](https://github.com/sequelize/sequelize), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), [Slonik](https://github.com/gajus/slonik), [TypeORM](https://github.com/typeorm/typeorm), [MikroORM](https://github.com/mikro-orm/mikro-orm), and [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
 
 [![Build Status](https://github.com/pgvector/pgvector-node/workflows/build/badge.svg?branch=master)](https://github.com/pgvector/pgvector-node/actions)
 
@@ -24,6 +24,7 @@ And follow the instructions for your database library:
 - [pg-promise](#pg-promise)
 - [Prisma](#prisma)
 - [Postgres.js](#postgresjs)
+- [Slonik](#slonik)
 - [TypeORM](#typeorm)
 - [MikroORM](#mikroorm)
 - [Drizzle ORM](#drizzle-orm) (experimental)
@@ -467,6 +468,52 @@ await sql`CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)`;
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
 
 See a [full example](tests/postgres/index.test.mjs)
+
+## Slonik
+
+Import the library
+
+```javascript
+import pgvector from 'pgvector';
+```
+
+Enable the extension
+
+```javascript
+await pool.query(sql.unsafe`CREATE EXTENSION IF NOT EXISTS vector`);
+```
+
+Create a table
+
+```javascript
+await pool.query(sql.unsafe`CREATE TABLE items (id serial PRIMARY KEY, embedding vector(3))`);
+```
+
+Insert a vector
+
+```javascript
+const embedding = pgvector.toSql([1, 2, 3]);
+await pool.query(sql.unsafe`INSERT INTO items (embedding) VALUES (${embedding})`);
+```
+
+Get the nearest neighbors to a vector
+
+```javascript
+const embedding = pgvector.toSql([1, 2, 3]);
+const items = await pool.query(sql.unsafe`SELECT * FROM items ORDER BY embedding <-> ${embedding} LIMIT 5`);
+```
+
+Add an approximate index
+
+```javascript
+await pool.query(sql.unsafe`CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)`);
+// or
+await pool.query(sql.unsafe`CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)`);
+```
+
+Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
+
+See a [full example](tests/slonik/index.test.mjs)
 
 ## TypeORM
 
