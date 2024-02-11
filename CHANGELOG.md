@@ -1,3 +1,7 @@
+## 0.1.8 (unreleased)
+
+- Added support for MikroORM 6
+
 ## 0.1.7 (2023-12-18)
 
 - Added main module

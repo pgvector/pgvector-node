@@ -1,5 +1,4 @@
-import { EntitySchema, MikroORM } from '@mikro-orm/core';
-import { EntityManager } from '@mikro-orm/postgresql';
+import { MikroORM, EntityManager, EntitySchema } from '@mikro-orm/postgresql';
 import { VectorType, l2Distance, maxInnerProduct, cosineDistance } from 'pgvector/mikro-orm';
 
 test('example', async () => {
@@ -15,8 +14,7 @@ test('example', async () => {
   const orm = await MikroORM.init({
     entities: [Item],
     dbName: 'pgvector_node_test',
-    user: process.env['USER'],
-    type: 'postgresql'
+    user: process.env['USER']
   });
   const em = orm.em.fork();
 
@@ -32,7 +30,7 @@ test('example', async () => {
 
   // L2 distance
   let items = await em.createQueryBuilder(Item)
-    .orderBy({[l2Distance('embedding', [1, 1, 1], em)]: 'ASC'})
+    .orderBy({[l2Distance('embedding', [1, 1, 1])]: 'ASC'})
     .limit(5)
     .getResult();
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
@@ -42,14 +40,14 @@ test('example', async () => {
 
   // max inner product
   items = await em.createQueryBuilder(Item)
-    .orderBy({[maxInnerProduct('embedding', [1, 1, 1], em)]: 'ASC'})
+    .orderBy({[maxInnerProduct('embedding', [1, 1, 1])]: 'ASC'})
     .limit(5)
     .getResult();
   expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
 
   // cosine distance
   items = await em.createQueryBuilder(Item)
-    .orderBy({[cosineDistance('embedding', [1, 1, 1], em)]: 'ASC'})
+    .orderBy({[cosineDistance('embedding', [1, 1, 1])]: 'ASC'})
     .limit(5)
     .getResult();
   expect(items.map(v => v.id).slice(2)).toStrictEqual([3, 4]);

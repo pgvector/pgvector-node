@@ -1,4 +1,4 @@
-const { Type } = require('@mikro-orm/core');
+const { Type, raw } = require('@mikro-orm/core');
 const utils = require('../utils');
 
 class VectorType extends Type {
@@ -22,7 +22,11 @@ class VectorType extends Type {
 }
 
 function distance(op, column, value, em) {
-  return em.raw(`?? ${op} ?`, [column, utils.toSql(value)]);
+  if (raw) {
+    return raw(`?? ${op} ?`, [column, utils.toSql(value)])
+  } else {
+    return em.raw(`?? ${op} ?`, [column, utils.toSql(value)]);
+  }
 }
 
 function l2Distance(column, value, em) {
