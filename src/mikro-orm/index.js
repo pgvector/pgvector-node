@@ -23,7 +23,7 @@ class VectorType extends Type {
 
 function distance(op, column, value, em) {
   if (raw) {
-    return raw(`?? ${op} ?`, [column, utils.toSql(value)])
+    return raw(`?? ${op} ?`, [column, utils.toSql(value)]);
   } else {
     return em.raw(`?? ${op} ?`, [column, utils.toSql(value)]);
   }
