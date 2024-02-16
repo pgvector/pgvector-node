@@ -1,5 +1,6 @@
 const util = require('util');
 const utils = require('../utils');
+const { Utils } = require('sequelize');
 
 function registerType(Sequelize) {
   const DataTypes = Sequelize.DataTypes;
@@ -43,7 +44,7 @@ function registerType(Sequelize) {
 }
 
 function distance(op, column, value, sequelize) {
-  const quotedColumn = sequelize.dialect.queryGenerator.quoteIdentifier(column);
+  const quotedColumn = column instanceof Utils.Literal ? column.val : sequelize.dialect.queryGenerator.quoteIdentifier(column);
   const escapedValue = sequelize.escape(utils.toSql(value));
   return sequelize.literal(`${quotedColumn} ${op} ${escapedValue}`);
 }

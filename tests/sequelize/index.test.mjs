@@ -52,7 +52,7 @@ test('example', async () => {
 
   // max inner product
   items = await Item.findAll({
-    order: maxInnerProduct('embedding', [1, 1, 1], sequelize),
+    order: maxInnerProduct(sequelize.literal('"Item".embedding'), [1, 1, 1], sequelize),
     limit: 5
   });
   expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);

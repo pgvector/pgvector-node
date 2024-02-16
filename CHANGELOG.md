@@ -1,3 +1,7 @@
+## 0.1.9 (unreleased)
+
+- Added support for passing literals to distance functions with Sequelize
+
 ## 0.1.8 (2024-02-11)
 
 - Added support for MikroORM 6
