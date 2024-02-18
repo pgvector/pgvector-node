@@ -80,9 +80,9 @@ const result = await client.query('SELECT * FROM items ORDER BY embedding <-> $1
 Add an approximate index
 
 ```javascript
-await client.query('CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)');
-// or
 await client.query('CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)');
+// or
+await client.query('CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)');
 ```
 
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
@@ -363,9 +363,9 @@ const result = await db.any('SELECT * FROM items ORDER BY embedding <-> $1 LIMIT
 Add an approximate index
 
 ```javascript
-await db.none('CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)');
-// or
 await db.none('CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)');
+// or
+await db.none('CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)');
 ```
 
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
@@ -460,9 +460,9 @@ const items = await sql`SELECT * FROM items ORDER BY embedding <-> ${ embedding 
 Add an approximate index
 
 ```javascript
-await sql`CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)`;
-// or
 await sql`CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)`;
+// or
+await sql`CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)`;
 ```
 
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
@@ -506,9 +506,9 @@ const items = await pool.query(sql.unsafe`SELECT * FROM items ORDER BY embedding
 Add an approximate index
 
 ```javascript
-await pool.query(sql.unsafe`CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)`);
-// or
 await pool.query(sql.unsafe`CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)`);
+// or
+await pool.query(sql.unsafe`CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)`);
 ```
 
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
