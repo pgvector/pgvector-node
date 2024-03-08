@@ -34,6 +34,7 @@ Or check out some examples:
 - [Embeddings](examples/openai/example.js) with OpenAI
 - [Sentence embeddings](examples/transformers/example.js) with Transformers.js
 - [Recommendations](examples/disco/example.js) with Disco
+- [Bulk loading](examples/loading/example.js) with `COPY`
 
 ## node-postgres
 
