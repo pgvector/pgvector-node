@@ -375,6 +375,8 @@ See a [full example](tests/pg-promise/index.test.mjs)
 
 ## Prisma
 
+Note: `prisma migrate dev` does not support pgvector indexes
+
 Import the library
 
 ```javascript
