@@ -215,7 +215,7 @@ Create a table
 ```javascript
 await db.schema.createTable('items')
   .addColumn('id', 'serial', (cb) => cb.primaryKey())
-  .addColumn('embedding', 'vector(3)')
+  .addColumn('embedding', sql`vector(3)`)
   .execute();
 ```
 

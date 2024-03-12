@@ -22,7 +22,7 @@ test('example', async () => {
 
   await db.schema.createTable('kysely_items')
     .addColumn('id', 'serial', (cb) => cb.primaryKey())
-    .addColumn('embedding', 'vector(3)')
+    .addColumn('embedding', sql`vector(3)`)
     .execute();
 
   const newItems = [
