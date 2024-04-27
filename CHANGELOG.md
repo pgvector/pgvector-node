@@ -1,6 +1,7 @@
-## 0.1.9 (unreleased)
+## 0.2.0 (unreleased)
 
 - Added support for passing literals to distance functions with Sequelize
+- Dropped support for Node < 18
 
 ## 0.1.8 (2024-02-11)
 
