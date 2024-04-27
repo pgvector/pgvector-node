@@ -1,4 +1,4 @@
-const util = require('util');
+const util = require('node:util');
 
 function fromSql(value) {
   return value.substring(1, value.length - 1).split(',').map((v) => parseFloat(v));
