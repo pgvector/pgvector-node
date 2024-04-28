@@ -1,6 +1,5 @@
 const { sql } = require('drizzle-orm');
 const { PgColumn, PgColumnBuilder } = require('drizzle-orm/pg-core');
-const util = require('node:util');
 const utils = require('../utils');
 
 class PgVectorBuilder extends PgColumnBuilder {
