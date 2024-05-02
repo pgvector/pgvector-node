@@ -65,7 +65,7 @@ test('example', async () => {
   expect(items.map(v => v.id).slice(2)).toStrictEqual([3, 4]);
 
   // bad value
-  await Item.create({embedding: 'bad'}).catch(e => expect(e.message).toMatch('malformed vector literal'));
+  await Item.create({embedding: 'bad'}).catch(e => expect(e.message).toMatch('invalid input syntax for type vector'));
 
   sequelize.close();
 });
