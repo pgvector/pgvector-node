@@ -13,4 +13,25 @@ function cosineDistance(column, value) {
   return sql`${sql.ref(column)} <=> ${toSql(value)}`;
 }
 
-module.exports = {fromSql, toSql, l2Distance, maxInnerProduct, cosineDistance};
+function l1Distance(column, value) {
+  return sql`${sql.ref(column)} <+> ${toSql(value)}`;
+}
+
+function hammingDistance(column, value) {
+  return sql`${sql.ref(column)} <~> ${value}`;
+}
+
+function jaccardDistance(column, value) {
+  return sql`${sql.ref(column)} <%> ${value}`;
+}
+
+module.exports = {
+  fromSql,
+  toSql,
+  l2Distance,
+  maxInnerProduct,
+  cosineDistance,
+  l1Distance,
+  hammingDistance,
+  jaccardDistance
+};

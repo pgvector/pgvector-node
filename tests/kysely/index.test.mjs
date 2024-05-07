@@ -1,7 +1,7 @@
 import pg from 'pg';
 import { Kysely, PostgresDialect, sql } from 'kysely';
 import pgvector from 'pgvector/kysely';
-import { l2Distance, maxInnerProduct, cosineDistance } from 'pgvector/kysely';
+import { l2Distance, maxInnerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'pgvector/kysely';
 
 test('example', async () => {
   const dialect = new PostgresDialect({
@@ -23,12 +23,13 @@ test('example', async () => {
   await db.schema.createTable('kysely_items')
     .addColumn('id', 'serial', (cb) => cb.primaryKey())
     .addColumn('embedding', sql`vector(3)`)
+    .addColumn('binary_embedding', sql`bit(3)`)
     .execute();
 
   const newItems = [
-    {embedding: pgvector.toSql([1, 1, 1])},
-    {embedding: pgvector.toSql([2, 2, 2])},
-    {embedding: pgvector.toSql([1, 1, 2])},
+    {embedding: pgvector.toSql([1, 1, 1]), binary_embedding: '000'},
+    {embedding: pgvector.toSql([2, 2, 2]), binary_embedding: '101'},
+    {embedding: pgvector.toSql([1, 1, 2]), binary_embedding: '111'},
     {embedding: null}
   ];
   await db.insertInto('kysely_items')
@@ -58,6 +59,27 @@ test('example', async () => {
     .limit(5)
     .execute();
   expect(items.map(v => v.id).slice(2)).toStrictEqual([3, 4]);
+
+  items = await db.selectFrom('kysely_items')
+    .selectAll()
+    .orderBy(l1Distance('embedding', [1, 1, 1]))
+    .limit(5)
+    .execute();
+  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
+
+  items = await db.selectFrom('kysely_items')
+    .selectAll()
+    .orderBy(hammingDistance('binary_embedding', '101'))
+    .limit(5)
+    .execute();
+  expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
+
+  items = await db.selectFrom('kysely_items')
+    .selectAll()
+    .orderBy(jaccardDistance('binary_embedding', '101'))
+    .limit(5)
+    .execute();
+  expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
 
   await db.schema.createIndex('kysely_items_embedding_idx')
     .on('kysely_items')
