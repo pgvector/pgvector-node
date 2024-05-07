@@ -2,7 +2,7 @@ import { sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { pgTable, serial } from 'drizzle-orm/pg-core';
 import postgres from 'postgres';
-import { cosineDistance, l2Distance, maxInnerProduct, l1Distance, hammingDistance, jaccardDistance, vector, halfvec, bit } from 'pgvector/drizzle-orm';
+import { cosineDistance, l2Distance, maxInnerProduct, l1Distance, hammingDistance, jaccardDistance, vector, halfvec, bit, sparsevec } from 'pgvector/drizzle-orm';
 
 test('example', async () => {
   const client = postgres({database: 'pgvector_node_test', onnotice: function() {}});
@@ -10,19 +10,20 @@ test('example', async () => {
 
   await client`CREATE EXTENSION IF NOT EXISTS vector`;
   await client`DROP TABLE IF EXISTS drizzle_items`;
-  await client`CREATE TABLE drizzle_items (id serial PRIMARY KEY, embedding vector(3), half_embedding halfvec(3), binary_embedding bit(3))`;
+  await client`CREATE TABLE drizzle_items (id serial PRIMARY KEY, embedding vector(3), half_embedding halfvec(3), binary_embedding bit(3), sparse_embedding sparsevec(3))`;
 
   const items = pgTable('drizzle_items', {
     id: serial('id').primaryKey(),
     embedding: vector('embedding', {dimensions: 3}),
     halfEmbedding: halfvec('half_embedding', {dimensions: 3}),
-    binaryEmbedding: bit('binary_embedding', {length: 3})
+    binaryEmbedding: bit('binary_embedding', {length: 3}),
+    sparseEmbedding: sparsevec('sparse_embedding', {dimensions: 3})
   });
 
   const newItems = [
-    {embedding: [1, 1, 1], halfEmbedding: [1, 1, 1], binaryEmbedding: '000'},
-    {embedding: [2, 2, 2], halfEmbedding: [2, 2, 2], binaryEmbedding: '101'},
-    {embedding: [1, 1, 2], halfEmbedding: [1, 1, 2], binaryEmbedding: '111'},
+    {embedding: [1, 1, 1], halfEmbedding: [1, 1, 1], binaryEmbedding: '000', sparseEmbedding: '{1:1,2:1,3:1}/3'},
+    {embedding: [2, 2, 2], halfEmbedding: [2, 2, 2], binaryEmbedding: '101', sparseEmbedding: '{1:2,2:2,3:2}/3'},
+    {embedding: [1, 1, 2], halfEmbedding: [1, 1, 2], binaryEmbedding: '111', sparseEmbedding: '{1:1,2:1,3:2}/3'},
     {embedding: null}
   ];
   await db.insert(items).values(newItems);
@@ -41,6 +42,13 @@ test('example', async () => {
   allItems = await db.select()
     .from(items)
     .orderBy(l2Distance(items.halfEmbedding, [1, 1, 1]))
+    .limit(5);
+  expect(allItems.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
+
+  // L2 distance - sparsevec
+  allItems = await db.select()
+    .from(items)
+    .orderBy(l2Distance(items.sparseEmbedding, '{1:1,2:1,3:1}/3'))
     .limit(5);
   expect(allItems.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
 

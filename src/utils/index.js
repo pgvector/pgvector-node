@@ -8,6 +8,23 @@ function toSql(value) {
   return JSON.stringify(value);
 }
 
+// TODO
+function fromSparseSql(value) {
+  return value;
+}
+
+// TODO
+function toSparseSql(value) {
+  return value;
+}
+
+function toAnySql(value) {
+  if (Array.isArray(value)) {
+    return toSql(value);
+  }
+  return value;
+}
+
 function typeWithDimensions(name, dimensions) {
   if (dimensions === undefined || dimensions === null) {
     return name;
@@ -39,4 +56,4 @@ function sparsevecType(dimensions) {
 // for backwards compatibility
 const sqlType = vectorType;
 
-module.exports = {fromSql, toSql, sqlType, vectorType, halfvecType, bitType, sparsevecType};
+module.exports = {fromSql, toSql, fromSparseSql, toSparseSql, toAnySql, sqlType, vectorType, halfvecType, bitType, sparsevecType};
