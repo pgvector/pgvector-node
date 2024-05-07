@@ -1,5 +1,6 @@
 import { MikroORM, EntityManager, EntitySchema } from '@mikro-orm/postgresql';
 import { VectorType, HalfvecType, BitType, SparsevecType, l2Distance, maxInnerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'pgvector/mikro-orm';
+import { SparseVector } from 'pgvector';
 
 test('example', async () => {
   const Item = new EntitySchema({
@@ -26,9 +27,9 @@ test('example', async () => {
   const generator = orm.getSchemaGenerator();
   await generator.refreshDatabase();
 
-  em.create(Item, {embedding: [1, 1, 1], half_embedding: [1, 1, 1], binary_embedding: '000', sparse_embedding: '{1:1,2:1,3:1}/3'});
-  em.create(Item, {embedding: [2, 2, 2], half_embedding: [2, 2, 2], binary_embedding: '101', sparse_embedding: '{1:2,2:2,3:2}/3'});
-  em.create(Item, {embedding: [1, 1, 2], half_embedding: [1, 1, 2], binary_embedding: '111', sparse_embedding: '{1:1,2:1,3:2}/3'});
+  em.create(Item, {embedding: [1, 1, 1], half_embedding: [1, 1, 1], binary_embedding: '000', sparse_embedding: SparseVector.fromDense([1, 1, 1])});
+  em.create(Item, {embedding: [2, 2, 2], half_embedding: [2, 2, 2], binary_embedding: '101', sparse_embedding: SparseVector.fromDense([2, 2, 2])});
+  em.create(Item, {embedding: [1, 1, 2], half_embedding: [1, 1, 2], binary_embedding: '111', sparse_embedding: SparseVector.fromDense([1, 1, 2])});
   em.create(Item, {embedding: null});
 
   // L2 distance
@@ -50,7 +51,7 @@ test('example', async () => {
 
   // L2 distance - sparsevec
   items = await em.createQueryBuilder(Item)
-    .orderBy({[l2Distance('sparse_embedding', '{1:1,2:1,3:1}/3')]: 'ASC'})
+    .orderBy({[l2Distance('sparse_embedding', SparseVector.fromDense([1, 1, 1]))]: 'ASC'})
     .limit(5)
     .getResult();
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
