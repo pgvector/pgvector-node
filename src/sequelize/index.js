@@ -76,6 +76,41 @@ function registerType(Sequelize) {
   PgTypes.HALFVEC.parse = DataTypes.HALFVEC.parse;
   PgTypes.HALFVEC.types = {postgres: ['halfvec']};
   DataTypes.postgres.HALFVEC.key = 'halfvec';
+
+  class SPARSEVEC extends ABSTRACT {
+    constructor(dimensions) {
+      super();
+      this._dimensions = dimensions;
+    }
+
+    toSql() {
+      return utils.sparsevecType(this._dimensions).toUpperCase();
+    }
+
+    _stringify(value) {
+      return utils.toSparseSql(value);
+    }
+
+    static parse(value) {
+      return utils.fromSparseSql(value);
+    }
+  }
+
+  SPARSEVEC.prototype.key = SPARSEVEC.key = 'sparsevec';
+
+  DataTypes.SPARSEVEC = Sequelize.Utils.classToInvokable(SPARSEVEC);
+  DataTypes.SPARSEVEC.types.postgres = ['sparsevec'];
+
+  PgTypes.SPARSEVEC = function SPARSEVEC() {
+    if (!(this instanceof PgTypes.SPARSEVEC)) {
+      return new PgTypes.SPARSEVEC();
+    }
+    DataTypes.SPARSEVEC.apply(this, arguments);
+  };
+  util.inherits(PgTypes.SPARSEVEC, DataTypes.SPARSEVEC);
+  PgTypes.SPARSEVEC.parse = DataTypes.SPARSEVEC.parse;
+  PgTypes.SPARSEVEC.types = {postgres: ['sparsevec']};
+  DataTypes.postgres.SPARSEVEC.key = 'sparsevec';
 }
 
 function distance(op, column, value, sequelize, binary) {

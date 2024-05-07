@@ -25,6 +25,9 @@ test('example', async () => {
     },
     binary_embedding: {
       type: 'BIT(3)'
+    },
+    sparse_embedding: {
+      type: DataTypes.SPARSEVEC(3)
     }
   }, {
     modelName: 'Item',
@@ -40,9 +43,9 @@ test('example', async () => {
 
   await Item.sync({force: true});
 
-  await Item.create({embedding: [1, 1, 1], binary_embedding: '000'});
-  await Item.create({embedding: [2, 2, 2], binary_embedding: '101'});
-  await Item.create({embedding: [1, 1, 2], binary_embedding: '111'});
+  await Item.create({embedding: [1, 1, 1], half_embedding: [1, 1, 1], binary_embedding: '000', sparse_embedding: '{1:1,2:1,3:1}/3'});
+  await Item.create({embedding: [2, 2, 2], half_embedding: [2, 2, 2], binary_embedding: '101', sparse_embedding: '{1:2,2:2,3:2}/3'});
+  await Item.create({embedding: [1, 1, 2], half_embedding: [1, 1, 2], binary_embedding: '111', sparse_embedding: '{1:1,2:1,3:2}/3'});
 
   // L2 distance
   let items = await Item.findAll({
@@ -53,6 +56,20 @@ test('example', async () => {
   expect(items[0].embedding).toStrictEqual([1, 1, 1]);
   expect(items[1].embedding).toStrictEqual([1, 1, 2]);
   expect(items[2].embedding).toStrictEqual([2, 2, 2]);
+
+  // L2 distance - halfvec
+  items = await Item.findAll({
+    order: l2Distance('half_embedding', [1, 1, 1], sequelize),
+    limit: 5
+  });
+  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
+
+  // L2 distance - sparsevec
+  items = await Item.findAll({
+    order: l2Distance('sparse_embedding', '{1:1,2:1,3:1}/3', sequelize),
+    limit: 5
+  });
+  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
 
   await Item.create({});
 
