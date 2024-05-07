@@ -6,14 +6,14 @@ class SparsevecType extends Type {
     if (value === null) {
       return null;
     }
-    return utils.toSparseSql(value);
+    return utils.sparsevecToSql(value);
   }
 
   convertToJSValue(value, platform) {
     if (value === null) {
       return null;
     }
-    return utils.fromSparseSql(value);
+    return utils.sparsevecFromSql(value);
   }
 
   getColumnType(prop, platform) {

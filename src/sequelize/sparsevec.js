@@ -17,11 +17,11 @@ function registerSparsevec(Sequelize) {
     }
 
     _stringify(value) {
-      return utils.toSparseSql(value);
+      return utils.sparsevecToSql(value);
     }
 
     static parse(value) {
-      return utils.fromSparseSql(value);
+      return utils.sparsevecFromSql(value);
     }
   }
 

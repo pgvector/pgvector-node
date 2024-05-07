@@ -9,12 +9,12 @@ function toSql(value) {
 }
 
 // TODO
-function fromSparseSql(value) {
+function sparsevecFromSql(value) {
   return value;
 }
 
 // TODO
-function toSparseSql(value) {
+function sparsevecToSql(value) {
   return value;
 }
 
@@ -59,8 +59,8 @@ const sqlType = vectorType;
 module.exports = {
   fromSql,
   toSql,
-  fromSparseSql,
-  toSparseSql,
+  sparsevecFromSql,
+  sparsevecToSql,
   anyToSql,
   sqlType,
   vectorType,

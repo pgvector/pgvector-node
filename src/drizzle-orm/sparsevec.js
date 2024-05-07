@@ -23,11 +23,11 @@ class PgSparsevec extends PgColumn {
   }
 
   mapFromDriverValue(value) {
-    return utils.fromSparseSql(value);
+    return utils.sparsevecFromSql(value);
   }
 
   mapToDriverValue(value) {
-    return utils.toSparseSql(value);
+    return utils.sparsevecToSql(value);
   }
 }
 
