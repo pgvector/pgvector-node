@@ -22,13 +22,15 @@ test('example', async () => {
   await knex.schema.createTable('objection_items', (table) => {
     table.increments('id');
     table.vector('embedding', 3);
+    table.halfvec('half_embedding', 3);
     table.bit('binary_embedding', {length: 3});
+    table.sparsevec('sparse_embedding', 3);
   });
 
   const newItems = [
-    {embedding: pgvector.toSql([1, 1, 1]), binary_embedding: '000'},
-    {embedding: pgvector.toSql([2, 2, 2]), binary_embedding: '101'},
-    {embedding: pgvector.toSql([1, 1, 2]), binary_embedding: '111'},
+    {embedding: pgvector.toSql([1, 1, 1]), half_embedding: pgvector.toSql([1, 1, 1]), binary_embedding: '000', sparse_embedding: '{1:1,2:1,3:1}/3'},
+    {embedding: pgvector.toSql([2, 2, 2]), half_embedding: pgvector.toSql([2, 2, 2]), binary_embedding: '101', sparse_embedding: '{1:2,2:2,3:2}/3'},
+    {embedding: pgvector.toSql([1, 1, 2]), half_embedding: pgvector.toSql([1, 1, 2]), binary_embedding: '111', sparse_embedding: '{1:1,2:1,3:2}/3'},
     {embedding: null}
   ];
   await Item.query().insert(newItems);
@@ -41,6 +43,18 @@ test('example', async () => {
   expect(pgvector.fromSql(items[0].embedding)).toStrictEqual([1, 1, 1]);
   expect(pgvector.fromSql(items[1].embedding)).toStrictEqual([1, 1, 2]);
   expect(pgvector.fromSql(items[2].embedding)).toStrictEqual([2, 2, 2]);
+
+  // L2 distance - halfvec
+  items = await Item.query()
+    .orderBy(l2Distance('half_embedding', [1, 1, 1]))
+    .limit(5);
+  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
+
+  // L2 distance - sparsevec
+  items = await Item.query()
+    .orderBy(l2Distance('sparse_embedding', '{1:1,2:1,3:1}/3'))
+    .limit(5);
+  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
 
   // max inner product
   items = await Item.query()
