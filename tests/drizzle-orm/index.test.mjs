@@ -20,9 +20,9 @@ test('example', async () => {
   });
 
   const newItems = [
-    {embedding: [1, 1, 1], binaryEmbedding: '000'},
-    {embedding: [2, 2, 2], binaryEmbedding: '101'},
-    {embedding: [1, 1, 2], binaryEmbedding: '111'},
+    {embedding: [1, 1, 1], halfEmbedding: [1, 1, 1], binaryEmbedding: '000'},
+    {embedding: [2, 2, 2], halfEmbedding: [2, 2, 2], binaryEmbedding: '101'},
+    {embedding: [1, 1, 2], halfEmbedding: [1, 1, 2], binaryEmbedding: '111'},
     {embedding: null}
   ];
   await db.insert(items).values(newItems);
@@ -36,6 +36,13 @@ test('example', async () => {
   expect(allItems[0].embedding).toStrictEqual([1, 1, 1]);
   expect(allItems[1].embedding).toStrictEqual([1, 1, 2]);
   expect(allItems[2].embedding).toStrictEqual([2, 2, 2]);
+
+  // L2 distance - halfvec
+  allItems = await db.select()
+    .from(items)
+    .orderBy(l2Distance(items.halfEmbedding, [1, 1, 1]))
+    .limit(5);
+  expect(allItems.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
 
   // max inner product
   allItems = await db.select()
