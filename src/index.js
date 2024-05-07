@@ -14,6 +14,10 @@ class SparseVector {
     return util.format('{%s}/%d', elements, this.dimensions);
   }
 
+  toSql() {
+    return this.toString();
+  }
+
   static fromDense(value) {
     const dimensions = value.length;
     const indices = value.map((v, i) => [v, i]).filter((v) => v[0] != 0).map((v) => v[1]);

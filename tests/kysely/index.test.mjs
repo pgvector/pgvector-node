@@ -2,6 +2,7 @@ import pg from 'pg';
 import { Kysely, PostgresDialect, sql } from 'kysely';
 import pgvector from 'pgvector/kysely';
 import { l2Distance, maxInnerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'pgvector/kysely';
+import { SparseVector } from 'pgvector';
 
 test('example', async () => {
   const dialect = new PostgresDialect({
@@ -29,9 +30,9 @@ test('example', async () => {
     .execute();
 
   const newItems = [
-    {embedding: pgvector.toSql([1, 1, 1]), half_embedding: pgvector.toSql([1, 1, 1]), binary_embedding: '000', sparse_embedding: '{1:1,2:1,3:1}/3'},
-    {embedding: pgvector.toSql([2, 2, 2]), half_embedding: pgvector.toSql([2, 2, 2]), binary_embedding: '101', sparse_embedding: '{1:2,2:2,3:2}/3'},
-    {embedding: pgvector.toSql([1, 1, 2]), half_embedding: pgvector.toSql([1, 1, 2]), binary_embedding: '111', sparse_embedding: '{1:1,2:1,3:2}/3'},
+    {embedding: pgvector.toSql([1, 1, 1]), half_embedding: pgvector.toSql([1, 1, 1]), binary_embedding: '000', sparse_embedding: SparseVector.fromDense([1, 1, 1]).toSql()},
+    {embedding: pgvector.toSql([2, 2, 2]), half_embedding: pgvector.toSql([2, 2, 2]), binary_embedding: '101', sparse_embedding: SparseVector.fromDense([2, 2, 2]).toSql()},
+    {embedding: pgvector.toSql([1, 1, 2]), half_embedding: pgvector.toSql([1, 1, 2]), binary_embedding: '111', sparse_embedding: SparseVector.fromDense([1, 1, 2]).toSql()},
     {embedding: null}
   ];
   await db.insertInto('kysely_items')
@@ -60,7 +61,7 @@ test('example', async () => {
   // L2 distance - sparsevec
   items = await db.selectFrom('kysely_items')
     .selectAll()
-    .orderBy(l2Distance('sparse_embedding', '{1:1,2:1,3:1}/3'))
+    .orderBy(l2Distance('sparse_embedding', SparseVector.fromDense([1, 1, 1]).toSql()))
     .limit(5)
     .execute();
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);

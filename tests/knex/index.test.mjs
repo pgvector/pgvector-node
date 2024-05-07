@@ -1,5 +1,6 @@
 import Knex from 'knex';
 import pgvector from 'pgvector/knex';
+import { SparseVector } from 'pgvector';
 
 test('example', async () => {
   const knex = Knex({
@@ -18,9 +19,9 @@ test('example', async () => {
   });
 
   const newItems = [
-    {embedding: pgvector.toSql([1, 1, 1]), half_embedding: pgvector.toSql([1, 1, 1]), binary_embedding: '000', sparse_embedding: '{1:1,2:1,3:1}/3'},
-    {embedding: pgvector.toSql([2, 2, 2]), half_embedding: pgvector.toSql([2, 2, 2]), binary_embedding: '101', sparse_embedding: '{1:2,2:2,3:2}/3'},
-    {embedding: pgvector.toSql([1, 1, 2]), half_embedding: pgvector.toSql([1, 1, 2]), binary_embedding: '111', sparse_embedding: '{1:1,2:1,3:2}/3'},
+    {embedding: pgvector.toSql([1, 1, 1]), half_embedding: pgvector.toSql([1, 1, 1]), binary_embedding: '000', sparse_embedding: SparseVector.fromDense([1, 1, 1]).toSql()},
+    {embedding: pgvector.toSql([2, 2, 2]), half_embedding: pgvector.toSql([2, 2, 2]), binary_embedding: '101', sparse_embedding: SparseVector.fromDense([2, 2, 2]).toSql()},
+    {embedding: pgvector.toSql([1, 1, 2]), half_embedding: pgvector.toSql([1, 1, 2]), binary_embedding: '111', sparse_embedding: SparseVector.fromDense([1, 1, 2]).toSql()},
     {embedding: null}
   ];
   await knex('knex_items').insert(newItems);
@@ -42,7 +43,7 @@ test('example', async () => {
 
   // L2 distance - sparsevec
   items = await knex('knex_items')
-    .orderBy(knex.l2Distance('sparse_embedding', '{1:1,2:1,3:1}/3'))
+    .orderBy(knex.l2Distance('sparse_embedding', SparseVector.fromDense([1, 1, 1]).toSql()))
     .limit(5);
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
 
