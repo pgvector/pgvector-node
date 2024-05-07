@@ -23,13 +23,14 @@ test('example', async () => {
   await db.schema.createTable('kysely_items')
     .addColumn('id', 'serial', (cb) => cb.primaryKey())
     .addColumn('embedding', sql`vector(3)`)
+    .addColumn('half_embedding', sql`halfvec(3)`)
     .addColumn('binary_embedding', sql`bit(3)`)
     .execute();
 
   const newItems = [
-    {embedding: pgvector.toSql([1, 1, 1]), binary_embedding: '000'},
-    {embedding: pgvector.toSql([2, 2, 2]), binary_embedding: '101'},
-    {embedding: pgvector.toSql([1, 1, 2]), binary_embedding: '111'},
+    {embedding: pgvector.toSql([1, 1, 1]), half_embedding: pgvector.toSql([1, 1, 1]), binary_embedding: '000'},
+    {embedding: pgvector.toSql([2, 2, 2]), half_embedding: pgvector.toSql([2, 2, 2]), binary_embedding: '101'},
+    {embedding: pgvector.toSql([1, 1, 2]), half_embedding: pgvector.toSql([1, 1, 2]), binary_embedding: '111'},
     {embedding: null}
   ];
   await db.insertInto('kysely_items')
@@ -46,6 +47,14 @@ test('example', async () => {
   expect(pgvector.fromSql(items[0].embedding)).toStrictEqual([1, 1, 1]);
   expect(pgvector.fromSql(items[1].embedding)).toStrictEqual([1, 1, 2]);
   expect(pgvector.fromSql(items[2].embedding)).toStrictEqual([2, 2, 2]);
+
+  // L2 distance - halfvec
+  items = await db.selectFrom('kysely_items')
+    .selectAll()
+    .orderBy(l2Distance('half_embedding', [1, 1, 1]))
+    .limit(5)
+    .execute();
+  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
 
   // max inner product
   items = await db.selectFrom('kysely_items')
