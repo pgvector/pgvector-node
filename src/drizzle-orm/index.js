@@ -20,7 +20,7 @@ class PgVector extends PgColumn {
   }
 
   getSQLType() {
-    return utils.sqlType(this.dimensions);
+    return utils.vectorType(this.dimensions);
   }
 
   mapFromDriverValue(value) {

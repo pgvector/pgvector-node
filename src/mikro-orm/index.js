@@ -17,7 +17,7 @@ class VectorType extends Type {
   }
 
   getColumnType(prop, platform) {
-    return utils.sqlType(prop.dimensions);
+    return utils.vectorType(prop.dimensions);
   }
 }
 

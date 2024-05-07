@@ -14,7 +14,7 @@ function registerType(Sequelize) {
     }
 
     toSql() {
-      return utils.sqlType(this._dimensions).toUpperCase();
+      return utils.vectorType(this._dimensions).toUpperCase();
     }
 
     _stringify(value) {
