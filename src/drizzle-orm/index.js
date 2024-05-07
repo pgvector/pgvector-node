@@ -48,9 +48,14 @@ function cosineDistance(column, value) {
   return sql`${column} <=> ${utils.toSql(value)}`;
 }
 
+function l1Distance(column, value) {
+  return sql`${column} <+> ${utils.toSql(value)}`;
+}
+
 module.exports = {
   vector,
   l2Distance,
   maxInnerProduct,
-  cosineDistance
+  cosineDistance,
+  l1Distance
 };

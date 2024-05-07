@@ -2,7 +2,7 @@ import { sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { pgTable, serial } from 'drizzle-orm/pg-core';
 import postgres from 'postgres';
-import { cosineDistance, l2Distance, maxInnerProduct, vector } from 'pgvector/drizzle-orm';
+import { cosineDistance, l2Distance, maxInnerProduct, l1Distance, vector } from 'pgvector/drizzle-orm';
 
 test('example', async () => {
   const client = postgres({database: 'pgvector_node_test', onnotice: function() {}});
@@ -48,6 +48,13 @@ test('example', async () => {
     .orderBy(cosineDistance(items.embedding, [1, 1, 1]))
     .limit(5);
   expect(allItems.map(v => v.id).slice(2)).toStrictEqual([3, 4]);
+
+  // L1 distance
+  allItems = await db.select()
+    .from(items)
+    .orderBy(l1Distance(items.embedding, [1, 1, 1]))
+    .limit(5);
+  expect(allItems.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
 
   await client.end();
 });
