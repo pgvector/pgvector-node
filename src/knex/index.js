@@ -1,5 +1,5 @@
 const knex = require('knex');
-const { fromSql, toSql, sqlType } = require('../utils');
+const { fromSql, toSql, vectorType, halfvecType, sparsevecType } = require('../utils');
 
 knex.SchemaBuilder.extend('enableExtension', function(name) {
   return this.raw('CREATE EXTENSION IF NOT EXISTS ??', [name]);
@@ -7,7 +7,17 @@ knex.SchemaBuilder.extend('enableExtension', function(name) {
 
 knex.TableBuilder.extend('vector', function(name, options) {
   const dimensions = options && (Number.isInteger(options) ? options : options.dimensions);
-  return this.specificType(name, sqlType(dimensions));
+  return this.specificType(name, vectorType(dimensions));
+});
+
+knex.TableBuilder.extend('halfvec', function(name, options) {
+  const dimensions = options && (Number.isInteger(options) ? options : options.dimensions);
+  return this.specificType(name, halfvecType(dimensions));
+});
+
+knex.TableBuilder.extend('sparsevec', function(name, options) {
+  const dimensions = options && (Number.isInteger(options) ? options : options.dimensions);
+  return this.specificType(name, sparsevecType(dimensions));
 });
 
 knex.QueryBuilder.extend('l2Distance', function(column, value) {

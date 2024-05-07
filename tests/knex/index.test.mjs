@@ -12,6 +12,8 @@ test('example', async () => {
   await knex.schema.createTable('knex_items', (table) => {
     table.increments('id');
     table.vector('embedding', {dimensions: 3});
+    table.halfvec('half_embedding', {dimensions: 3});
+    table.sparsevec('sparse_embedding', {dimensions: 3});
   });
 
   const newItems = [

@@ -8,16 +8,31 @@ function toSql(value) {
   return JSON.stringify(value);
 }
 
-function sqlType(dimensions) {
+function typeWithDimensions(name, dimensions) {
   if (dimensions === undefined || dimensions === null) {
-    return 'vector';
+    return name;
   }
 
   if (!Number.isInteger(dimensions)) {
     throw new Error('expected integer');
   }
 
-  return util.format('vector(%d)', dimensions);
+  return util.format('%s(%d)', name, dimensions);
 }
 
-module.exports = {fromSql, toSql, sqlType};
+function vectorType(dimensions) {
+  return typeWithDimensions('vector', dimensions);
+}
+
+function halfvecType(dimensions) {
+  return typeWithDimensions('halfvec', dimensions);
+}
+
+function sparsevecType(dimensions) {
+  return typeWithDimensions('sparsevec', dimensions);
+}
+
+// for backwards compatibility
+const sqlType = vectorType;
+
+module.exports = {fromSql, toSql, sqlType, vectorType, halfvecType, sparsevecType};
