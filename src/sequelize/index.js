@@ -61,4 +61,14 @@ function cosineDistance(column, value, sequelize) {
   return distance('<=>', column, value, sequelize);
 }
 
-module.exports = {registerType, l2Distance, maxInnerProduct, cosineDistance};
+function l1Distance(column, value, sequelize) {
+  return distance('<+>', column, value, sequelize);
+}
+
+module.exports = {
+  registerType,
+  l2Distance,
+  maxInnerProduct,
+  cosineDistance,
+  l1Distance
+};

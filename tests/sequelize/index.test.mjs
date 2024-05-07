@@ -1,6 +1,6 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 import pgvector from 'pgvector/sequelize';
-import { l2Distance, maxInnerProduct, cosineDistance } from 'pgvector/sequelize';
+import { l2Distance, maxInnerProduct, cosineDistance, l1Distance } from 'pgvector/sequelize';
 
 test('example', async () => {
   pgvector.registerType(Sequelize);
@@ -63,6 +63,13 @@ test('example', async () => {
     limit: 5
   });
   expect(items.map(v => v.id).slice(2)).toStrictEqual([3, 4]);
+
+  // L1 distance
+  items = await Item.findAll({
+    order: l1Distance('embedding', [1, 1, 1], sequelize),
+    limit: 5
+  });
+  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
 
   // bad value
   await Item.create({embedding: 'bad'}).catch(e => expect(e.message).toMatch('invalid input syntax for type vector'));
