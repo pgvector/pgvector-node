@@ -32,8 +32,42 @@ class PgVector extends PgColumn {
   }
 }
 
+class PgHalfvecBuilder extends PgColumnBuilder {
+  constructor(name, dimensions) {
+    super(name);
+    this.config.dimensions = dimensions;
+  }
+
+  build(table) {
+    return new PgHalfvec(table, this.config);
+  }
+}
+
+class PgHalfvec extends PgColumn {
+  constructor(table, config) {
+    super(table, config);
+    this.dimensions = config.dimensions;
+  }
+
+  getSQLType() {
+    return utils.halfvecType(this.dimensions);
+  }
+
+  mapFromDriverValue(value) {
+    return utils.fromSql(value);
+  }
+
+  mapToDriverValue(value) {
+    return utils.toSql(value);
+  }
+}
+
 function vector(name, config) {
   return new PgVectorBuilder(name, config && config.dimensions);
+}
+
+function halfvec(name, config) {
+  return new PgHalfvecBuilder(name, config && config.dimensions);
 }
 
 function l2Distance(column, value) {
@@ -54,6 +88,7 @@ function l1Distance(column, value) {
 
 module.exports = {
   vector,
+  halfvec,
   l2Distance,
   maxInnerProduct,
   cosineDistance,
