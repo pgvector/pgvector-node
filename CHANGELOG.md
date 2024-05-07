@@ -5,7 +5,7 @@
 - Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Knex.js
 - Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Objection.js
 - Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Kysely
-- Added `l1Distance` function for Sequelize
+- Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Sequelize
 - Dropped support for Node < 18
 
 ## 0.1.8 (2024-02-11)

@@ -43,9 +43,9 @@ function registerType(Sequelize) {
   DataTypes.postgres.VECTOR.key = 'vector';
 }
 
-function distance(op, column, value, sequelize) {
+function distance(op, column, value, sequelize, binary) {
   const quotedColumn = column instanceof Utils.Literal ? column.val : sequelize.dialect.queryGenerator.quoteIdentifier(column);
-  const escapedValue = sequelize.escape(utils.toSql(value));
+  const escapedValue = sequelize.escape(binary ? value : utils.toSql(value));
   return sequelize.literal(`${quotedColumn} ${op} ${escapedValue}`);
 }
 
@@ -65,10 +65,20 @@ function l1Distance(column, value, sequelize) {
   return distance('<+>', column, value, sequelize);
 }
 
+function hammingDistance(column, value, sequelize) {
+  return distance('<~>', column, value, sequelize, true);
+}
+
+function jaccardDistance(column, value, sequelize) {
+  return distance('<%>', column, value, sequelize, true);
+}
+
 module.exports = {
   registerType,
   l2Distance,
   maxInnerProduct,
   cosineDistance,
-  l1Distance
+  l1Distance,
+  hammingDistance,
+  jaccardDistance
 };
