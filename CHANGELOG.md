@@ -1,6 +1,7 @@
 ## 0.2.0 (unreleased)
 
 - Added support for `halfvec` and `sparsevec` types to Knex.js
+- Added support for `halfvec` type to MikroORM
 - Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Knex.js
 - Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Objection.js
 - Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Kysely

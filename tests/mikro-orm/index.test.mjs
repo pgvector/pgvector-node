@@ -1,5 +1,5 @@
 import { MikroORM, EntityManager, EntitySchema } from '@mikro-orm/postgresql';
-import { VectorType, l2Distance, maxInnerProduct, cosineDistance, l1Distance } from 'pgvector/mikro-orm';
+import { VectorType, HalfvecType, l2Distance, maxInnerProduct, cosineDistance, l1Distance } from 'pgvector/mikro-orm';
 
 test('example', async () => {
   const Item = new EntitySchema({
@@ -7,7 +7,8 @@ test('example', async () => {
     tableName: 'mikro_items',
     properties: {
       id: {type: Number, primary: true},
-      embedding: {type: VectorType, dimensions: 3, nullable: true}
+      embedding: {type: VectorType, dimensions: 3, nullable: true},
+      half_embedding: {type: HalfvecType, dimensions: 3, nullable: true}
     },
   });
 

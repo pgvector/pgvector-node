@@ -21,6 +21,26 @@ class VectorType extends Type {
   }
 }
 
+class HalfvecType extends Type {
+  convertToDatabaseValue(value, platform) {
+    if (value === null) {
+      return null;
+    }
+    return utils.toSql(value);
+  }
+
+  convertToJSValue(value, platform) {
+    if (value === null) {
+      return null;
+    }
+    return utils.fromSql(value);
+  }
+
+  getColumnType(prop, platform) {
+    return utils.halfvecType(prop.dimensions);
+  }
+}
+
 function distance(op, column, value, em) {
   if (raw) {
     return raw(`?? ${op} ?`, [column, utils.toSql(value)]);
@@ -47,6 +67,7 @@ function l1Distance(column, value, em) {
 
 module.exports = {
   VectorType,
+  HalfvecType,
   l2Distance,
   maxInnerProduct,
   cosineDistance,
