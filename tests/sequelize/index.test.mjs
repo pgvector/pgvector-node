@@ -20,6 +20,9 @@ test('example', async () => {
     embedding: {
       type: DataTypes.VECTOR(3)
     },
+    half_embedding: {
+      type: DataTypes.HALFVEC(3)
+    },
     binary_embedding: {
       type: 'BIT(3)'
     }
