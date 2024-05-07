@@ -1,5 +1,5 @@
 import { MikroORM, EntityManager, EntitySchema } from '@mikro-orm/postgresql';
-import { VectorType, HalfvecType, l2Distance, maxInnerProduct, cosineDistance, l1Distance } from 'pgvector/mikro-orm';
+import { VectorType, HalfvecType, BitType, l2Distance, maxInnerProduct, cosineDistance, l1Distance } from 'pgvector/mikro-orm';
 
 test('example', async () => {
   const Item = new EntitySchema({
@@ -8,7 +8,8 @@ test('example', async () => {
     properties: {
       id: {type: Number, primary: true},
       embedding: {type: VectorType, dimensions: 3, nullable: true},
-      half_embedding: {type: HalfvecType, dimensions: 3, nullable: true}
+      half_embedding: {type: HalfvecType, dimensions: 3, nullable: true},
+      binary_embedding: {type: BitType, length: 3, nullable: true}
     },
   });
 
@@ -24,9 +25,9 @@ test('example', async () => {
   const generator = orm.getSchemaGenerator();
   await generator.refreshDatabase();
 
-  em.create(Item, {embedding: [1, 1, 1]});
-  em.create(Item, {embedding: [2, 2, 2]});
-  em.create(Item, {embedding: [1, 1, 2]});
+  em.create(Item, {embedding: [1, 1, 1], binary_embedding: '000'});
+  em.create(Item, {embedding: [2, 2, 2], binary_embedding: '101'});
+  em.create(Item, {embedding: [1, 1, 2], binary_embedding: '111'});
   em.create(Item, {embedding: null});
 
   // L2 distance

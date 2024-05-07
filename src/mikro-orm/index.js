@@ -1,4 +1,5 @@
 const { Type, raw } = require('@mikro-orm/core');
+const { BitType } = require('./bit');
 const { HalfvecType } = require('./halfvec');
 const { VectorType } = require('./vector');
 const utils = require('../utils');
@@ -30,6 +31,7 @@ function l1Distance(column, value, em) {
 module.exports = {
   VectorType,
   HalfvecType,
+  BitType,
   l2Distance,
   maxInnerProduct,
   cosineDistance,
