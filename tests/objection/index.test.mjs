@@ -1,7 +1,7 @@
 import Knex from 'knex';
 import { Model } from 'objection';
 import pgvector from 'pgvector/objection';
-import { l2Distance, maxInnerProduct, cosineDistance } from 'pgvector/objection';
+import { l2Distance, maxInnerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'pgvector/objection';
 
 test('example', async () => {
   const knex = Knex({
@@ -22,12 +22,13 @@ test('example', async () => {
   await knex.schema.createTable('objection_items', (table) => {
     table.increments('id');
     table.vector('embedding', 3);
+    table.bit('binary_embedding', {length: 3});
   });
 
   const newItems = [
-    {embedding: pgvector.toSql([1, 1, 1])},
-    {embedding: pgvector.toSql([2, 2, 2])},
-    {embedding: pgvector.toSql([1, 1, 2])},
+    {embedding: pgvector.toSql([1, 1, 1]), binary_embedding: '000'},
+    {embedding: pgvector.toSql([2, 2, 2]), binary_embedding: '101'},
+    {embedding: pgvector.toSql([1, 1, 2]), binary_embedding: '111'},
     {embedding: null}
   ];
   await Item.query().insert(newItems);
@@ -52,6 +53,24 @@ test('example', async () => {
     .orderBy(cosineDistance('embedding', [1, 1, 1]))
     .limit(5);
   expect(items.map(v => v.id).slice(2)).toStrictEqual([3, 4]);
+
+  // L1 distance
+  items = await Item.query()
+    .orderBy(l1Distance('embedding', [1, 1, 1]))
+    .limit(5);
+  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
+
+  // Hamming distance
+  items = await Item.query()
+    .orderBy(hammingDistance('binary_embedding', '101'))
+    .limit(5);
+  expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
+
+  // Jaccard distance
+  items = await Item.query()
+    .orderBy(jaccardDistance('binary_embedding', '101'))
+    .limit(5);
+  expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
 
   await knex.schema.alterTable('objection_items', function(table) {
     table.index(knex.raw('embedding vector_l2_ops'), 'objection_items_embedding_idx', 'hnsw');

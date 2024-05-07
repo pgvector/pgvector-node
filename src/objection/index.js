@@ -13,4 +13,16 @@ function cosineDistance(column, value) {
   return raw('?? <=> ?', [column, toSql(value)]);
 }
 
-module.exports = {fromSql, toSql, l2Distance, maxInnerProduct, cosineDistance};
+function l1Distance(column, value) {
+  return raw('?? <+> ?', [column, toSql(value)]);
+}
+
+function hammingDistance(column, value) {
+  return raw('?? <~> ?', [column, value]);
+}
+
+function jaccardDistance(column, value) {
+  return raw('?? <%> ?', [column, value]);
+}
+
+module.exports = {fromSql, toSql, l2Distance, maxInnerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance};
