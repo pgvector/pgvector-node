@@ -32,4 +32,8 @@ knex.QueryBuilder.extend('cosineDistance', function(column, value) {
   return this.client.raw('?? <=> ?', [column, toSql(value)]);
 });
 
+knex.QueryBuilder.extend('l1Distance', function(column, value) {
+  return this.client.raw('?? <+> ?', [column, toSql(value)]);
+});
+
 module.exports = {fromSql, toSql};

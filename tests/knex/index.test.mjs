@@ -45,6 +45,12 @@ test('example', async () => {
     .limit(5);
   expect(items.map(v => v.id).slice(2)).toStrictEqual([3, 4]);
 
+  // L1 distance
+  items = await knex('knex_items')
+    .orderBy(knex.l1Distance('embedding', [1, 1, 1]))
+    .limit(5);
+  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
+
   await knex.schema.alterTable('knex_items', function(table) {
     table.index(knex.raw('embedding vector_l2_ops'), 'knex_items_embedding_idx', 'hnsw');
   });
