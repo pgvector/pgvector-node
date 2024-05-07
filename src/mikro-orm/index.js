@@ -41,4 +41,14 @@ function cosineDistance(column, value, em) {
   return distance('<=>', column, value, em);
 }
 
-module.exports = {VectorType, l2Distance, maxInnerProduct, cosineDistance};
+function l1Distance(column, value, em) {
+  return distance('<+>', column, value, em);
+}
+
+module.exports = {
+  VectorType,
+  l2Distance,
+  maxInnerProduct,
+  cosineDistance,
+  l1Distance
+};

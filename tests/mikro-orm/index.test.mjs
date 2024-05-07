@@ -1,5 +1,5 @@
 import { MikroORM, EntityManager, EntitySchema } from '@mikro-orm/postgresql';
-import { VectorType, l2Distance, maxInnerProduct, cosineDistance } from 'pgvector/mikro-orm';
+import { VectorType, l2Distance, maxInnerProduct, cosineDistance, l1Distance } from 'pgvector/mikro-orm';
 
 test('example', async () => {
   const Item = new EntitySchema({
@@ -51,6 +51,13 @@ test('example', async () => {
     .limit(5)
     .getResult();
   expect(items.map(v => v.id).slice(2)).toStrictEqual([3, 4]);
+
+  // L1 distance
+  items = await em.createQueryBuilder(Item)
+    .orderBy({[l1Distance('embedding', [1, 1, 1])]: 'ASC'})
+    .limit(5)
+    .getResult();
+  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
 
   orm.close();
 });

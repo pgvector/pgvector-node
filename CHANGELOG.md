@@ -5,6 +5,7 @@
 - Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Objection.js
 - Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Kysely
 - Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Sequelize
+- Added `l1Distance` function for MikroORM
 - Added support for passing literals to distance functions with Sequelize
 - Dropped support for Node < 18
 
