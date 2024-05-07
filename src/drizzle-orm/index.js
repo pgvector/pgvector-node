@@ -1,4 +1,5 @@
 const { sql } = require('drizzle-orm');
+const { bit } = require('./bit');
 const { halfvec } = require('./halfvec');
 const { vector } = require('./vector');
 const utils = require('../utils');
@@ -22,6 +23,7 @@ function l1Distance(column, value) {
 module.exports = {
   vector,
   halfvec,
+  bit,
   l2Distance,
   maxInnerProduct,
   cosineDistance,

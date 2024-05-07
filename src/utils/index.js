@@ -28,6 +28,10 @@ function halfvecType(dimensions) {
   return typeWithDimensions('halfvec', dimensions);
 }
 
+function bitType(dimensions) {
+  return typeWithDimensions('bit', dimensions);
+}
+
 function sparsevecType(dimensions) {
   return typeWithDimensions('sparsevec', dimensions);
 }
@@ -35,4 +39,4 @@ function sparsevecType(dimensions) {
 // for backwards compatibility
 const sqlType = vectorType;
 
-module.exports = {fromSql, toSql, sqlType, vectorType, halfvecType, sparsevecType};
+module.exports = {fromSql, toSql, sqlType, vectorType, halfvecType, bitType, sparsevecType};

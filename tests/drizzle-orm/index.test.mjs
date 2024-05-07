@@ -2,7 +2,7 @@ import { sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { pgTable, serial } from 'drizzle-orm/pg-core';
 import postgres from 'postgres';
-import { cosineDistance, l2Distance, maxInnerProduct, l1Distance, vector, halfvec } from 'pgvector/drizzle-orm';
+import { cosineDistance, l2Distance, maxInnerProduct, l1Distance, vector, halfvec, bit } from 'pgvector/drizzle-orm';
 
 test('example', async () => {
   const client = postgres({database: 'pgvector_node_test', onnotice: function() {}});
@@ -10,12 +10,13 @@ test('example', async () => {
 
   await client`CREATE EXTENSION IF NOT EXISTS vector`;
   await client`DROP TABLE IF EXISTS drizzle_items`;
-  await client`CREATE TABLE drizzle_items (id serial PRIMARY KEY, embedding vector(3), half_embedding halfvec(3))`;
+  await client`CREATE TABLE drizzle_items (id serial PRIMARY KEY, embedding vector(3), half_embedding halfvec(3), binary_embedding bit(3))`;
 
   const items = pgTable('drizzle_items', {
     id: serial('id').primaryKey(),
     embedding: vector('embedding', {dimensions: 3}),
-    halfEmbedding: halfvec('half_embedding', {dimensions: 3})
+    halfEmbedding: halfvec('half_embedding', {dimensions: 3}),
+    binaryEmbedding: bit('binary_embedding', {length: 3})
   });
 
   const newItems = [
