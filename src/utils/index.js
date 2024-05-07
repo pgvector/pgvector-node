@@ -1,4 +1,5 @@
 const util = require('node:util');
+const { SparseVector } = require('./sparsevector');
 
 function fromSql(value) {
   return value.substring(1, value.length - 1).split(',').map((v) => parseFloat(v));
@@ -8,19 +9,23 @@ function toSql(value) {
   return JSON.stringify(value);
 }
 
-// TODO
 function sparsevecFromSql(value) {
-  return value;
+  return SparseVector.fromSql(value);
 }
 
-// TODO
 function sparsevecToSql(value) {
+  if (value instanceof SparseVector) {
+    return value.toSql();
+  }
   return value;
 }
 
 function anyToSql(value) {
   if (Array.isArray(value)) {
     return toSql(value);
+  }
+  if (value instanceof SparseVector) {
+    return value.toSql();
   }
   return value;
 }
@@ -66,5 +71,6 @@ module.exports = {
   vectorType,
   halfvecType,
   bitType,
-  sparsevecType
+  sparsevecType,
+  SparseVector
 };

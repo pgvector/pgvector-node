@@ -43,7 +43,7 @@ test('example', async () => {
 
   // L2 distance - sparsevec
   items = await knex('knex_items')
-    .orderBy(knex.l2Distance('sparse_embedding', SparseVector.fromDense([1, 1, 1]).toSql()))
+    .orderBy(knex.l2Distance('sparse_embedding', SparseVector.fromDense([1, 1, 1])))
     .limit(5);
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
 
