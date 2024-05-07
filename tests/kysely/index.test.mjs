@@ -25,6 +25,7 @@ test('example', async () => {
     .addColumn('embedding', sql`vector(3)`)
     .addColumn('half_embedding', sql`halfvec(3)`)
     .addColumn('binary_embedding', sql`bit(3)`)
+    .addColumn('sparse_embedding', sql`sparsevec(3)`)
     .execute();
 
   const newItems = [
