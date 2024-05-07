@@ -1,14 +1,15 @@
 const { Type, raw } = require('@mikro-orm/core');
 const { BitType } = require('./bit');
 const { HalfvecType } = require('./halfvec');
+const { SparsevecType } = require('./sparsevec');
 const { VectorType } = require('./vector');
 const utils = require('../utils');
 
 function distance(op, column, value, em, binary) {
   if (raw) {
-    return raw(`?? ${op} ?`, [column, binary ? value : utils.toSql(value)]);
+    return raw(`?? ${op} ?`, [column, binary ? value : utils.toAnySql(value)]);
   } else {
-    return em.raw(`?? ${op} ?`, [column, binary ? value : utils.toSql(value)]);
+    return em.raw(`?? ${op} ?`, [column, binary ? value : utils.toAnySql(value)]);
   }
 }
 
@@ -40,6 +41,7 @@ module.exports = {
   VectorType,
   HalfvecType,
   BitType,
+  SparsevecType,
   l2Distance,
   maxInnerProduct,
   cosineDistance,
