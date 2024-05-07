@@ -80,7 +80,7 @@ function registerType(Sequelize) {
 
 function distance(op, column, value, sequelize, binary) {
   const quotedColumn = column instanceof Utils.Literal ? column.val : sequelize.dialect.queryGenerator.quoteIdentifier(column);
-  const escapedValue = sequelize.escape(binary ? value : utils.toSql(value));
+  const escapedValue = sequelize.escape(binary ? value : utils.toAnySql(value));
   return sequelize.literal(`${quotedColumn} ${op} ${escapedValue}`);
 }
 
