@@ -2,7 +2,7 @@ import { sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { pgTable, serial } from 'drizzle-orm/pg-core';
 import postgres from 'postgres';
-import { cosineDistance, l2Distance, maxInnerProduct, l1Distance, vector, halfvec, bit } from 'pgvector/drizzle-orm';
+import { cosineDistance, l2Distance, maxInnerProduct, l1Distance, hammingDistance, jaccardDistance, vector, halfvec, bit } from 'pgvector/drizzle-orm';
 
 test('example', async () => {
   const client = postgres({database: 'pgvector_node_test', onnotice: function() {}});
@@ -20,9 +20,9 @@ test('example', async () => {
   });
 
   const newItems = [
-    {embedding: [1, 1, 1]},
-    {embedding: [2, 2, 2]},
-    {embedding: [1, 1, 2]},
+    {embedding: [1, 1, 1], binaryEmbedding: '000'},
+    {embedding: [2, 2, 2], binaryEmbedding: '101'},
+    {embedding: [1, 1, 2], binaryEmbedding: '111'},
     {embedding: null}
   ];
   await db.insert(items).values(newItems);
@@ -57,6 +57,20 @@ test('example', async () => {
     .orderBy(l1Distance(items.embedding, [1, 1, 1]))
     .limit(5);
   expect(allItems.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
+
+  // Hamming distance
+  allItems = await db.select()
+    .from(items)
+    .orderBy(hammingDistance(items.binaryEmbedding, '101'))
+    .limit(5);
+  expect(allItems.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
+
+  // Jaccard distance
+  allItems = await db.select()
+    .from(items)
+    .orderBy(jaccardDistance(items.binaryEmbedding, '101'))
+    .limit(5);
+  expect(allItems.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
 
   await client.end();
 });

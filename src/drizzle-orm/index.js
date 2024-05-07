@@ -20,6 +20,14 @@ function l1Distance(column, value) {
   return sql`${column} <+> ${utils.toSql(value)}`;
 }
 
+function hammingDistance(column, value) {
+  return sql`${column} <~> ${value}`;
+}
+
+function jaccardDistance(column, value) {
+  return sql`${column} <%> ${value}`;
+}
+
 module.exports = {
   vector,
   halfvec,
@@ -27,5 +35,7 @@ module.exports = {
   l2Distance,
   maxInnerProduct,
   cosineDistance,
-  l1Distance
+  l1Distance,
+  hammingDistance,
+  jaccardDistance
 };
