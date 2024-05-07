@@ -1,5 +1,5 @@
 import { MikroORM, EntityManager, EntitySchema } from '@mikro-orm/postgresql';
-import { VectorType, HalfvecType, BitType, l2Distance, maxInnerProduct, cosineDistance, l1Distance } from 'pgvector/mikro-orm';
+import { VectorType, HalfvecType, BitType, l2Distance, maxInnerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'pgvector/mikro-orm';
 
 test('example', async () => {
   const Item = new EntitySchema({
@@ -60,6 +60,20 @@ test('example', async () => {
     .limit(5)
     .getResult();
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
+
+  // Hamming distance
+  items = await em.createQueryBuilder(Item)
+    .orderBy({[hammingDistance('binary_embedding', '101')]: 'ASC'})
+    .limit(5)
+    .getResult();
+  expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
+
+  // Jaccard distance
+  items = await em.createQueryBuilder(Item)
+    .orderBy({[jaccardDistance('binary_embedding', '101')]: 'ASC'})
+    .limit(5)
+    .getResult();
+  expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
 
   orm.close();
 });

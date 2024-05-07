@@ -4,11 +4,11 @@ const { HalfvecType } = require('./halfvec');
 const { VectorType } = require('./vector');
 const utils = require('../utils');
 
-function distance(op, column, value, em) {
+function distance(op, column, value, em, binary) {
   if (raw) {
-    return raw(`?? ${op} ?`, [column, utils.toSql(value)]);
+    return raw(`?? ${op} ?`, [column, binary ? value : utils.toSql(value)]);
   } else {
-    return em.raw(`?? ${op} ?`, [column, utils.toSql(value)]);
+    return em.raw(`?? ${op} ?`, [column, binary ? value : utils.toSql(value)]);
   }
 }
 
@@ -28,6 +28,14 @@ function l1Distance(column, value, em) {
   return distance('<+>', column, value, em);
 }
 
+function hammingDistance(column, value, em) {
+  return distance('<~>', column, value, em, true);
+}
+
+function jaccardDistance(column, value, em) {
+  return distance('<%>', column, value, em, true);
+}
+
 module.exports = {
   VectorType,
   HalfvecType,
@@ -35,5 +43,7 @@ module.exports = {
   l2Distance,
   maxInnerProduct,
   cosineDistance,
-  l1Distance
+  l1Distance,
+  hammingDistance,
+  jaccardDistance
 };
