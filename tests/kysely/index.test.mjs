@@ -36,6 +36,7 @@ test('example', async () => {
     .values(newItems)
     .execute();
 
+  // L2 distance
   let items = await db.selectFrom('kysely_items')
     .selectAll()
     .orderBy(l2Distance('embedding', [1, 1, 1]))
@@ -46,6 +47,7 @@ test('example', async () => {
   expect(pgvector.fromSql(items[1].embedding)).toStrictEqual([1, 1, 2]);
   expect(pgvector.fromSql(items[2].embedding)).toStrictEqual([2, 2, 2]);
 
+  // max inner product
   items = await db.selectFrom('kysely_items')
     .selectAll()
     .orderBy(maxInnerProduct('embedding', [1, 1, 1]))
@@ -53,6 +55,7 @@ test('example', async () => {
     .execute();
   expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
 
+  // cosine distance
   items = await db.selectFrom('kysely_items')
     .selectAll()
     .orderBy(cosineDistance('embedding', [1, 1, 1]))
@@ -60,6 +63,7 @@ test('example', async () => {
     .execute();
   expect(items.map(v => v.id).slice(2)).toStrictEqual([3, 4]);
 
+  // L1 distance
   items = await db.selectFrom('kysely_items')
     .selectAll()
     .orderBy(l1Distance('embedding', [1, 1, 1]))
@@ -67,6 +71,7 @@ test('example', async () => {
     .execute();
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
 
+  // Hamming distance
   items = await db.selectFrom('kysely_items')
     .selectAll()
     .orderBy(hammingDistance('binary_embedding', '101'))
@@ -74,6 +79,7 @@ test('example', async () => {
     .execute();
   expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
 
+  // Jaccard distance
   items = await db.selectFrom('kysely_items')
     .selectAll()
     .orderBy(jaccardDistance('binary_embedding', '101'))
