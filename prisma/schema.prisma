@@ -15,6 +15,9 @@ datasource db {
 model Item {
   id        Int                       @id @default(autoincrement())
   embedding Unsupported("vector(3)")?
+  half_embedding Unsupported("halfvec(3)")?
+  binary_embedding String? @db.Bit(3)
+  sparse_embedding Unsupported("sparsevec(3)")?
 
   @@map("prisma_items")
 }
