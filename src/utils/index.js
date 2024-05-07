@@ -1,5 +1,5 @@
 const util = require('node:util');
-const { SparseVector } = require('./sparsevector');
+const { SparseVector } = require('./sparse-vector');
 
 function fromSql(value) {
   return value.substring(1, value.length - 1).split(',').map((v) => parseFloat(v));
