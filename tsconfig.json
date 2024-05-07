@@ -6,6 +6,10 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "types",
-    "declarationMap": false
+    "declarationMap": false,
+    "esModuleInterop": true,
+    "target": "es6",
+    "module": "nodenext",
+    "moduleResolution": "nodenext"
   }
 }
