@@ -4,6 +4,7 @@ const { halfvec } = require('./halfvec');
 const { sparsevec } = require('./sparsevec');
 const { vector } = require('./vector');
 const { anyToSql } = require('../utils');
+const { SparseVector } = require('..');
 
 function l2Distance(column, value) {
   return sql`${column} <-> ${anyToSql(value)}`;
@@ -39,5 +40,6 @@ module.exports = {
   cosineDistance,
   l1Distance,
   hammingDistance,
-  jaccardDistance
+  jaccardDistance,
+  SparseVector
 };
