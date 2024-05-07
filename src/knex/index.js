@@ -36,4 +36,12 @@ knex.QueryBuilder.extend('l1Distance', function(column, value) {
   return this.client.raw('?? <+> ?', [column, toSql(value)]);
 });
 
+knex.QueryBuilder.extend('hammingDistance', function(column, value) {
+  return this.client.raw('?? <~> ?', [column, value]);
+});
+
+knex.QueryBuilder.extend('jaccardDistance', function(column, value) {
+  return this.client.raw('?? <%> ?', [column, value]);
+});
+
 module.exports = {fromSql, toSql};

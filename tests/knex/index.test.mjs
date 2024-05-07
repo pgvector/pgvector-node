@@ -13,13 +13,14 @@ test('example', async () => {
     table.increments('id');
     table.vector('embedding', {dimensions: 3});
     table.halfvec('half_embedding', {dimensions: 3});
+    table.bit('binary_embedding', {length: 3});
     table.sparsevec('sparse_embedding', {dimensions: 3});
   });
 
   const newItems = [
-    {embedding: pgvector.toSql([1, 1, 1])},
-    {embedding: pgvector.toSql([2, 2, 2])},
-    {embedding: pgvector.toSql([1, 1, 2])},
+    {embedding: pgvector.toSql([1, 1, 1]), binary_embedding: '000'},
+    {embedding: pgvector.toSql([2, 2, 2]), binary_embedding: '101'},
+    {embedding: pgvector.toSql([1, 1, 2]), binary_embedding: '111'},
     {embedding: null}
   ];
   await knex('knex_items').insert(newItems);
@@ -50,6 +51,18 @@ test('example', async () => {
     .orderBy(knex.l1Distance('embedding', [1, 1, 1]))
     .limit(5);
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
+
+  // Hamming distance
+  items = await knex('knex_items')
+    .orderBy(knex.hammingDistance('binary_embedding', '101'))
+    .limit(5);
+  expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
+
+  // Jaccard distance
+  items = await knex('knex_items')
+    .orderBy(knex.jaccardDistance('binary_embedding', '101'))
+    .limit(5);
+  expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
 
   await knex.schema.alterTable('knex_items', function(table) {
     table.index(knex.raw('embedding vector_l2_ops'), 'knex_items_embedding_idx', 'hnsw');
