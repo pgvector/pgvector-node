@@ -3,22 +3,22 @@ const { bit } = require('./bit');
 const { halfvec } = require('./halfvec');
 const { sparsevec } = require('./sparsevec');
 const { vector } = require('./vector');
-const utils = require('../utils');
+const { anyToSql } = require('../utils');
 
 function l2Distance(column, value) {
-  return sql`${column} <-> ${utils.toAnySql(value)}`;
+  return sql`${column} <-> ${anyToSql(value)}`;
 }
 
 function maxInnerProduct(column, value) {
-  return sql`${column} <#> ${utils.toAnySql(value)}`;
+  return sql`${column} <#> ${anyToSql(value)}`;
 }
 
 function cosineDistance(column, value) {
-  return sql`${column} <=> ${utils.toAnySql(value)}`;
+  return sql`${column} <=> ${anyToSql(value)}`;
 }
 
 function l1Distance(column, value) {
-  return sql`${column} <+> ${utils.toAnySql(value)}`;
+  return sql`${column} <+> ${anyToSql(value)}`;
 }
 
 function hammingDistance(column, value) {

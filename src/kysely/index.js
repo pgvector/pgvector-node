@@ -1,21 +1,21 @@
 const { sql } = require('kysely');
 const { fromSql, toSql } = require('..');
-const { toAnySql } = require('../utils');
+const { anyToSql } = require('../utils');
 
 function l2Distance(column, value) {
-  return sql`${sql.ref(column)} <-> ${toAnySql(value)}`;
+  return sql`${sql.ref(column)} <-> ${anyToSql(value)}`;
 }
 
 function maxInnerProduct(column, value) {
-  return sql`${sql.ref(column)} <#> ${toAnySql(value)}`;
+  return sql`${sql.ref(column)} <#> ${anyToSql(value)}`;
 }
 
 function cosineDistance(column, value) {
-  return sql`${sql.ref(column)} <=> ${toAnySql(value)}`;
+  return sql`${sql.ref(column)} <=> ${anyToSql(value)}`;
 }
 
 function l1Distance(column, value) {
-  return sql`${sql.ref(column)} <+> ${toAnySql(value)}`;
+  return sql`${sql.ref(column)} <+> ${anyToSql(value)}`;
 }
 
 function hammingDistance(column, value) {

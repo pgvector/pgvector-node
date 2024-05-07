@@ -1,21 +1,21 @@
 const { fromSql, toSql } = require('../knex');
 const { raw } = require('objection');
-const { toAnySql } = require('../utils');
+const { anyToSql } = require('../utils');
 
 function l2Distance(column, value) {
-  return raw('?? <-> ?', [column, toAnySql(value)]);
+  return raw('?? <-> ?', [column, anyToSql(value)]);
 }
 
 function maxInnerProduct(column, value) {
-  return raw('?? <#> ?', [column, toAnySql(value)]);
+  return raw('?? <#> ?', [column, anyToSql(value)]);
 }
 
 function cosineDistance(column, value) {
-  return raw('?? <=> ?', [column, toAnySql(value)]);
+  return raw('?? <=> ?', [column, anyToSql(value)]);
 }
 
 function l1Distance(column, value) {
-  return raw('?? <+> ?', [column, toAnySql(value)]);
+  return raw('?? <+> ?', [column, anyToSql(value)]);
 }
 
 function hammingDistance(column, value) {

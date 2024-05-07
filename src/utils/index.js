@@ -18,7 +18,7 @@ function toSparseSql(value) {
   return value;
 }
 
-function toAnySql(value) {
+function anyToSql(value) {
   if (Array.isArray(value)) {
     return toSql(value);
   }
@@ -56,4 +56,15 @@ function sparsevecType(dimensions) {
 // for backwards compatibility
 const sqlType = vectorType;
 
-module.exports = {fromSql, toSql, fromSparseSql, toSparseSql, toAnySql, sqlType, vectorType, halfvecType, bitType, sparsevecType};
+module.exports = {
+  fromSql,
+  toSql,
+  fromSparseSql,
+  toSparseSql,
+  anyToSql,
+  sqlType,
+  vectorType,
+  halfvecType,
+  bitType,
+  sparsevecType
+};

@@ -1,4 +1,4 @@
-const { toAnySql } = require('../utils');
+const { anyToSql } = require('../utils');
 const { Utils } = require('sequelize');
 const { registerHalfvec } = require('./halfvec');
 const { registerSparsevec } = require('./sparsevec');
@@ -12,7 +12,7 @@ function registerType(Sequelize) {
 
 function distance(op, column, value, sequelize, binary) {
   const quotedColumn = column instanceof Utils.Literal ? column.val : sequelize.dialect.queryGenerator.quoteIdentifier(column);
-  const escapedValue = sequelize.escape(binary ? value : toAnySql(value));
+  const escapedValue = sequelize.escape(binary ? value : anyToSql(value));
   return sequelize.literal(`${quotedColumn} ${op} ${escapedValue}`);
 }
 

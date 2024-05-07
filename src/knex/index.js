@@ -1,5 +1,5 @@
 const knex = require('knex');
-const { fromSql, toSql, toAnySql, vectorType, halfvecType, sparsevecType } = require('../utils');
+const { fromSql, toSql, anyToSql, vectorType, halfvecType, sparsevecType } = require('../utils');
 
 knex.SchemaBuilder.extend('enableExtension', function(name) {
   return this.raw('CREATE EXTENSION IF NOT EXISTS ??', [name]);
@@ -21,19 +21,19 @@ knex.TableBuilder.extend('sparsevec', function(name, options) {
 });
 
 knex.QueryBuilder.extend('l2Distance', function(column, value) {
-  return this.client.raw('?? <-> ?', [column, toAnySql(value)]);
+  return this.client.raw('?? <-> ?', [column, anyToSql(value)]);
 });
 
 knex.QueryBuilder.extend('maxInnerProduct', function(column, value) {
-  return this.client.raw('?? <#> ?', [column, toAnySql(value)]);
+  return this.client.raw('?? <#> ?', [column, anyToSql(value)]);
 });
 
 knex.QueryBuilder.extend('cosineDistance', function(column, value) {
-  return this.client.raw('?? <=> ?', [column, toAnySql(value)]);
+  return this.client.raw('?? <=> ?', [column, anyToSql(value)]);
 });
 
 knex.QueryBuilder.extend('l1Distance', function(column, value) {
-  return this.client.raw('?? <+> ?', [column, toAnySql(value)]);
+  return this.client.raw('?? <+> ?', [column, anyToSql(value)]);
 });
 
 knex.QueryBuilder.extend('hammingDistance', function(column, value) {
