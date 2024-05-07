@@ -1,11 +1,11 @@
 ## 0.2.0 (unreleased)
 
-- Added support for passing literals to distance functions with Sequelize
 - Added support for `halfvec` and `sparsevec` types to Knex.js
 - Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Knex.js
 - Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Objection.js
 - Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Kysely
 - Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Sequelize
+- Added support for passing literals to distance functions with Sequelize
 - Dropped support for Node < 18
 
 ## 0.1.8 (2024-02-11)
