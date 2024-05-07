@@ -25,4 +25,13 @@ function jaccardDistance(column, value) {
   return raw('?? <%> ?', [column, value]);
 }
 
-module.exports = {fromSql, toSql, l2Distance, maxInnerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance};
+module.exports = {
+  fromSql,
+  toSql,
+  l2Distance,
+  maxInnerProduct,
+  cosineDistance,
+  l1Distance,
+  hammingDistance,
+  jaccardDistance
+};
