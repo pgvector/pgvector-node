@@ -16,10 +16,6 @@
       "types": "./types/index.d.ts",
       "default": "./src/index.js"
     },
-    "./drizzle-orm": {
-      "types": "./types/drizzle-orm/index.d.ts",
-      "default": "./src/drizzle-orm/index.js"
-    },
     "./knex": {
       "types": "./types/knex/index.d.ts",
       "default": "./src/knex/index.js"
@@ -58,9 +54,6 @@
     "*": {
       "*": [
         "types/index.d.ts"
-      ],
-      "drizzle-orm": [
-        "types/drizzle-orm/index.d.ts"
       ],
       "knex": [
         "types/knex/index.d.ts"
