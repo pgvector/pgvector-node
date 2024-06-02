@@ -17,9 +17,26 @@ class SparseVector {
     return this.toString();
   }
 
+  toArray() {
+    const arr = Array(this.dimensions).fill(0.0);
+    for (const [i, index] of this.indices.entries()) {
+      arr[index] = this.values[i];
+    }
+    return arr;
+  }
+
   static fromSql(value) {
-    // TODO
-    return value;
+    const parts = value.split('/', 2);
+    const elements = parts[0].slice(1, -1).split(',');
+    const dimensions = parseInt(parts[1]);
+    const indices = [];
+    const values = [];
+    for (const element of elements) {
+      const ep = element.split(':', 2);
+      indices.push(parseInt(ep[0]) - 1);
+      values.push(parseFloat(ep[1]));
+    }
+    return new SparseVector(dimensions, indices, values);
   }
 
   static fromDense(value) {
