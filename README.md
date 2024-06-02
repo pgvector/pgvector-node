@@ -27,7 +27,7 @@ And follow the instructions for your database library:
 - [Slonik](#slonik)
 - [TypeORM](#typeorm)
 - [MikroORM](#mikroorm)
-- [Drizzle ORM](#drizzle-orm) (experimental)
+- [Drizzle ORM](#drizzle-orm)
 
 Or check out some examples:
 
@@ -617,7 +617,7 @@ See a [full example](tests/mikro-orm/index.test.mjs)
 
 ## Drizzle ORM
 
-Note: This is currently experimental and does not work with Drizzle Kit
+Drizzle ORM 0.31.0+ has built-in support for pgvector :tada:
 
 Enable the extension
 
@@ -628,13 +628,15 @@ await client`CREATE EXTENSION IF NOT EXISTS vector`;
 Add a vector field
 
 ```javascript
-import { vector } from 'pgvector/drizzle-orm';
+import { vector } from 'drizzle-orm/pg-core';
 
 const items = pgTable('items', {
   id: serial('id').primaryKey(),
   embedding: vector('embedding', {dimensions: 3})
 });
 ```
+
+Also supports `halfvec`, `bit`, and `sparsevec`
 
 Insert vectors
 
@@ -649,7 +651,7 @@ await db.insert(items).values(newItems);
 Get the nearest neighbors to a vector
 
 ```javascript
-import { l2Distance } from 'pgvector/drizzle-orm';
+import { l2Distance } from 'drizzle-orm';
 
 const allItems = await db.select()
   .from(items)
@@ -657,7 +659,7 @@ const allItems = await db.select()
   .limit(5);
 ```
 
-Also supports `maxInnerProduct` and `cosineDistance`
+Also supports `innerProduct`, `cosineDistance`, `l1Distance`, `hammingDistance`, and `jaccardDistance`
 
 See a [full example](tests/drizzle-orm/index.test.mjs)
 

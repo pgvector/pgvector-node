@@ -1,8 +1,8 @@
-import { sql } from 'drizzle-orm';
+import { sql, l2Distance, innerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/postgres-js';
-import { pgTable, serial } from 'drizzle-orm/pg-core';
+import { pgTable, serial, vector, halfvec, bit, sparsevec } from 'drizzle-orm/pg-core';
+import { SparseVector } from 'pgvector';
 import postgres from 'postgres';
-import { cosineDistance, l2Distance, maxInnerProduct, l1Distance, hammingDistance, jaccardDistance, vector, halfvec, bit, sparsevec, SparseVector } from 'pgvector/drizzle-orm';
 
 test('example', async () => {
   const client = postgres({database: 'pgvector_node_test', onnotice: function() {}});
@@ -55,7 +55,7 @@ test('example', async () => {
   // max inner product
   allItems = await db.select()
     .from(items)
-    .orderBy(maxInnerProduct(items.embedding, [1, 1, 1]))
+    .orderBy(innerProduct(items.embedding, [1, 1, 1]))
     .limit(5);
   expect(allItems.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
 
