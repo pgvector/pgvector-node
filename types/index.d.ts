@@ -1,3 +1,4 @@
 import { fromSql } from "./utils";
 import { toSql } from "./utils";
-export { fromSql, toSql };
+import { SparseVector } from "./utils";
+export { fromSql, toSql, SparseVector };
