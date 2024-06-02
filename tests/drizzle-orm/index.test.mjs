@@ -16,7 +16,7 @@ test('example', async () => {
     id: serial('id').primaryKey(),
     embedding: vector('embedding', {dimensions: 3}),
     halfEmbedding: halfvec('half_embedding', {dimensions: 3}),
-    binaryEmbedding: bit('binary_embedding', {length: 3}),
+    binaryEmbedding: bit('binary_embedding', {dimensions: 3}),
     sparseEmbedding: sparsevec('sparse_embedding', {dimensions: 3})
   });
 
