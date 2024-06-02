@@ -41,8 +41,14 @@ class SparseVector {
 
   static fromDense(value) {
     const dimensions = value.length;
-    const indices = value.map((v, i) => [v, i]).filter((v) => v[0] != 0).map((v) => v[1]);
-    const values = indices.map((i) => value[i]);
+    const indices = [];
+    const values = [];
+    for (const [i, v] of value.entries()) {
+      if (v != 0) {
+        indices.push(i);
+        values.push(v);
+      }
+    }
     return new SparseVector(dimensions, indices, values);
   }
 }
