@@ -617,7 +617,7 @@ See a [full example](tests/mikro-orm/index.test.mjs)
 
 ## Drizzle ORM
 
-Drizzle ORM 0.31.0+ has [built-in support](https://github.com/drizzle-team/drizzle-orm/releases/tag/0.31.0) for pgvector :tada:
+Drizzle ORM 0.31.0+ has [built-in support](https://orm.drizzle.team/docs/extensions/pg#pg_vector) for pgvector :tada:
 
 Enable the extension
 
