@@ -3,7 +3,6 @@
 - Added support for `halfvec` and `sparsevec` types to Knex.js
 - Added support for `halfvec` and `sparsevec` types to Sequelize
 - Added support for `halfvec`, `bit`, and `sparsevec` types to MikroORM
-- Added support for `halfvec`, `bit`, and `sparsevec` types to Drizzle ORM
 - Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Knex.js
 - Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Objection.js
 - Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Kysely
