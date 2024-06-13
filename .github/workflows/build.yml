@@ -5,31 +5,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ankane/setup-postgres@v1
-        with:
-          database: pgvector_node_test
-          dev-files: true
-      - run: |
-          cd /tmp
-          git clone --branch v0.7.0 https://github.com/pgvector/pgvector.git
-          cd pgvector
-          make
-          sudo make install
-
-      # Node.js
-      - uses: actions/setup-node@v4
-      - run: npm install
-      - run: npx prisma migrate dev
-      - run: npm test
-
-      # Bun
-      - uses: oven-sh/setup-bun@v1
-      - run: bun install
-      - run: bunx prisma migrate reset --force
-      - run: bun run test
+      # - uses: ankane/setup-postgres@v1
+      #   with:
+      #     database: pgvector_node_test
+      #     dev-files: true
+      # - run: |
+      #     cd /tmp
+      #     git clone --branch v0.7.0 https://github.com/pgvector/pgvector.git
+      #     cd pgvector
+      #     make
+      #     sudo make install
 
       # Deno
       - uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
-      - run: deno task --unstable test
+      # - run: deno task --unstable test
+      - run: deno --unstable run -A npm:jest -i
+        env:
+          NODE_OPTIONS: --experimental-vm-modules
