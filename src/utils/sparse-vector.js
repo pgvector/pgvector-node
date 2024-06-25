@@ -2,6 +2,9 @@ const util = require('node:util');
 
 class SparseVector {
   constructor(dimensions, indices, values) {
+    if (indices.length != values.length) {
+      throw new Error('indices and values must be the same length');
+    }
     this.dimensions = dimensions;
     this.indices = indices;
     this.values = values;
