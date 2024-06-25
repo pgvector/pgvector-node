@@ -15,3 +15,8 @@ test('fromDense', () => {
   expect(vec.indices).toStrictEqual([0, 2, 4]);
   expect(vec.values).toStrictEqual([1, 2, 3]);
 });
+
+test('toSql', () => {
+  const vec = SparseVector.fromDense([1.23456789]);;
+  expect(vec.toSql()).toStrictEqual('{1:1.23456789}/1');
+});
