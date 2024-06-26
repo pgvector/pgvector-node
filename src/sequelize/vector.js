@@ -17,11 +17,11 @@ function registerVector(Sequelize) {
     }
 
     _stringify(value) {
-      return utils.toSql(value);
+      return utils.vectorToSql(value);
     }
 
     static parse(value) {
-      return utils.fromSql(value);
+      return utils.vectorFromSql(value);
     }
   }
 

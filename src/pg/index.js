@@ -13,12 +13,12 @@ async function registerTypes(client) {
   }
 
   client.setTypeParser(vector.oid, 'text', function (value) {
-    return utils.fromSql(value);
+    return utils.vectorFromSql(value);
   });
 
   if (halfvec) {
     client.setTypeParser(halfvec.oid, 'text', function (value) {
-      return utils.fromSql(value);
+      return utils.halfvecFromSql(value);
     });
   }
 

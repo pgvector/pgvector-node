@@ -17,11 +17,11 @@ function registerHalfvec(Sequelize) {
     }
 
     _stringify(value) {
-      return utils.toSql(value);
+      return utils.halfvecToSql(value);
     }
 
     static parse(value) {
-      return utils.fromSql(value);
+      return utils.halfvecFromSql(value);
     }
   }
 

@@ -6,14 +6,14 @@ class HalfvecType extends Type {
     if (value === null) {
       return null;
     }
-    return utils.toSql(value);
+    return utils.halfvecToSql(value);
   }
 
   convertToJSValue(value, platform) {
     if (value === null) {
       return null;
     }
-    return utils.fromSql(value);
+    return utils.halfvecFromSql(value);
   }
 
   getColumnType(prop, platform) {

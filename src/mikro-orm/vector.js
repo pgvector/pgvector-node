@@ -6,14 +6,14 @@ class VectorType extends Type {
     if (value === null) {
       return null;
     }
-    return utils.toSql(value);
+    return utils.vectorToSql(value);
   }
 
   convertToJSValue(value, platform) {
     if (value === null) {
       return null;
     }
-    return utils.fromSql(value);
+    return utils.vectorFromSql(value);
   }
 
   getColumnType(prop, platform) {

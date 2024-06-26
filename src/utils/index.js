@@ -9,6 +9,12 @@ function toSql(value) {
   return JSON.stringify(value);
 }
 
+const vectorFromSql = fromSql;
+const vectorToSql = toSql;
+
+const halfvecFromSql = fromSql;
+const halfvecToSql = toSql;
+
 function sparsevecFromSql(value) {
   return SparseVector.fromSql(value);
 }
@@ -64,6 +70,10 @@ const sqlType = vectorType;
 module.exports = {
   fromSql,
   toSql,
+  vectorFromSql,
+  vectorToSql,
+  halfvecFromSql,
+  halfvecToSql,
   sparsevecFromSql,
   sparsevecToSql,
   anyToSql,
