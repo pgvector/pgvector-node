@@ -13,9 +13,9 @@ test('example', async () => {
   await client.query('CREATE TABLE pg_items (id serial PRIMARY KEY, embedding vector(3), half_embedding halfvec(3), binary_embedding bit(3), sparse_embedding sparsevec(3))');
 
   const params = [
-    pgvector.toSql([1, 1, 1]), pgvector.toSql([1, 1, 1]), '000', SparseVector.fromDense([1, 1, 1]).toSql(),
-    pgvector.toSql([2, 2, 2]), pgvector.toSql([2, 2, 2]), '101', SparseVector.fromDense([2, 2, 2]).toSql(),
-    pgvector.toSql([1, 1, 2]), pgvector.toSql([1, 1, 2]), '111', SparseVector.fromDense([1, 1, 2]).toSql(),
+    pgvector.toSql([1, 1, 1]), pgvector.toSql([1, 1, 1]), '000', SparseVector.fromDense([1, 1, 1]),
+    pgvector.toSql([2, 2, 2]), pgvector.toSql([2, 2, 2]), '101', SparseVector.fromDense([2, 2, 2]),
+    pgvector.toSql([1, 1, 2]), pgvector.toSql([1, 1, 2]), '111', SparseVector.fromDense([1, 1, 2]),
     null, null, null, null
   ];
   await client.query('INSERT INTO pg_items (embedding, half_embedding, binary_embedding, sparse_embedding) VALUES ($1, $2, $3, $4), ($5, $6, $7, $8), ($9, $10, $11, $12), ($13, $14, $15, $16)', params);

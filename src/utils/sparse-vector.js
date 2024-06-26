@@ -20,6 +20,10 @@ class SparseVector {
     return this.toString();
   }
 
+  toPostgres() {
+    return this.toSql();
+  }
+
   toArray() {
     const arr = Array(this.dimensions).fill(0.0);
     for (const [i, index] of this.indices.entries()) {
