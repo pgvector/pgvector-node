@@ -6,7 +6,10 @@ function fromSql(value) {
 }
 
 function toSql(value) {
-  return JSON.stringify(value);
+  if (Array.isArray(value)) {
+    return JSON.stringify(value);
+  }
+  return value;
 }
 
 const vectorFromSql = fromSql;

@@ -1,4 +1,5 @@
 const utils = require('../utils');
+const { toSql } = require('../utils');
 
 async function registerTypes(client) {
   const result = await client.query('SELECT typname, oid FROM pg_type WHERE typname IN ($1, $2, $3)', ['vector', 'halfvec', 'sparsevec']);
@@ -27,13 +28,6 @@ async function registerTypes(client) {
       return utils.sparsevecFromSql(value);
     });
   }
-}
-
-function toSql(value) {
-  if (!Array.isArray(value)) {
-    throw new Error('expected array');
-  }
-  return utils.toSql(value);
 }
 
 const registerType = registerTypes;
