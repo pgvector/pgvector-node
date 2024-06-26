@@ -9,7 +9,7 @@ test('fromSql', () => {
 });
 
 test('fromDense', () => {
-  const vec = SparseVector.fromDense([1, 0, 2, 0, 3, 0]);;
+  const vec = SparseVector.fromDense([1, 0, 2, 0, 3, 0]);
   expect(vec.toSql()).toStrictEqual('{1:1,3:2,5:3}/6');
   expect(vec.dimensions).toStrictEqual(6);
   expect(vec.indices).toStrictEqual([0, 2, 4]);
@@ -29,6 +29,6 @@ test('fromMap', () => {
 });
 
 test('toSql', () => {
-  const vec = SparseVector.fromDense([1.23456789]);;
+  const vec = SparseVector.fromDense([1.23456789]);
   expect(vec.toSql()).toStrictEqual('{1:1.23456789}/1');
 });
