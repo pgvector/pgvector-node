@@ -1,14 +1,23 @@
 const utils = require('../utils');
 
 async function registerType(client) {
-  const result = await client.query('SELECT typname, oid, typarray FROM pg_type WHERE typname = $1', ['vector']);
-  if (result.rowCount < 1) {
+  const result = await client.query('SELECT typname, oid FROM pg_type WHERE typname IN ($1, $2)', ['vector', 'halfvec']);
+  const vector = result.rows.find((v) => v.typname == 'vector');
+  const halfvec = result.rows.find((v) => v.typname == 'halfvec');
+
+  if (!vector) {
     throw new Error('vector type not found in the database');
   }
-  const oid = result.rows[0].oid;
-  client.setTypeParser(oid, 'text', function(value) {
+
+  client.setTypeParser(vector.oid, 'text', function(value) {
     return utils.fromSql(value);
   });
+
+  if (halfvec) {
+    client.setTypeParser(halfvec.oid, 'text', function(value) {
+      return utils.fromSql(value);
+    });
+  }
 }
 
 function toSql(value) {

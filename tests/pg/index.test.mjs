@@ -9,21 +9,24 @@ test('example', async () => {
   await pgvector.registerType(client);
 
   await client.query('DROP TABLE IF EXISTS pg_items');
-  await client.query('CREATE TABLE pg_items (id serial PRIMARY KEY, embedding vector(3))');
+  await client.query('CREATE TABLE pg_items (id serial PRIMARY KEY, embedding vector(3), half_embedding halfvec(3))');
 
   const params = [
-    pgvector.toSql([1, 1, 1]),
-    pgvector.toSql([2, 2, 2]),
-    pgvector.toSql([1, 1, 2]),
-    null
+    pgvector.toSql([1, 1, 1]), pgvector.toSql([1, 1, 1]),
+    pgvector.toSql([2, 2, 2]), pgvector.toSql([2, 2, 2]),
+    pgvector.toSql([1, 1, 2]), pgvector.toSql([1, 1, 2]),
+    null, null
   ];
-  await client.query('INSERT INTO pg_items (embedding) VALUES ($1), ($2), ($3), ($4)', params);
+  await client.query('INSERT INTO pg_items (embedding, half_embedding) VALUES ($1, $2), ($3, $4), ($5, $6), ($7, $8)', params);
 
   const { rows } = await client.query('SELECT * FROM pg_items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql([1, 1, 1])]);
   expect(rows.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
   expect(rows[0].embedding).toStrictEqual([1, 1, 1]);
   expect(rows[1].embedding).toStrictEqual([1, 1, 2]);
   expect(rows[2].embedding).toStrictEqual([2, 2, 2]);
+  expect(rows[0].half_embedding).toStrictEqual([1, 1, 1]);
+  expect(rows[1].half_embedding).toStrictEqual([1, 1, 2]);
+  expect(rows[2].half_embedding).toStrictEqual([2, 2, 2]);
 
   await client.query('CREATE INDEX ON pg_items USING hnsw (embedding vector_l2_ops)');
 
