@@ -2,7 +2,7 @@ import postgres from 'postgres';
 import pgvector from 'pgvector';
 
 test('example', async () => {
-  const sql = postgres({database: 'pgvector_node_test', onnotice: function() {}});
+  const sql = postgres({database: 'pgvector_node_test', onnotice: function () { }});
 
   await sql`CREATE EXTENSION IF NOT EXISTS vector`;
   await sql`DROP TABLE IF EXISTS postgres_items`;

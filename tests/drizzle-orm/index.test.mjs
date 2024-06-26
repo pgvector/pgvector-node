@@ -5,7 +5,7 @@ import { SparseVector } from 'pgvector';
 import postgres from 'postgres';
 
 test('example', async () => {
-  const client = postgres({database: 'pgvector_node_test', onnotice: function() {}});
+  const client = postgres({database: 'pgvector_node_test', onnotice: function () { }});
   const db = drizzle(client);
 
   await client`CREATE EXTENSION IF NOT EXISTS vector`;

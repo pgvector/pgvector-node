@@ -12,18 +12,18 @@ async function registerType(client) {
     throw new Error('vector type not found in the database');
   }
 
-  client.setTypeParser(vector.oid, 'text', function(value) {
+  client.setTypeParser(vector.oid, 'text', function (value) {
     return utils.fromSql(value);
   });
 
   if (halfvec) {
-    client.setTypeParser(halfvec.oid, 'text', function(value) {
+    client.setTypeParser(halfvec.oid, 'text', function (value) {
       return utils.fromSql(value);
     });
   }
 
   if (sparsevec) {
-    client.setTypeParser(sparsevec.oid, 'text', function(value) {
+    client.setTypeParser(sparsevec.oid, 'text', function (value) {
       return utils.sparsevecFromSql(value);
     });
   }

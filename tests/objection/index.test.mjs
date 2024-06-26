@@ -87,7 +87,7 @@ test('example', async () => {
     .limit(5);
   expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
 
-  await knex.schema.alterTable('objection_items', function(table) {
+  await knex.schema.alterTable('objection_items', function (table) {
     table.index(knex.raw('embedding vector_l2_ops'), 'objection_items_embedding_idx', 'hnsw');
   });
 
