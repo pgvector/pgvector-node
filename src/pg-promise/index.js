@@ -1,3 +1,3 @@
-const { registerType, toSql } = require('../pg');
+const { registerType, registerTypes, toSql } = require('../pg');
 
-module.exports = {registerType, toSql};
+module.exports = {registerType, registerTypes, toSql};

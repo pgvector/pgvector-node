@@ -1,6 +1,6 @@
 const utils = require('../utils');
 
-async function registerType(client) {
+async function registerTypes(client) {
   const result = await client.query('SELECT typname, oid FROM pg_type WHERE typname IN ($1, $2, $3)', ['vector', 'halfvec', 'sparsevec']);
   const rows = result.rows;
 
@@ -36,4 +36,6 @@ function toSql(value) {
   return utils.toSql(value);
 }
 
-module.exports = {registerType, toSql};
+const registerType = registerTypes;
+
+module.exports = {registerType, registerTypes, toSql};
