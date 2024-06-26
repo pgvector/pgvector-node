@@ -2,6 +2,9 @@ const util = require('node:util');
 const { SparseVector } = require('./sparse-vector');
 
 function fromSql(value) {
+  if (value === null) {
+    return null;
+  }
   return value.substring(1, value.length - 1).split(',').map((v) => parseFloat(v));
 }
 
@@ -19,6 +22,9 @@ const halfvecFromSql = fromSql;
 const halfvecToSql = toSql;
 
 function sparsevecFromSql(value) {
+  if (value === null) {
+    return null;
+  }
   return SparseVector.fromSql(value);
 }
 
