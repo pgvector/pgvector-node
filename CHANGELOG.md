@@ -1,6 +1,6 @@
 ## 0.2.0 (unreleased)
 
-- Added support for `halfvec` type to node-postgres
+- Added support for `halfvec` and `sparsevec` types to node-postgres
 - Added support for `halfvec` and `sparsevec` types to Knex.js
 - Added support for `halfvec` and `sparsevec` types to Sequelize
 - Added support for `halfvec`, `bit`, and `sparsevec` types to MikroORM
