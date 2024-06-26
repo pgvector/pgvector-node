@@ -54,6 +54,18 @@ class SparseVector {
     }
     return new SparseVector(dimensions, indices, values);
   }
+
+  static fromMap(map, dimensions) {
+    const indices = [];
+    const values = [];
+    for (const [i, v] of map.entries()) {
+      if (v != 0) {
+        indices.push(i);
+        values.push(v);
+      }
+    }
+    return new SparseVector(dimensions, indices, values);
+  }
 }
 
 module.exports = {SparseVector};
