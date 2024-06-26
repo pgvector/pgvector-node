@@ -48,8 +48,8 @@ class SparseVector {
     const values = [];
     for (const [i, v] of value.entries()) {
       if (v != 0) {
-        indices.push(i);
-        values.push(v);
+        indices.push(Number(i));
+        values.push(Number(v));
       }
     }
     return new SparseVector(dimensions, indices, values);
@@ -60,11 +60,11 @@ class SparseVector {
     const values = [];
     for (const [i, v] of map.entries()) {
       if (v != 0) {
-        indices.push(i);
-        values.push(v);
+        indices.push(Number(i));
+        values.push(Number(v));
       }
     }
-    return new SparseVector(dimensions, indices, values);
+    return new SparseVector(Number(dimensions), indices, values);
   }
 }
 
