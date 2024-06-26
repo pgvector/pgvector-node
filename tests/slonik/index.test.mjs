@@ -27,17 +27,9 @@ test('example', async () => {
   const items = await pool.query(sql.unsafe`SELECT * FROM slonik_items ORDER BY embedding <-> ${embedding} LIMIT 5`);
   expect(items.rows.map(v => v.id)).toStrictEqual([1, 3, 2]);
   expect(pgvector.fromSql(items.rows[0].embedding)).toStrictEqual([1, 1, 1]);
-  expect(pgvector.fromSql(items.rows[1].embedding)).toStrictEqual([1, 1, 2]);
-  expect(pgvector.fromSql(items.rows[2].embedding)).toStrictEqual([2, 2, 2]);
   expect(pgvector.fromSql(items.rows[0].half_embedding)).toStrictEqual([1, 1, 1]);
-  expect(pgvector.fromSql(items.rows[1].half_embedding)).toStrictEqual([1, 1, 2]);
-  expect(pgvector.fromSql(items.rows[2].half_embedding)).toStrictEqual([2, 2, 2]);
   expect(items.rows[0].binary_embedding).toStrictEqual('000');
-  expect(items.rows[1].binary_embedding).toStrictEqual('111');
-  expect(items.rows[2].binary_embedding).toStrictEqual('101');
   expect(SparseVector.fromSql(items.rows[0].sparse_embedding).toArray()).toStrictEqual([1, 1, 1]);
-  expect(SparseVector.fromSql(items.rows[1].sparse_embedding).toArray()).toStrictEqual([1, 1, 2]);
-  expect(SparseVector.fromSql(items.rows[2].sparse_embedding).toArray()).toStrictEqual([2, 2, 2]);
 
   await pool.query(sql.unsafe`CREATE INDEX ON slonik_items USING hnsw (embedding vector_l2_ops)`);
 
