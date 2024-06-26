@@ -1,2 +1,4 @@
 export function registerType(client: any): Promise<void>;
-export function toSql(value: any): string;
+export function registerTypes(client: any): Promise<void>;
+import { toSql } from "../utils";
+export { toSql };

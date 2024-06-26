@@ -1,5 +1,9 @@
 export function fromSql(value: any): any;
-export function toSql(value: any): string;
+export function toSql(value: any): any;
+export function vectorFromSql(value: any): any;
+export function vectorToSql(value: any): any;
+export function halfvecFromSql(value: any): any;
+export function halfvecToSql(value: any): any;
 export function sparsevecFromSql(value: any): SparseVector;
 export function sparsevecToSql(value: any): any;
 export function anyToSql(value: any): any;

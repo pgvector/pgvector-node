@@ -1,3 +1,4 @@
 import { registerType } from "../pg";
+import { registerTypes } from "../pg";
 import { toSql } from "../pg";
-export { registerType, toSql };
+export { registerType, registerTypes, toSql };
