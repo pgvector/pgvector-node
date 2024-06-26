@@ -3,6 +3,7 @@
 - Added support for `halfvec` and `sparsevec` types to node-postgres
 - Added support for `halfvec` and `sparsevec` types to Knex.js
 - Added support for `halfvec` and `sparsevec` types to Sequelize
+- Added support for `halfvec` and `sparsevec` types to pg-promise
 - Added support for `halfvec`, `bit`, and `sparsevec` types to MikroORM
 - Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Knex.js
 - Added `l1Distance`, `hammingDistance`, and `jaccardDistance` functions for Objection.js
