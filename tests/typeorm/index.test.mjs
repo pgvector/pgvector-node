@@ -44,9 +44,9 @@ test('example', async () => {
   await AppDataSource.query('CREATE TABLE typeorm_items (id bigserial PRIMARY KEY, embedding vector(3), half_embedding halfvec(3), binary_embedding bit(3), sparse_embedding sparsevec(3))');
 
   const itemRepository = AppDataSource.getRepository(Item);
-  await itemRepository.save({embedding: pgvector.toSql([1, 1, 1]), half_embedding: pgvector.toSql([1, 1, 1]), binary_embedding: '000', sparse_embedding: SparseVector.fromDense([1, 1, 1])});
-  await itemRepository.save({embedding: pgvector.toSql([2, 2, 2]), half_embedding: pgvector.toSql([2, 2, 2]), binary_embedding: '101', sparse_embedding: SparseVector.fromDense([2, 2, 2])});
-  await itemRepository.save({embedding: pgvector.toSql([1, 1, 2]), half_embedding: pgvector.toSql([1, 1, 2]), binary_embedding: '111', sparse_embedding: SparseVector.fromDense([1, 1, 2])});
+  await itemRepository.save({embedding: pgvector.toSql([1, 1, 1]), half_embedding: pgvector.toSql([1, 1, 1]), binary_embedding: '000', sparse_embedding: new SparseVector([1, 1, 1])});
+  await itemRepository.save({embedding: pgvector.toSql([2, 2, 2]), half_embedding: pgvector.toSql([2, 2, 2]), binary_embedding: '101', sparse_embedding: new SparseVector([2, 2, 2])});
+  await itemRepository.save({embedding: pgvector.toSql([1, 1, 2]), half_embedding: pgvector.toSql([1, 1, 2]), binary_embedding: '111', sparse_embedding: new SparseVector([1, 1, 2])});
 
   const items = await itemRepository
     .createQueryBuilder('item')
@@ -58,7 +58,7 @@ test('example', async () => {
   expect(pgvector.fromSql(items[0].embedding)).toStrictEqual([1, 1, 1]);
   expect(pgvector.fromSql(items[0].half_embedding)).toStrictEqual([1, 1, 1]);
   expect(items[0].binary_embedding).toStrictEqual('000');
-  expect(SparseVector.fromSql(items[0].sparse_embedding).toArray()).toStrictEqual([1, 1, 1]);
+  expect((new SparseVector(items[0].sparse_embedding).toArray())).toStrictEqual([1, 1, 1]);
 
   await AppDataSource.destroy();
 });

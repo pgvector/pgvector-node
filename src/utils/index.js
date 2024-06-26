@@ -25,7 +25,7 @@ function sparsevecFromSql(value) {
   if (value === null) {
     return null;
   }
-  return SparseVector.fromSql(value);
+  return new SparseVector(value);
 }
 
 function sparsevecToSql(value) {

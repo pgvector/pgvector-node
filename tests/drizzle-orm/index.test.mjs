@@ -21,9 +21,9 @@ test('example', async () => {
   });
 
   const newItems = [
-    {embedding: [1, 1, 1], halfEmbedding: [1, 1, 1], binaryEmbedding: '000', sparseEmbedding: SparseVector.fromDense([1, 1, 1])},
-    {embedding: [2, 2, 2], halfEmbedding: [2, 2, 2], binaryEmbedding: '101', sparseEmbedding: SparseVector.fromDense([2, 2, 2])},
-    {embedding: [1, 1, 2], halfEmbedding: [1, 1, 2], binaryEmbedding: '111', sparseEmbedding: SparseVector.fromDense([1, 1, 2])},
+    {embedding: [1, 1, 1], halfEmbedding: [1, 1, 1], binaryEmbedding: '000', sparseEmbedding: new SparseVector([1, 1, 1])},
+    {embedding: [2, 2, 2], halfEmbedding: [2, 2, 2], binaryEmbedding: '101', sparseEmbedding: new SparseVector([2, 2, 2])},
+    {embedding: [1, 1, 2], halfEmbedding: [1, 1, 2], binaryEmbedding: '111', sparseEmbedding: new SparseVector([1, 1, 2])},
     {embedding: null}
   ];
   await db.insert(items).values(newItems);
@@ -48,7 +48,7 @@ test('example', async () => {
   // L2 distance - sparsevec
   allItems = await db.select()
     .from(items)
-    .orderBy(l2Distance(items.sparseEmbedding, SparseVector.fromDense([1, 1, 1])))
+    .orderBy(l2Distance(items.sparseEmbedding, new SparseVector([1, 1, 1])))
     .limit(5);
   expect(allItems.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
 

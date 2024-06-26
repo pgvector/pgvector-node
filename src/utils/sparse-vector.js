@@ -1,13 +1,14 @@
 const util = require('node:util');
 
 class SparseVector {
-  constructor(dimensions, indices, values) {
-    if (indices.length != values.length) {
-      throw new Error('indices and values must be the same length');
+  constructor(value, dimensions) {
+    if (typeof value === 'string') {
+      this.#fromSql(value);
+    } else if (dimensions !== undefined) {
+      this.#fromMap(value, dimensions);
+    } else {
+      this.#fromDense(value);
     }
-    this.dimensions = dimensions;
-    this.indices = indices;
-    this.values = values;
   }
 
   toString() {
@@ -32,43 +33,45 @@ class SparseVector {
     return arr;
   }
 
-  static fromSql(value) {
+  #fromSql(value) {
     const parts = value.split('/', 2);
+
+    this.dimensions = parseInt(parts[1]);
+    this.indices = [];
+    this.values = [];
+
     const elements = parts[0].slice(1, -1).split(',');
-    const dimensions = parseInt(parts[1]);
-    const indices = [];
-    const values = [];
     for (const element of elements) {
       const ep = element.split(':', 2);
-      indices.push(parseInt(ep[0]) - 1);
-      values.push(parseFloat(ep[1]));
+      this.indices.push(parseInt(ep[0]) - 1);
+      this.values.push(parseFloat(ep[1]));
     }
-    return new SparseVector(dimensions, indices, values);
   }
 
-  static fromDense(value) {
-    const dimensions = value.length;
-    const indices = [];
-    const values = [];
+  #fromDense(value) {
+    this.dimensions = value.length;
+    this.indices = [];
+    this.values = [];
+
     for (const [i, v] of value.entries()) {
       if (v != 0) {
-        indices.push(Number(i));
-        values.push(Number(v));
+        this.indices.push(Number(i));
+        this.values.push(Number(v));
       }
     }
-    return new SparseVector(dimensions, indices, values);
   }
 
-  static fromMap(map, dimensions) {
-    const indices = [];
-    const values = [];
+  #fromMap(map, dimensions) {
+    this.dimensions = Number(dimensions);
+    this.indices = [];
+    this.values = [];
+
     for (const [i, v] of map.entries()) {
       if (v != 0) {
-        indices.push(Number(i));
-        values.push(Number(v));
+        this.indices.push(Number(i));
+        this.values.push(Number(v));
       }
     }
-    return new SparseVector(Number(dimensions), indices, values);
   }
 }
 

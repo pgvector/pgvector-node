@@ -64,18 +64,18 @@ test('sparsevec', async () => {
 
   // TODO use create when possible (field is not available in the generated client)
   // https://www.prisma.io/docs/concepts/components/prisma-schema/features-without-psl-equivalent#unsupported-field-types
-  const embedding1 = SparseVector.fromDense([1, 1, 1]).toSql();
-  const embedding2 = SparseVector.fromDense([2, 2, 2]).toSql();
-  const embedding3 = SparseVector.fromDense([1, 1, 2]).toSql();
+  const embedding1 = (new SparseVector([1, 1, 1])).toSql();
+  const embedding2 = (new SparseVector([2, 2, 2])).toSql();
+  const embedding3 = (new SparseVector([1, 1, 2])).toSql();
   await prisma.$executeRaw`INSERT INTO prisma_items (sparse_embedding) VALUES (${embedding1}::sparsevec), (${embedding2}::sparsevec), (${embedding3}::sparsevec)`;
 
   // TODO use raw orderBy when available
   // https://github.com/prisma/prisma/issues/5848
-  const embedding = SparseVector.fromDense([1, 1, 1]).toSql();
+  const embedding = (new SparseVector([1, 1, 1])).toSql();
   const items = await prisma.$queryRaw`SELECT id, sparse_embedding::text FROM prisma_items ORDER BY sparse_embedding <-> ${embedding}::sparsevec LIMIT 5`;
-  expect(SparseVector.fromSql(items[0].sparse_embedding).toArray()).toStrictEqual([1, 1, 1]);
-  expect(SparseVector.fromSql(items[1].sparse_embedding).toArray()).toStrictEqual([1, 1, 2]);
-  expect(SparseVector.fromSql(items[2].sparse_embedding).toArray()).toStrictEqual([2, 2, 2]);
+  expect((new SparseVector(items[0].sparse_embedding)).toArray()).toStrictEqual([1, 1, 1]);
+  expect((new SparseVector(items[1].sparse_embedding)).toArray()).toStrictEqual([1, 1, 2]);
+  expect((new SparseVector(items[2].sparse_embedding)).toArray()).toStrictEqual([2, 2, 2]);
 });
 
 beforeEach(async () => {
