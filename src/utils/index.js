@@ -10,7 +10,7 @@ function vectorFromSql(value) {
 
 function vectorToSql(value) {
   if (Array.isArray(value)) {
-    return JSON.stringify(value);
+    return JSON.stringify(value.map((v) => Number(v)));
   }
   return value;
 }
