@@ -1,6 +1,7 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 import pgvector from 'pgvector/sequelize';
 import { l2Distance, maxInnerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'pgvector/sequelize';
+import { SparseVector } from 'pgvector';
 
 test('example', async () => {
   pgvector.registerType(Sequelize);
@@ -66,7 +67,7 @@ test('example', async () => {
 
   // L2 distance - sparsevec
   items = await Item.findAll({
-    order: l2Distance('sparse_embedding', '{1:1,2:1,3:1}/3', sequelize),
+    order: l2Distance('sparse_embedding', new SparseVector([1, 1, 1]), sequelize),
     limit: 5
   });
   expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);

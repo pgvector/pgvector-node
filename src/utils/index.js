@@ -45,13 +45,15 @@ function fromSql(value) {
 }
 
 function toSql(value) {
-  if (Array.isArray(value)) {
+  if (value === null) {
+    return null;
+  } else if (Array.isArray(value)) {
     return vectorToSql(value);
-  }
-  if (value instanceof SparseVector) {
+  } else if (value instanceof SparseVector) {
     return sparsevecToSql(value);
+  } else {
+    throw new Error('expected array or sparse vector');
   }
-  return value;
 }
 
 function typeWithDimensions(name, dimensions) {
