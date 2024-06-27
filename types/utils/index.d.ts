@@ -6,7 +6,6 @@ export function halfvecFromSql(value: any): any;
 export function halfvecToSql(value: any): any;
 export function sparsevecFromSql(value: any): SparseVector;
 export function sparsevecToSql(value: any): any;
-export function anyToSql(value: any): any;
 export function sqlType(dimensions: any): any;
 export function vectorType(dimensions: any): any;
 export function halfvecType(dimensions: any): any;
