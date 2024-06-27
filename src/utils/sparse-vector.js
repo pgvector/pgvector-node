@@ -50,9 +50,10 @@ class SparseVector {
     this.values = [];
 
     for (const [i, v] of value.entries()) {
-      if (v != 0) {
+      const f = Number(v);
+      if (f != 0) {
         this.indices.push(Number(i));
-        this.values.push(Number(v));
+        this.values.push(f);
       }
     }
   }
@@ -64,9 +65,10 @@ class SparseVector {
 
     const entries = map instanceof Map ? map.entries() : Object.entries(map);
     for (const [i, v] of entries) {
-      if (v != 0) {
+      const f = Number(v);
+      if (f != 0) {
         this.indices.push(Number(i));
-        this.values.push(Number(v));
+        this.values.push(f);
       }
     }
   }
