@@ -3,13 +3,13 @@ const { BitType } = require('./bit');
 const { HalfvecType } = require('./halfvec');
 const { SparsevecType } = require('./sparsevec');
 const { VectorType } = require('./vector');
-const { anyToSql } = require('../utils');
+const { toSql } = require('../utils');
 
 function distance(op, column, value, em, binary) {
   if (raw) {
-    return raw(`?? ${op} ?`, [column, binary ? value : anyToSql(value)]);
+    return raw(`?? ${op} ?`, [column, binary ? value : toSql(value)]);
   } else {
-    return em.raw(`?? ${op} ?`, [column, binary ? value : anyToSql(value)]);
+    return em.raw(`?? ${op} ?`, [column, binary ? value : toSql(value)]);
   }
 }
 

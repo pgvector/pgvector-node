@@ -1,25 +1,22 @@
 const util = require('node:util');
 const { SparseVector } = require('./sparse-vector');
 
-function fromSql(value) {
+function vectorFromSql(value) {
   if (value === null) {
     return null;
   }
   return value.substring(1, value.length - 1).split(',').map((v) => parseFloat(v));
 }
 
-function toSql(value) {
+function vectorToSql(value) {
   if (Array.isArray(value)) {
     return JSON.stringify(value);
   }
   return value;
 }
 
-const vectorFromSql = fromSql;
-const vectorToSql = toSql;
-
-const halfvecFromSql = fromSql;
-const halfvecToSql = toSql;
+const halfvecFromSql = vectorFromSql;
+const halfvecToSql = vectorToSql;
 
 function sparsevecFromSql(value) {
   if (value === null) {
@@ -30,17 +27,29 @@ function sparsevecFromSql(value) {
 
 function sparsevecToSql(value) {
   if (value instanceof SparseVector) {
-    return value.toSql();
+    return value.toPostgres();
   }
   return value;
 }
 
-function anyToSql(value) {
+function fromSql(value) {
+  if (value === null) {
+    return null;
+  } else if (value[0] == '{') {
+    return sparsevecFromSql(value);
+  } else if (value[0] == '[') {
+    return vectorFromSql(value);
+  } else {
+    throw new Error('invalid text representation');
+  }
+}
+
+function toSql(value) {
   if (Array.isArray(value)) {
-    return toSql(value);
+    return vectorToSql(value);
   }
   if (value instanceof SparseVector) {
-    return value.toSql();
+    return sparsevecToSql(value);
   }
   return value;
 }
@@ -85,7 +94,6 @@ module.exports = {
   halfvecToSql,
   sparsevecFromSql,
   sparsevecToSql,
-  anyToSql,
   sqlType,
   vectorType,
   halfvecType,

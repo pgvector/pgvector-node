@@ -18,9 +18,9 @@ test('example', async () => {
   const binaryEmbedding1 = '000';
   const binaryEmbedding2 = '101';
   const binaryEmbedding3 = '111';
-  const sparseEmbedding1 = (new SparseVector([1, 1, 1])).toSql();
-  const sparseEmbedding2 = (new SparseVector([2, 2, 2])).toSql();
-  const sparseEmbedding3 = (new SparseVector([1, 1, 2])).toSql();
+  const sparseEmbedding1 = pgvector.toSql(new SparseVector([1, 1, 1]));
+  const sparseEmbedding2 = pgvector.toSql(new SparseVector([2, 2, 2]));
+  const sparseEmbedding3 = pgvector.toSql(new SparseVector([1, 1, 2]));
   await pool.query(sql.unsafe`INSERT INTO slonik_items (embedding, half_embedding, binary_embedding, sparse_embedding) VALUES (${embedding1}, ${halfEmbedding1}, ${binaryEmbedding1}, ${sparseEmbedding1}), (${embedding2}, ${halfEmbedding2}, ${binaryEmbedding2}, ${sparseEmbedding2}), (${embedding3}, ${halfEmbedding3}, ${binaryEmbedding3}, ${sparseEmbedding3})`);
 
   const embedding = pgvector.toSql([1, 1, 1]);
@@ -29,7 +29,7 @@ test('example', async () => {
   expect(pgvector.fromSql(items.rows[0].embedding)).toStrictEqual([1, 1, 1]);
   expect(pgvector.fromSql(items.rows[0].half_embedding)).toStrictEqual([1, 1, 1]);
   expect(items.rows[0].binary_embedding).toStrictEqual('000');
-  expect((new SparseVector(items.rows[0].sparse_embedding)).toArray()).toStrictEqual([1, 1, 1]);
+  expect(pgvector.fromSql(items.rows[0].sparse_embedding).toArray()).toStrictEqual([1, 1, 1]);
 
   await pool.query(sql.unsafe`CREATE INDEX ON slonik_items USING hnsw (embedding vector_l2_ops)`);
 
