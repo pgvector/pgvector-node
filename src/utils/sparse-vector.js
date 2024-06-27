@@ -11,14 +11,14 @@ class SparseVector {
     }
   }
 
-  toString() {
-    return this.toPostgres();
-  }
-
   toPostgres() {
     const values = this.values;
     const elements = this.indices.map((index, i) => util.format('%i:%f', index + 1, values[i])).join(',');
     return util.format('{%s}/%d', elements, this.dimensions);
+  }
+
+  toString() {
+    return this.toPostgres();
   }
 
   toArray() {
