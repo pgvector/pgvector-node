@@ -35,10 +35,10 @@ function sparsevecToSql(value) {
 function fromSql(value) {
   if (value === null) {
     return null;
-  } else if (value[0] == '{') {
-    return sparsevecFromSql(value);
   } else if (value[0] == '[') {
     return vectorFromSql(value);
+  } else if (value[0] == '{') {
+    return sparsevecFromSql(value);
   } else {
     throw new Error('invalid text representation');
   }
