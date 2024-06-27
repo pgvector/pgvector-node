@@ -62,7 +62,8 @@ class SparseVector {
     this.indices = [];
     this.values = [];
 
-    for (const [i, v] of map.entries()) {
+    const entries = map instanceof Map ? map.entries() : Object.entries(map);
+    for (const [i, v] of entries) {
       if (v != 0) {
         this.indices.push(Number(i));
         this.values.push(Number(v));

@@ -28,6 +28,14 @@ test('fromMap', () => {
   expect(vec.values).toStrictEqual([2, 3, 1]);
 });
 
+test('fromMapObject', () => {
+  const map = {2: 2, 4: 3, 0: 1, 3: 0};
+  const vec = new SparseVector(map, 6);
+  expect(vec.dimensions).toStrictEqual(6);
+  expect(vec.indices).toStrictEqual([0, 2, 4]);
+  expect(vec.values).toStrictEqual([1, 2, 3]);
+});
+
 test('toPostgres', () => {
   const vec = new SparseVector([1.23456789]);
   expect(vec.toPostgres()).toStrictEqual('{1:1.23456789}/1');
