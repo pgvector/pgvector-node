@@ -1,6 +1,6 @@
 export class VectorType extends Type<string, string> {
     constructor();
-    convertToDatabaseValue(value: any, platform: any): string;
+    convertToDatabaseValue(value: any, platform: any): any;
     convertToJSValue(value: any, platform: any): any;
     getColumnType(prop: any, platform: any): any;
 }
