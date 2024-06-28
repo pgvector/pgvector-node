@@ -1,6 +1,6 @@
 {
   "name": "pgvector",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "description": "pgvector support for Node.js and Bun (and TypeScript)",
   "homepage": "https://github.com/pgvector/pgvector-node",
   "license": "MIT",

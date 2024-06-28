@@ -1,4 +1,4 @@
-## 0.2.0 (unreleased)
+## 0.2.0 (2024-06-27)
 
 - Added support for `halfvec` and `sparsevec` types to node-postgres
 - Added support for `halfvec` and `sparsevec` types to Knex.js
