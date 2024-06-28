@@ -4,7 +4,7 @@ const { registerHalfvec } = require('./halfvec');
 const { registerSparsevec } = require('./sparsevec');
 const { registerVector } = require('./vector');
 
-function registerType(Sequelize) {
+function registerTypes(Sequelize) {
   registerVector(Sequelize);
   registerHalfvec(Sequelize);
   registerSparsevec(Sequelize);
@@ -40,8 +40,11 @@ function jaccardDistance(column, value, sequelize) {
   return distance('<%>', column, value, sequelize, true);
 }
 
+const registerType = registerTypes;
+
 module.exports = {
   registerType,
+  registerTypes,
   l2Distance,
   maxInnerProduct,
   cosineDistance,
