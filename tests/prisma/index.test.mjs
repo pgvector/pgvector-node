@@ -43,12 +43,13 @@ test('halfvec', async () => {
 test('bit', async () => {
   const prisma = new PrismaClient();
 
-  // TODO use create when possible (field is not available in the generated client)
-  // https://www.prisma.io/docs/concepts/components/prisma-schema/features-without-psl-equivalent#unsupported-field-types
-  const embedding1 = '000';
-  const embedding2 = '101';
-  const embedding3 = '111';
-  await prisma.$executeRaw`INSERT INTO prisma_items (binary_embedding) VALUES (${embedding1}::varbit), (${embedding2}::varbit), (${embedding3}::varbit)`;
+  await prisma.item.createMany({
+    data: [
+      {binary_embedding: '000'},
+      {binary_embedding: '101'},
+      {binary_embedding: '111'}
+    ]
+  });
 
   // TODO use raw orderBy when available
   // https://github.com/prisma/prisma/issues/5848
