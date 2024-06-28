@@ -44,9 +44,9 @@ test('example', async () => {
 
   await Item.sync({force: true});
 
-  await Item.create({embedding: [1, 1, 1], half_embedding: [1, 1, 1], binary_embedding: '000', sparse_embedding: '{1:1,2:1,3:1}/3'});
-  await Item.create({embedding: [2, 2, 2], half_embedding: [2, 2, 2], binary_embedding: '101', sparse_embedding: '{1:2,2:2,3:2}/3'});
-  await Item.create({embedding: [1, 1, 2], half_embedding: [1, 1, 2], binary_embedding: '111', sparse_embedding: '{1:1,2:1,3:2}/3'});
+  await Item.create({embedding: [1, 1, 1], half_embedding: [1, 1, 1], binary_embedding: '000', sparse_embedding: new SparseVector([1, 1, 1])});
+  await Item.create({embedding: [2, 2, 2], half_embedding: [2, 2, 2], binary_embedding: '101', sparse_embedding: new SparseVector([2, 2, 2])});
+  await Item.create({embedding: [1, 1, 2], half_embedding: [1, 1, 2], binary_embedding: '111', sparse_embedding: new SparseVector([1, 1, 2])});
 
   // L2 distance
   let items = await Item.findAll({
