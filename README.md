@@ -131,7 +131,7 @@ const items = await knex('items')
   .limit(5);
 ```
 
-Also supports `maxInnerProduct` and `cosineDistance`
+Also supports `maxInnerProduct`, `cosineDistance`, `l1Distance`, `hammingDistance`, and `jaccardDistance`
 
 Add an approximate index
 
@@ -188,7 +188,7 @@ const items = await Item.query()
   .limit(5);
 ```
 
-Also supports `maxInnerProduct` and `cosineDistance`
+Also supports `maxInnerProduct`, `cosineDistance`, `l1Distance`, `hammingDistance`, and `jaccardDistance`
 
 Add an approximate index
 
@@ -243,7 +243,7 @@ const items = await db.selectFrom('items')
   .execute();
 ```
 
-Also supports `maxInnerProduct` and `cosineDistance`
+Also supports `maxInnerProduct`, `cosineDistance`, `l1Distance`, `hammingDistance`, and `jaccardDistance`
 
 Add an approximate index
 
@@ -301,7 +301,7 @@ const items = await Item.findAll({
 });
 ```
 
-Also supports `maxInnerProduct` and `cosineDistance`
+Also supports `maxInnerProduct`, `cosineDistance`, `l1Distance`, `hammingDistance`, and `jaccardDistance`
 
 Add an approximate index
 
@@ -611,7 +611,7 @@ const items = await em.createQueryBuilder(Item)
   .getResult();
 ```
 
-Also supports `maxInnerProduct` and `cosineDistance`
+Also supports `maxInnerProduct`, `cosineDistance`, `l1Distance`, `hammingDistance`, and `jaccardDistance`
 
 See a [full example](tests/mikro-orm/index.test.mjs)
 
