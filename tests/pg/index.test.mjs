@@ -7,7 +7,7 @@ test('example', async () => {
   await client.connect();
 
   await client.query('CREATE EXTENSION IF NOT EXISTS vector');
-  await pgvector.registerType(client);
+  await pgvector.registerTypes(client);
 
   await client.query('DROP TABLE IF EXISTS pg_items');
   await client.query('CREATE TABLE pg_items (id serial PRIMARY KEY, embedding vector(3), half_embedding halfvec(3), binary_embedding bit(3), sparse_embedding sparsevec(3))');

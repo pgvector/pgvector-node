@@ -4,7 +4,7 @@ import { l2Distance, maxInnerProduct, cosineDistance, l1Distance, hammingDistanc
 import { SparseVector } from 'pgvector';
 
 test('example', async () => {
-  pgvector.registerType(Sequelize);
+  pgvector.registerTypes(Sequelize);
 
   let sequelize = new Sequelize('postgres://localhost/pgvector_node_test', {
     logging: false
