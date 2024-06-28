@@ -6,7 +6,7 @@ const client = new pg.Client({database: 'pgvector_example'});
 await client.connect();
 
 await client.query('CREATE EXTENSION IF NOT EXISTS vector');
-await pgvector.registerType(client);
+await pgvector.registerTypes(client);
 
 await client.query('DROP TABLE IF EXISTS documents');
 await client.query('CREATE TABLE documents (id bigserial PRIMARY KEY, content text, embedding vector(1536))');

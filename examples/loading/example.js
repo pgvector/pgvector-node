@@ -14,7 +14,7 @@ await client.connect();
 
 // enable extension
 await client.query('CREATE EXTENSION IF NOT EXISTS vector');
-await pgvector.registerType(client);
+await pgvector.registerTypes(client);
 
 // create table
 await client.query('DROP TABLE IF EXISTS items');

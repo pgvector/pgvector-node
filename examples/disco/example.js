@@ -6,7 +6,7 @@ const client = new pg.Client({database: 'pgvector_example'});
 await client.connect();
 
 await client.query('CREATE EXTENSION IF NOT EXISTS vector');
-await pgvector.registerType(client);
+await pgvector.registerTypes(client);
 
 await client.query('DROP TABLE IF EXISTS users');
 await client.query('DROP TABLE IF EXISTS movies');

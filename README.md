@@ -44,19 +44,19 @@ Enable the extension
 await client.query('CREATE EXTENSION IF NOT EXISTS vector');
 ```
 
-Register the type for a client
+Register the types for a client
 
 ```javascript
 import pgvector from 'pgvector/pg';
 
-await pgvector.registerType(client);
+await pgvector.registerTypes(client);
 ```
 
 or a pool
 
 ```javascript
 pool.on('connect', async function (client) {
-  await pgvector.registerType(client);
+  await pgvector.registerTypes(client);
 });
 ```
 
@@ -267,13 +267,13 @@ Enable the extension
 await sequelize.query('CREATE EXTENSION IF NOT EXISTS vector');
 ```
 
-Register the type
+Register the types
 
 ```javascript
 import { Sequelize } from 'sequelize';
 import pgvector from 'pgvector/sequelize';
 
-pgvector.registerType(Sequelize);
+pgvector.registerTypes(Sequelize);
 ```
 
 Add a vector field
@@ -329,7 +329,7 @@ Enable the extension
 await db.none('CREATE EXTENSION IF NOT EXISTS vector');
 ```
 
-Register the type
+Register the types
 
 ```javascript
 import pgpromise from 'pg-promise';
@@ -337,7 +337,7 @@ import pgvector from 'pgvector/pg-promise';
 
 const initOptions = {
   async connect(e) {
-    await pgvector.registerType(e.client);
+    await pgvector.registerTypes(e.client);
   }
 };
 const pgp = pgpromise(initOptions);
