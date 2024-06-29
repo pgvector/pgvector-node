@@ -18,7 +18,7 @@ const input = [
 ];
 
 const openai = new OpenAI();
-const response = await openai.embeddings.create({input: input, model: 'text-embedding-ada-002'});
+const response = await openai.embeddings.create({input: input, model: 'text-embedding-3-small'});
 const embeddings = response.data.map((v) => v.embedding);
 
 for (let [i, content] of input.entries()) {
