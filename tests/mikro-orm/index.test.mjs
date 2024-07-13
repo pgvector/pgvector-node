@@ -1,3 +1,5 @@
+import assert from 'node:assert';
+import test from 'node:test';
 import { MikroORM, EntityManager, EntitySchema } from '@mikro-orm/postgresql';
 import { VectorType, HalfvecType, BitType, SparsevecType, l2Distance, maxInnerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'pgvector/mikro-orm';
 import { SparseVector } from 'pgvector';
@@ -37,59 +39,59 @@ test('example', async () => {
     .orderBy({[l2Distance('embedding', [1, 1, 1])]: 'ASC'})
     .limit(5)
     .getResult();
-  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
-  expect(items[0].embedding).toStrictEqual([1, 1, 1]);
-  expect(items[1].embedding).toStrictEqual([1, 1, 2]);
-  expect(items[2].embedding).toStrictEqual([2, 2, 2]);
+  assert.deepEqual(items.map(v => v.id), [1, 3, 2, 4]);
+  assert.deepEqual(items[0].embedding, [1, 1, 1]);
+  assert.deepEqual(items[1].embedding, [1, 1, 2]);
+  assert.deepEqual(items[2].embedding, [2, 2, 2]);
 
   // L2 distance - halfvec
   items = await em.createQueryBuilder(Item)
     .orderBy({[l2Distance('half_embedding', [1, 1, 1])]: 'ASC'})
     .limit(5)
     .getResult();
-  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
+  assert.deepEqual(items.map(v => v.id), [1, 3, 2, 4]);
 
   // L2 distance - sparsevec
   items = await em.createQueryBuilder(Item)
     .orderBy({[l2Distance('sparse_embedding', new SparseVector([1, 1, 1]))]: 'ASC'})
     .limit(5)
     .getResult();
-  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
+  assert.deepEqual(items.map(v => v.id), [1, 3, 2, 4]);
 
   // max inner product
   items = await em.createQueryBuilder(Item)
     .orderBy({[maxInnerProduct('embedding', [1, 1, 1])]: 'ASC'})
     .limit(5)
     .getResult();
-  expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
+  assert.deepEqual(items.map(v => v.id), [2, 3, 1, 4]);
 
   // cosine distance
   items = await em.createQueryBuilder(Item)
     .orderBy({[cosineDistance('embedding', [1, 1, 1])]: 'ASC'})
     .limit(5)
     .getResult();
-  expect(items.map(v => v.id).slice(2)).toStrictEqual([3, 4]);
+  assert.deepEqual(items.map(v => v.id).slice(2), [3, 4]);
 
   // L1 distance
   items = await em.createQueryBuilder(Item)
     .orderBy({[l1Distance('embedding', [1, 1, 1])]: 'ASC'})
     .limit(5)
     .getResult();
-  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
+  assert.deepEqual(items.map(v => v.id), [1, 3, 2, 4]);
 
   // Hamming distance
   items = await em.createQueryBuilder(Item)
     .orderBy({[hammingDistance('binary_embedding', '101')]: 'ASC'})
     .limit(5)
     .getResult();
-  expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
+  assert.deepEqual(items.map(v => v.id), [2, 3, 1, 4]);
 
   // Jaccard distance
   items = await em.createQueryBuilder(Item)
     .orderBy({[jaccardDistance('binary_embedding', '101')]: 'ASC'})
     .limit(5)
     .getResult();
-  expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
+  assert.deepEqual(items.map(v => v.id), [2, 3, 1, 4]);
 
   orm.close();
 });

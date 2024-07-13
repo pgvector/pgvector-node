@@ -1,3 +1,5 @@
+import assert from 'node:assert';
+import test from 'node:test';
 import { sql, l2Distance, innerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { pgTable, serial, vector, halfvec, bit, sparsevec } from 'drizzle-orm/pg-core';
@@ -33,59 +35,59 @@ test('example', async () => {
     .from(items)
     .orderBy(l2Distance(items.embedding, [1, 1, 1]))
     .limit(5);
-  expect(allItems.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
-  expect(allItems[0].embedding).toStrictEqual([1, 1, 1]);
-  expect(allItems[1].embedding).toStrictEqual([1, 1, 2]);
-  expect(allItems[2].embedding).toStrictEqual([2, 2, 2]);
+  assert.deepEqual(allItems.map(v => v.id), [1, 3, 2, 4]);
+  assert.deepEqual(allItems[0].embedding, [1, 1, 1]);
+  assert.deepEqual(allItems[1].embedding, [1, 1, 2]);
+  assert.deepEqual(allItems[2].embedding, [2, 2, 2]);
 
   // L2 distance - halfvec
   allItems = await db.select()
     .from(items)
     .orderBy(l2Distance(items.halfEmbedding, [1, 1, 1]))
     .limit(5);
-  expect(allItems.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
+  assert.deepEqual(allItems.map(v => v.id), [1, 3, 2, 4]);
 
   // L2 distance - sparsevec
   allItems = await db.select()
     .from(items)
     .orderBy(l2Distance(items.sparseEmbedding, new SparseVector([1, 1, 1])))
     .limit(5);
-  expect(allItems.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
+  assert.deepEqual(allItems.map(v => v.id), [1, 3, 2, 4]);
 
   // max inner product
   allItems = await db.select()
     .from(items)
     .orderBy(innerProduct(items.embedding, [1, 1, 1]))
     .limit(5);
-  expect(allItems.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
+  assert.deepEqual(allItems.map(v => v.id), [2, 3, 1, 4]);
 
   // cosine distance
   allItems = await db.select()
     .from(items)
     .orderBy(cosineDistance(items.embedding, [1, 1, 1]))
     .limit(5);
-  expect(allItems.map(v => v.id).slice(2)).toStrictEqual([3, 4]);
+  assert.deepEqual(allItems.map(v => v.id).slice(2), [3, 4]);
 
   // L1 distance
   allItems = await db.select()
     .from(items)
     .orderBy(l1Distance(items.embedding, [1, 1, 1]))
     .limit(5);
-  expect(allItems.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
+  assert.deepEqual(allItems.map(v => v.id), [1, 3, 2, 4]);
 
   // Hamming distance
   allItems = await db.select()
     .from(items)
     .orderBy(hammingDistance(items.binaryEmbedding, '101'))
     .limit(5);
-  expect(allItems.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
+  assert.deepEqual(allItems.map(v => v.id), [2, 3, 1, 4]);
 
   // Jaccard distance
   allItems = await db.select()
     .from(items)
     .orderBy(jaccardDistance(items.binaryEmbedding, '101'))
     .limit(5);
-  expect(allItems.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
+  assert.deepEqual(allItems.map(v => v.id), [2, 3, 1, 4]);
 
   await client.end();
 });

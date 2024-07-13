@@ -1,3 +1,5 @@
+import assert from 'node:assert';
+import test from 'node:test';
 import { Sequelize, DataTypes, Model } from 'sequelize';
 import pgvector from 'pgvector/sequelize';
 import { l2Distance, maxInnerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'pgvector/sequelize';
@@ -53,24 +55,24 @@ test('example', async () => {
     order: l2Distance('embedding', [1, 1, 1], sequelize),
     limit: 5
   });
-  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
-  expect(items[0].embedding).toStrictEqual([1, 1, 1]);
-  expect(items[1].embedding).toStrictEqual([1, 1, 2]);
-  expect(items[2].embedding).toStrictEqual([2, 2, 2]);
+  assert.deepEqual(items.map(v => v.id), [1, 3, 2]);
+  assert.deepEqual(items[0].embedding, [1, 1, 1]);
+  assert.deepEqual(items[1].embedding, [1, 1, 2]);
+  assert.deepEqual(items[2].embedding, [2, 2, 2]);
 
   // L2 distance - halfvec
   items = await Item.findAll({
     order: l2Distance('half_embedding', [1, 1, 1], sequelize),
     limit: 5
   });
-  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
+  assert.deepEqual(items.map(v => v.id), [1, 3, 2]);
 
   // L2 distance - sparsevec
   items = await Item.findAll({
     order: l2Distance('sparse_embedding', new SparseVector([1, 1, 1]), sequelize),
     limit: 5
   });
-  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
+  assert.deepEqual(items.map(v => v.id), [1, 3, 2]);
 
   await Item.create({});
 
@@ -79,52 +81,52 @@ test('example', async () => {
     order: maxInnerProduct(sequelize.literal('"Item".embedding'), [1, 1, 1], sequelize),
     limit: 5
   });
-  expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
+  assert.deepEqual(items.map(v => v.id), [2, 3, 1, 4]);
 
   // cosine distance
   items = await Item.findAll({
     order: cosineDistance('embedding', [1, 1, 1], sequelize),
     limit: 5
   });
-  expect(items.map(v => v.id).slice(2)).toStrictEqual([3, 4]);
+  assert.deepEqual(items.map(v => v.id).slice(2), [3, 4]);
 
   // L1 distance
   items = await Item.findAll({
     order: l1Distance('embedding', [1, 1, 1], sequelize),
     limit: 5
   });
-  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
+  assert.deepEqual(items.map(v => v.id), [1, 3, 2, 4]);
 
   // Hamming distance
   items = await Item.findAll({
     order: hammingDistance('binary_embedding', '101', sequelize),
     limit: 5
   });
-  expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
+  assert.deepEqual(items.map(v => v.id), [2, 3, 1, 4]);
 
   // Jaccard distance
   items = await Item.findAll({
     order: jaccardDistance('binary_embedding', '101', sequelize),
     limit: 5
   });
-  expect(items.map(v => v.id)).toStrictEqual([2, 3, 1, 4]);
+  assert.deepEqual(items.map(v => v.id), [2, 3, 1, 4]);
 
   // bad value
-  await Item.create({embedding: 'bad'}).catch(e => expect(e.message).toMatch('invalid input syntax for type vector'));
+  await assert.rejects(Item.create({embedding: 'bad'}), {message: /invalid input syntax for type vector/})
 
   sequelize.close();
 });
 
 test('dimensions', () => {
-  expect(DataTypes.VECTOR(3).toSql()).toBe('VECTOR(3)');
+  assert.equal(DataTypes.VECTOR(3).toSql(), 'VECTOR(3)');
 });
 
 test('no dimensions', () => {
-  expect(DataTypes.VECTOR().toSql()).toBe('VECTOR');
+  assert.equal(DataTypes.VECTOR().toSql(), 'VECTOR');
 });
 
 test('bad dimensions', () => {
-  expect(() => {
+  assert.throws(() => {
     DataTypes.VECTOR('bad').toSql();
-  }).toThrowError('expected integer');
+  }, {message: 'expected integer'});
 });

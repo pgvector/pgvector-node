@@ -1,3 +1,5 @@
+import assert from 'node:assert';
+import test from 'node:test';
 import pgpromise from 'pg-promise';
 import pgvector from 'pgvector/pg-promise';
 import { SparseVector } from 'pgvector';
@@ -24,11 +26,11 @@ test('example', async () => {
   await db.none('INSERT INTO pg_promise_items (embedding, half_embedding, binary_embedding, sparse_embedding) VALUES ($1, $2, $3, $4), ($5, $6, $7, $8), ($9, $10, $11, $12), ($13, $14, $15, $16)', params);
 
   const items = await db.any('SELECT * FROM pg_promise_items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql([1, 1, 1])]);
-  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
-  expect(items[0].embedding).toStrictEqual([1, 1, 1]);
-  expect(items[0].half_embedding).toStrictEqual([1, 1, 1]);
-  expect(items[0].binary_embedding).toStrictEqual('000');
-  expect(items[0].sparse_embedding.toArray()).toStrictEqual([1, 1, 1]);
+  assert.deepEqual(items.map(v => v.id), [1, 3, 2, 4]);
+  assert.deepEqual(items[0].embedding, [1, 1, 1]);
+  assert.deepEqual(items[0].half_embedding, [1, 1, 1]);
+  assert.equal(items[0].binary_embedding, '000');
+  assert.deepEqual(items[0].sparse_embedding.toArray(), [1, 1, 1]);
 
   await db.none('CREATE INDEX ON pg_promise_items USING hnsw (embedding vector_l2_ops)');
 

@@ -1,3 +1,5 @@
+import assert from 'node:assert';
+import test from 'node:test';
 import pg from 'pg';
 import pgvector from 'pgvector/pg';
 import { SparseVector } from 'pgvector';
@@ -21,11 +23,11 @@ test('example', async () => {
   await client.query('INSERT INTO pg_items (embedding, half_embedding, binary_embedding, sparse_embedding) VALUES ($1, $2, $3, $4), ($5, $6, $7, $8), ($9, $10, $11, $12), ($13, $14, $15, $16)', params);
 
   const { rows } = await client.query('SELECT * FROM pg_items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql([1, 1, 1])]);
-  expect(rows.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
-  expect(rows[0].embedding).toStrictEqual([1, 1, 1]);
-  expect(rows[0].half_embedding).toStrictEqual([1, 1, 1]);
-  expect(rows[0].binary_embedding).toStrictEqual('000');
-  expect(rows[0].sparse_embedding.toArray()).toStrictEqual([1, 1, 1]);
+  assert.deepEqual(rows.map(v => v.id), [1, 3, 2, 4]);
+  assert.deepEqual(rows[0].embedding, [1, 1, 1]);
+  assert.deepEqual(rows[0].half_embedding, [1, 1, 1]);
+  assert.deepEqual(rows[0].binary_embedding, '000');
+  assert.deepEqual(rows[0].sparse_embedding.toArray(), [1, 1, 1]);
 
   await client.query('CREATE INDEX ON pg_items USING hnsw (embedding vector_l2_ops)');
 
@@ -51,10 +53,10 @@ test('pool', async () => {
   await pool.query('INSERT INTO pg_items (embedding) VALUES ($1), ($2), ($3), ($4)', params);
 
   const { rows } = await pool.query('SELECT * FROM pg_items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql([1, 1, 1])]);
-  expect(rows.map(v => v.id)).toStrictEqual([1, 3, 2, 4]);
-  expect(rows[0].embedding).toStrictEqual([1, 1, 1]);
-  expect(rows[1].embedding).toStrictEqual([1, 1, 2]);
-  expect(rows[2].embedding).toStrictEqual([2, 2, 2]);
+  assert.deepEqual(rows.map(v => v.id), [1, 3, 2, 4]);
+  assert.deepEqual(rows[0].embedding, [1, 1, 1]);
+  assert.deepEqual(rows[1].embedding, [1, 1, 2]);
+  assert.deepEqual(rows[2].embedding, [2, 2, 2]);
 
   await pool.query('CREATE INDEX ON pg_items USING hnsw (embedding vector_l2_ops)');
 

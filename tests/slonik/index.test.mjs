@@ -1,3 +1,5 @@
+import assert from 'node:assert';
+import test from 'node:test';
 import pgvector from 'pgvector';
 import { SparseVector } from 'pgvector';
 import { createPool, sql } from 'slonik';
@@ -25,11 +27,11 @@ test('example', async () => {
 
   const embedding = pgvector.toSql([1, 1, 1]);
   const items = await pool.query(sql.unsafe`SELECT * FROM slonik_items ORDER BY embedding <-> ${embedding} LIMIT 5`);
-  expect(items.rows.map(v => v.id)).toStrictEqual([1, 3, 2]);
-  expect(pgvector.fromSql(items.rows[0].embedding)).toStrictEqual([1, 1, 1]);
-  expect(pgvector.fromSql(items.rows[0].half_embedding)).toStrictEqual([1, 1, 1]);
-  expect(items.rows[0].binary_embedding).toStrictEqual('000');
-  expect(pgvector.fromSql(items.rows[0].sparse_embedding).toArray()).toStrictEqual([1, 1, 1]);
+  assert.deepEqual(items.rows.map(v => v.id), [1, 3, 2]);
+  assert.deepEqual(pgvector.fromSql(items.rows[0].embedding), [1, 1, 1]);
+  assert.deepEqual(pgvector.fromSql(items.rows[0].half_embedding), [1, 1, 1]);
+  assert.equal(items.rows[0].binary_embedding, '000');
+  assert.deepEqual(pgvector.fromSql(items.rows[0].sparse_embedding).toArray(), [1, 1, 1]);
 
   await pool.query(sql.unsafe`CREATE INDEX ON slonik_items USING hnsw (embedding vector_l2_ops)`);
 

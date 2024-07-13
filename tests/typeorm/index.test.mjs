@@ -1,3 +1,5 @@
+import assert from 'node:assert';
+import test from 'node:test';
 import pgvector from 'pgvector';
 import { SparseVector } from 'pgvector';
 import { DataSource, EntitySchema } from 'typeorm';
@@ -54,11 +56,11 @@ test('example', async () => {
     .setParameters({embedding: pgvector.toSql([1, 1, 1])})
     .limit(5)
     .getMany();
-  expect(items.map(v => v.id)).toStrictEqual([1, 3, 2]);
-  expect(pgvector.fromSql(items[0].embedding)).toStrictEqual([1, 1, 1]);
-  expect(pgvector.fromSql(items[0].half_embedding)).toStrictEqual([1, 1, 1]);
-  expect(items[0].binary_embedding).toStrictEqual('000');
-  expect((new SparseVector(items[0].sparse_embedding).toArray())).toStrictEqual([1, 1, 1]);
+  assert.deepEqual(items.map(v => v.id), [1, 3, 2]);
+  assert.deepEqual(pgvector.fromSql(items[0].embedding), [1, 1, 1]);
+  assert.deepEqual(pgvector.fromSql(items[0].half_embedding), [1, 1, 1]);
+  assert.equal(items[0].binary_embedding, '000');
+  assert.deepEqual((new SparseVector(items[0].sparse_embedding).toArray()), [1, 1, 1]);
 
   await AppDataSource.destroy();
 });
