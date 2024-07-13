@@ -27,3 +27,9 @@ jobs:
       - run: bun install
       - run: bunx prisma migrate reset --force
       - run: bun run test
+
+      # Deno
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+      - run: deno task test

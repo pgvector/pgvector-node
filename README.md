@@ -1,6 +1,6 @@
 # pgvector-node
 
-[pgvector](https://github.com/pgvector/pgvector) support for Node.js and Bun (and TypeScript)
+[pgvector](https://github.com/pgvector/pgvector) support for Node.js, Deno, and Bun (and TypeScript)
 
 Supports [node-postgres](https://github.com/brianc/node-postgres), [Knex.js](https://github.com/knex/knex), [Objection.js](https://github.com/vincit/objection.js), [Kysely](https://github.com/kysely-org/kysely), [Sequelize](https://github.com/sequelize/sequelize), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), [Slonik](https://github.com/gajus/slonik), [TypeORM](https://github.com/typeorm/typeorm), [MikroORM](https://github.com/mikro-orm/mikro-orm), and [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
 
