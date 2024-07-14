@@ -4,7 +4,7 @@ import { MikroORM, EntityManager, EntitySchema } from '@mikro-orm/postgresql';
 import { VectorType, HalfvecType, BitType, SparsevecType, l2Distance, maxInnerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'pgvector/mikro-orm';
 import { SparseVector } from 'pgvector';
 
-test('example', async () => {
+test('mikro-orm example', async () => {
   const Item = new EntitySchema({
     name: 'Item',
     tableName: 'mikro_items',
@@ -25,9 +25,10 @@ test('example', async () => {
   const em = orm.em.fork();
 
   await em.execute('CREATE EXTENSION IF NOT EXISTS vector');
+  await em.execute('DROP TABLE IF EXISTS mikro_items');
 
   const generator = orm.getSchemaGenerator();
-  await generator.refreshDatabase();
+  await generator.createSchema();
 
   em.create(Item, {embedding: [1, 1, 1], half_embedding: [1, 1, 1], binary_embedding: '000', sparse_embedding: new SparseVector([1, 1, 1])});
   em.create(Item, {embedding: [2, 2, 2], half_embedding: [2, 2, 2], binary_embedding: '101', sparse_embedding: new SparseVector([2, 2, 2])});

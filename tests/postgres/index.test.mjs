@@ -4,7 +4,7 @@ import postgres from 'postgres';
 import pgvector from 'pgvector';
 import { SparseVector } from 'pgvector';
 
-test('example', async () => {
+test('postgres example', async () => {
   const sql = postgres({database: 'pgvector_node_test', onnotice: function () { }});
 
   await sql`CREATE EXTENSION IF NOT EXISTS vector`;

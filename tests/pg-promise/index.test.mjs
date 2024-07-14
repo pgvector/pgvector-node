@@ -4,7 +4,7 @@ import pgpromise from 'pg-promise';
 import pgvector from 'pgvector/pg-promise';
 import { SparseVector } from 'pgvector';
 
-test('example', async () => {
+test('pg-promise example', async () => {
   const initOptions = {
     async connect(e) {
       await pgvector.registerTypes(e.client);

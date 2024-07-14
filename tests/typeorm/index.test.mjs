@@ -4,7 +4,7 @@ import pgvector from 'pgvector';
 import { SparseVector } from 'pgvector';
 import { DataSource, EntitySchema } from 'typeorm';
 
-test('example', async () => {
+test('typeorm example', async () => {
   // entity definition without decorators
   // https://typeorm.io/separating-entity-definition
   const Item = new EntitySchema({

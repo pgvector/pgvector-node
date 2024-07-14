@@ -4,7 +4,7 @@ import pgvector from 'pgvector';
 import { SparseVector } from 'pgvector';
 import { createPool, sql } from 'slonik';
 
-test('example', async () => {
+test('slonik example', async () => {
   const pool = await createPool('postgres://localhost/pgvector_node_test');
 
   await pool.query(sql.unsafe`CREATE EXTENSION IF NOT EXISTS vector`);

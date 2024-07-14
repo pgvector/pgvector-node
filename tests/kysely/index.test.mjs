@@ -6,7 +6,7 @@ import pgvector from 'pgvector/kysely';
 import { l2Distance, maxInnerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'pgvector/kysely';
 import { SparseVector } from 'pgvector';
 
-test('example', async () => {
+test('kysely example', async () => {
   const dialect = new PostgresDialect({
     pool: new pg.Pool({
       database: 'pgvector_node_test'

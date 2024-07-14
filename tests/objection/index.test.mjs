@@ -6,7 +6,7 @@ import pgvector from 'pgvector/objection';
 import { l2Distance, maxInnerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'pgvector/objection';
 import { SparseVector } from 'pgvector';
 
-test('example', async () => {
+test('objection example', async () => {
   const knex = Knex({
     client: 'pg',
     connection: {database: 'pgvector_node_test'}

@@ -6,7 +6,7 @@ import { pgTable, serial, vector, halfvec, bit, sparsevec } from 'drizzle-orm/pg
 import { SparseVector } from 'pgvector';
 import postgres from 'postgres';
 
-test('example', async () => {
+test('drizzle-orm example', async () => {
   const client = postgres({database: 'pgvector_node_test', onnotice: function () { }});
   const db = drizzle(client);
 

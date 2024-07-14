@@ -4,7 +4,7 @@ import pg from 'pg';
 import pgvector from 'pgvector/pg';
 import { SparseVector } from 'pgvector';
 
-test('example', async () => {
+test('pg example', async () => {
   const client = new pg.Client({database: 'pgvector_node_test'});
   await client.connect();
 

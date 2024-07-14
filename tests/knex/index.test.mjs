@@ -4,7 +4,7 @@ import Knex from 'knex';
 import pgvector from 'pgvector/knex';
 import { SparseVector } from 'pgvector';
 
-test('example', async () => {
+test('knex example', async () => {
   const knex = Knex({
     client: 'pg',
     connection: {database: 'pgvector_node_test'}
