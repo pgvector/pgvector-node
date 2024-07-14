@@ -1,4 +1,4 @@
-const { Type, raw } = require('@mikro-orm/core');
+const { raw } = require('@mikro-orm/core');
 const { BitType } = require('./bit');
 const { HalfvecType } = require('./halfvec');
 const { SparsevecType } = require('./sparsevec');

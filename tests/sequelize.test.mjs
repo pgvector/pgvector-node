@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import test from 'node:test';
-import { Sequelize, DataTypes, Model } from 'sequelize';
+import { Sequelize, DataTypes } from 'sequelize';
 import pgvector from 'pgvector/sequelize';
 import { l2Distance, maxInnerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'pgvector/sequelize';
 import { SparseVector } from 'pgvector';

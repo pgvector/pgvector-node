@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import test from 'node:test';
-import { MikroORM, EntityManager, EntitySchema } from '@mikro-orm/postgresql';
+import { MikroORM, EntitySchema } from '@mikro-orm/postgresql';
 import { VectorType, HalfvecType, BitType, SparsevecType, l2Distance, maxInnerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'pgvector/mikro-orm';
 import { SparseVector } from 'pgvector';
 

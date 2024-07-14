@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import test from 'node:test';
-import { sql, l2Distance, innerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'drizzle-orm';
+import { l2Distance, innerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { pgTable, serial, vector, halfvec, bit, sparsevec } from 'drizzle-orm/pg-core';
 import { SparseVector } from 'pgvector';

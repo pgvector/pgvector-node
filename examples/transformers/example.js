@@ -19,7 +19,7 @@ const input = [
 
 const extractor = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
 
-for (let [i, content] of input.entries()) {
+for (let content of input) {
   const output = await extractor(content, {pooling: 'mean', normalize: true});
   const embedding = Array.from(output.data);
   await client.query('INSERT INTO documents (content, embedding) VALUES ($1, $2)', [content, pgvector.toSql(embedding)]);

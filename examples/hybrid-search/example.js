@@ -25,7 +25,7 @@ async function generateEmbedding(content) {
   return Array.from(output.data);
 }
 
-for (let [i, content] of input.entries()) {
+for (let content of input) {
   const embedding = await generateEmbedding(content);
   await client.query('INSERT INTO documents (content, embedding) VALUES ($1, $2)', [content, pgvector.toSql(embedding)]);
 }
