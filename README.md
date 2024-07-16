@@ -32,6 +32,7 @@ And follow the instructions for your database library:
 Or check out some examples:
 
 - [Embeddings](examples/openai/example.js) with OpenAI
+- [Binary embeddings](examples/cohere/example.js) with Cohere
 - [Sentence embeddings](examples/transformers/example.js) with Transformers.js
 - [Hybrid search](examples/hybrid-search/example.js) with Transformers.js
 - [Recommendations](examples/disco/example.js) with Disco

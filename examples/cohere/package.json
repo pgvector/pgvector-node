@@ -1,0 +1,9 @@
+{
+    "private": true,
+    "type": "module",
+    "dependencies": {
+        "cohere-ai": "^7.10.6",
+        "pg": "^8.11.3",
+        "pgvector": "file:../.."
+    }
+}
