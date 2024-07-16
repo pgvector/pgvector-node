@@ -19,7 +19,9 @@ async function fetchEmbeddings(texts, inputType) {
     inputType: inputType,
     embeddingTypes: ['ubinary']
   });
-  return response.embeddings.ubinary.map((e) => e.map((v) => v.toString(2).padStart(8, '0')).join(''));
+  return response.embeddings.ubinary.map((e) => {
+    return e.map((v) => v.toString(2).padStart(8, '0')).join('')
+  });
 }
 
 const input = [
