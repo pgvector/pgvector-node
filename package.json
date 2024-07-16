@@ -101,6 +101,7 @@
     "kysely": "^0.27.3",
     "objection": "^3.1.3",
     "pg": "^8.6.0",
+    "pg-native": "^3.1.0",
     "pg-promise": "^11.4.3",
     "postgres": "^3.3.4",
     "sequelize": "^6.6.2",
