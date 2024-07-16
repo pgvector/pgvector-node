@@ -64,7 +64,11 @@ test('pool', async () => {
   await pool.end();
 });
 
-test('pg-native', () => {
+function isDeno() {
+  return typeof Deno !== 'undefined';
+}
+
+test('pg-native', {skip: isDeno()}, () => {
   const client = new Client();
   client.connectSync('postgres://localhost/pgvector_node_test');
 
