@@ -37,10 +37,13 @@ stream.on('finish', async function () {
   console.log('\nSuccess!');
 
   // create any indexes *after* loading initial data (skipping for this example)
-  // console.log('Creating index');
-  // await client.query("SET maintenance_work_mem = '8GB'");
-  // await client.query('SET max_parallel_maintenance_workers = 7');
-  // await client.query('CREATE INDEX ON items USING hnsw (embedding vector_cosine_ops)');
+  const createIndex = false;
+  if (createIndex) {
+    console.log('Creating index');
+    await client.query("SET maintenance_work_mem = '8GB'");
+    await client.query('SET max_parallel_maintenance_workers = 7');
+    await client.query('CREATE INDEX ON items USING hnsw (embedding vector_cosine_ops)');
+  }
 
   // update planner statistics for good measure
   await client.query('ANALYZE items');
