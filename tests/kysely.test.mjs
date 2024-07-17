@@ -108,6 +108,13 @@ test('kysely example', async () => {
     .execute();
   assert.deepEqual(items.map(v => v.id), [2, 3, 1, 4]);
 
+  // within distance
+  items = await db.selectFrom('kysely_items')
+    .selectAll()
+    .where(l2Distance('embedding', [1, 1, 1]), '<', 0.5)
+    .execute();
+  assert.deepEqual(items.map(v => v.id), [1]);
+
   await db.schema.createIndex('kysely_items_embedding_idx')
     .on('kysely_items')
     .using('hnsw')

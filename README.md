@@ -247,6 +247,15 @@ const items = await db.selectFrom('items')
 
 Also supports `maxInnerProduct`, `cosineDistance`, `l1Distance`, `hammingDistance`, and `jaccardDistance`
 
+Get items within a certain distance
+
+```javascript
+const items = await db.selectFrom('items')
+  .selectAll()
+  .where(l2Distance('embedding', [1, 2, 3]), '<', 5)
+  .execute();
+```
+
 Add an approximate index
 
 ```javascript
