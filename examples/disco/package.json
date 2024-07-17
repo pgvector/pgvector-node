@@ -2,7 +2,7 @@
     "private": true,
     "type": "module",
     "dependencies": {
-        "disco-rec": "^0.1.0",
+        "disco-rec": "^0.2.0",
         "pg": "^8.11.3",
         "pgvector": "file:../.."
     }
