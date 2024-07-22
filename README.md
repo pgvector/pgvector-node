@@ -36,6 +36,7 @@ Or check out some examples:
 - [Sentence embeddings](examples/transformers/example.js) with Transformers.js
 - [Hybrid search](examples/hybrid-search/example.js) with Transformers.js
 - [Recommendations](examples/disco/example.js) with Disco
+- [Horizontal scaling](examples/citus/example.js) with Citus
 - [Bulk loading](examples/loading/example.js) with `COPY`
 
 ## node-postgres

@@ -1,0 +1,9 @@
+{
+    "private": true,
+    "type": "module",
+    "dependencies": {
+        "pg": "^8.11.3",
+        "pg-copy-streams": "^6.0.6",
+        "pgvector": "file:../.."
+    }
+}
