@@ -20,6 +20,17 @@ await pgvector.registerTypes(client);
 await client.query('DROP TABLE IF EXISTS items');
 await client.query(`CREATE TABLE items (id bigserial, embedding vector(${dimensions}))`);
 
+function copyRow(stream, line) {
+  return new Promise((resolve) => {
+    let ok = stream.write(line);
+    if (!ok) {
+      stream.once('drain', () => resolve());
+    } else {
+      resolve();
+    }
+  });
+}
+
 // load data
 console.log(`Loading ${embeddings.length} rows`);
 const stream = client.query(copyFrom('COPY items (embedding) FROM STDIN'));
@@ -30,7 +41,7 @@ for (const [i, embedding] of embeddings.entries()) {
   }
 
   const line = `${pgvector.toSql(embedding)}\n`;
-  stream.flushChunk(line);
+  await copyRow(stream, line);
 }
 
 stream.on('finish', async function () {
