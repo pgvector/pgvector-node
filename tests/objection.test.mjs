@@ -20,7 +20,7 @@ test('objection example', async () => {
     }
   }
 
-  await knex.schema.enableExtension('vector');
+  await knex.schema.createExtensionIfNotExists('vector');
   await knex.schema.dropTableIfExists('objection_items');
   await knex.schema.createTable('objection_items', (table) => {
     table.increments('id');

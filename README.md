@@ -104,7 +104,7 @@ import pgvector from 'pgvector/knex';
 Enable the extension
 
 ```javascript
-await knex.schema.enableExtension('vector');
+await knex.schema.createExtensionIfNotExists('vector');
 ```
 
 Create a table
@@ -159,7 +159,7 @@ import pgvector from 'pgvector/objection';
 Enable the extension
 
 ```javascript
-await knex.schema.enableExtension('vector');
+await knex.schema.createExtensionIfNotExists('vector');
 ```
 
 Create a table
