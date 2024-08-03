@@ -698,3 +698,11 @@ createdb pgvector_node_test
 npx prisma migrate dev
 npm test
 ```
+
+To run an example:
+
+```sh
+cd examples/loading
+npm install
+node example.js
+```
