@@ -1,9 +1,10 @@
 const knex = require('knex');
+const util = require('node:util');
 const { fromSql, toSql, vectorType, halfvecType, sparsevecType } = require('../utils');
 
-knex.SchemaBuilder.extend('enableExtension', function (name) {
+knex.SchemaBuilder.extend('enableExtension', util.deprecate(function (name) {
   return this.raw('CREATE EXTENSION IF NOT EXISTS ??', [name]);
-});
+}, 'enableExtension() is deprecated. Use createExtensionIfNotExists() instead.'));
 
 knex.TableBuilder.extend('vector', function (name, options) {
   const dimensions = options && (Number.isInteger(options) ? options : options.dimensions);
