@@ -704,5 +704,6 @@ To run an example:
 ```sh
 cd examples/loading
 npm install
+createdb pgvector_example
 node example.js
 ```
