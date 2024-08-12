@@ -38,6 +38,7 @@ Or check out some examples:
 - [Morgan fingerprints](examples/rdkit/example.js) with RDKit.js
 - [Recommendations](examples/disco/example.js) with Disco
 - [Horizontal scaling](examples/citus/example.js) with Citus
+- [WebAssembly](examples/pglite/example.js) with PGLite
 - [Bulk loading](examples/loading/example.js) with `COPY`
 
 ## node-postgres
