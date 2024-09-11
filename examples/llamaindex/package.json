@@ -1,0 +1,9 @@
+{
+    "private": true,
+    "type": "module",
+    "dependencies": {
+        "llamaindex": "^0.5.25",
+        "pg": "^8.11.3",
+        "pgvector": "file:../.."
+    }
+}

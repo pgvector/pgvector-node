@@ -40,6 +40,7 @@ Or check out some examples:
 - [Horizontal scaling](examples/citus/example.js) with Citus
 - [WebAssembly](examples/pglite/example.js) with PGLite
 - [Bulk loading](examples/loading/example.js) with `COPY`
+- [Vector Store](examples/llamaindex/example.js) with LlamaIndex
 
 ## node-postgres
 
