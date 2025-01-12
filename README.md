@@ -35,6 +35,7 @@ Or check out some examples:
 - [Binary embeddings](examples/cohere/example.js) with Cohere
 - [Sentence embeddings](examples/transformers/example.js) with Transformers.js
 - [Hybrid search](examples/hybrid-search/example.js) with Transformers.js
+- [Sparse search](examples/sparse-search/example.js) with Text Embeddings Inference
 - [Morgan fingerprints](examples/rdkit/example.js) with RDKit.js
 - [Recommendations](examples/disco/example.js) with Disco
 - [Horizontal scaling](examples/citus/example.js) with Citus
