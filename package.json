@@ -95,8 +95,8 @@
   "devDependencies": {
     "@mikro-orm/core": "^6.1.1",
     "@mikro-orm/postgresql": "^6.1.1",
-    "@prisma/client": "^5.7.0",
-    "drizzle-orm": "^0.36.0",
+    "@prisma/client": "^6.2.1",
+    "drizzle-orm": "^0.39.0",
     "knex": "^3.1.0",
     "kysely": "^0.27.3",
     "objection": "^3.1.3",
