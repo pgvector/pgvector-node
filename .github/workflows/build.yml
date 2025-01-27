@@ -30,6 +30,7 @@ jobs:
       - run: |
           cd examples/bun
           bun install
+          createdb pgvector_example
           bun run example.js
 
       # Deno
