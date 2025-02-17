@@ -11,7 +11,7 @@ await pgvector.registerTypes(client);
 await client.query('DROP TABLE IF EXISTS documents');
 await client.query('CREATE TABLE documents (id bigserial PRIMARY KEY, content text, embedding bit(1024))');
 
-async function fetchEmbeddings(texts, inputType) {
+async function embed(texts, inputType) {
   const cohere = new CohereClient();
   const response = await cohere.embed({
     texts: texts,
@@ -29,14 +29,14 @@ const input = [
   'The cat is purring',
   'The bear is growling'
 ];
-const embeddings = await fetchEmbeddings(input, 'search_document');
+const embeddings = await embed(input, 'search_document');
 for (let [i, content] of input.entries()) {
   await client.query('INSERT INTO documents (content, embedding) VALUES ($1, $2)', [content, embeddings[i]]);
 }
 
 const query = 'forest';
-const queryEmbedding = (await fetchEmbeddings([query], 'search_query'))[0];
-const { rows } = await client.query('SELECT * FROM documents ORDER BY embedding <~> $1 LIMIT 5', [queryEmbedding]);
+const queryEmbedding = (await embed([query], 'search_query'))[0];
+const { rows } = await client.query('SELECT content FROM documents ORDER BY embedding <~> $1 LIMIT 5', [queryEmbedding]);
 for (let row of rows) {
   console.log(row.content);
 }

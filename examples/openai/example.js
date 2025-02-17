@@ -11,22 +11,25 @@ await pgvector.registerTypes(client);
 await client.query('DROP TABLE IF EXISTS documents');
 await client.query('CREATE TABLE documents (id bigserial PRIMARY KEY, content text, embedding vector(1536))');
 
+async function embed(input) {
+  const openai = new OpenAI();
+  const response = await openai.embeddings.create({input: input, model: 'text-embedding-3-small'});
+  return response.data.map((v) => v.embedding);
+}
+
 const input = [
   'The dog is barking',
   'The cat is purring',
   'The bear is growling'
 ];
-
-const openai = new OpenAI();
-const response = await openai.embeddings.create({input: input, model: 'text-embedding-3-small'});
-const embeddings = response.data.map((v) => v.embedding);
-
+const embeddings = await embed(input);
 for (let [i, content] of input.entries()) {
   await client.query('INSERT INTO documents (content, embedding) VALUES ($1, $2)', [content, pgvector.toSql(embeddings[i])]);
 }
 
-const documentId = 2;
-const { rows } = await client.query('SELECT * FROM documents WHERE id != $1 ORDER BY embedding <=> (SELECT embedding FROM documents WHERE id = $1) LIMIT 5', [documentId]);
+const query = 'forest';
+const queryEmbedding = (await embed([query]))[0];
+const { rows } = await client.query('SELECT content FROM documents ORDER BY embedding <=> $1 LIMIT 5', [pgvector.toSql(queryEmbedding)]);
 for (let row of rows) {
   console.log(row.content);
 }

@@ -2,7 +2,7 @@
     "private": true,
     "type": "module",
     "dependencies": {
-        "@xenova/transformers": "^2.6.0",
+        "@huggingface/transformers": "^3.3.3",
         "pg": "^8.11.3",
         "pgvector": "file:../.."
     }

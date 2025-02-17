@@ -18,7 +18,7 @@ await pgvector.registerTypes(client);
 await client.query('DROP TABLE IF EXISTS documents');
 await client.query('CREATE TABLE documents (id bigserial PRIMARY KEY, content text, embedding sparsevec(30522))');
 
-async function fetchEmbeddings(inputs) {
+async function embed(inputs) {
   const url = 'http://localhost:3000/embed_sparse';
   const data = {inputs: inputs};
   const options = {
@@ -48,14 +48,14 @@ const input = [
   'The bear is growling'
 ];
 
-const embeddings = await fetchEmbeddings(input);
+const embeddings = await embed(input);
 for (let [i, content] of input.entries()) {
   await client.query('INSERT INTO documents (content, embedding) VALUES ($1, $2)', [content, new SparseVector(embeddings[i], 30522)]);
 }
 
 const query = 'forest';
-const queryEmbeddings = await fetchEmbeddings([query]);
-const { rows } = await client.query('SELECT content FROM documents ORDER BY embedding <#> $1 LIMIT 5', [new SparseVector(queryEmbeddings[0], 30522)]);
+const queryEmbedding = (await embed([query]))[0];
+const { rows } = await client.query('SELECT content FROM documents ORDER BY embedding <#> $1 LIMIT 5', [new SparseVector(queryEmbedding, 30522)]);
 for (let row of rows) {
   console.log(row.content);
 }

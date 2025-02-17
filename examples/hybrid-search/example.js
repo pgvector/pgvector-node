@@ -1,4 +1,4 @@
-import { pipeline } from '@xenova/transformers';
+import { pipeline } from '@huggingface/transformers';
 import pg from 'pg';
 import pgvector from 'pgvector/pg';
 
@@ -18,15 +18,15 @@ const input = [
   'The bear is growling'
 ];
 
-const extractor = await pipeline('feature-extraction', 'Xenova/multi-qa-MiniLM-L6-cos-v1');
+const extractor = await pipeline('feature-extraction', 'Xenova/multi-qa-MiniLM-L6-cos-v1', {dtype: 'fp32'});
 
-async function generateEmbedding(content) {
+async function embed(content) {
   const output = await extractor(content, {pooling: 'mean', normalize: true});
   return Array.from(output.data);
 }
 
 for (let content of input) {
-  const embedding = await generateEmbedding(content);
+  const embedding = await embed(content);
   await client.query('INSERT INTO documents (content, embedding) VALUES ($1, $2)', [content, pgvector.toSql(embedding)]);
 }
 
@@ -54,7 +54,7 @@ ORDER BY score DESC
 LIMIT 5
 `;
 const query = 'growling bear'
-const embedding = await generateEmbedding(query);
+const embedding = await embed(query);
 const k = 60
 const { rows } = await client.query(sql, [query, pgvector.toSql(embedding), k]);
 for (let row of rows) {
