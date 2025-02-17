@@ -11,7 +11,7 @@ await pgvector.registerTypes(client);
 await client.query('DROP TABLE IF EXISTS documents');
 await client.query('CREATE TABLE documents (id bigserial PRIMARY KEY, content text, embedding vector(384))');
 
-const extractor = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', {dtype: 'fp32'});
+const extractor = await pipeline('feature-extraction', 'Xenova/multi-qa-MiniLM-L6-cos-v1', {dtype: 'fp32'});
 
 async function embed(input) {
   const output = await extractor(input, {pooling: 'mean', normalize: true});

@@ -47,7 +47,6 @@ const input = [
   'The cat is purring',
   'The bear is growling'
 ];
-
 const embeddings = await embed(input);
 for (let [i, content] of input.entries()) {
   await client.query('INSERT INTO documents (content, embedding) VALUES ($1, $2)', [content, new SparseVector(embeddings[i], 30522)]);
