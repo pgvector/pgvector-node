@@ -12,22 +12,21 @@ await client.query('DROP TABLE IF EXISTS documents');
 await client.query('CREATE TABLE documents (id bigserial PRIMARY KEY, content text, embedding vector(384))');
 await client.query("CREATE INDEX ON documents USING GIN (to_tsvector('english', content))");
 
+const extractor = await pipeline('feature-extraction', 'Xenova/multi-qa-MiniLM-L6-cos-v1', {dtype: 'fp32'});
+
+async function embed(content) {
+  const output = await extractor(content, {pooling: 'mean', normalize: true});
+  return output.tolist();
+}
+
 const input = [
   'The dog is barking',
   'The cat is purring',
   'The bear is growling'
 ];
-
-const extractor = await pipeline('feature-extraction', 'Xenova/multi-qa-MiniLM-L6-cos-v1', {dtype: 'fp32'});
-
-async function embed(content) {
-  const output = await extractor(content, {pooling: 'mean', normalize: true});
-  return Array.from(output.data);
-}
-
-for (let content of input) {
-  const embedding = await embed(content);
-  await client.query('INSERT INTO documents (content, embedding) VALUES ($1, $2)', [content, pgvector.toSql(embedding)]);
+const embeddings = await embed(input);
+for (let [i, content] of input.entries()) {
+  await client.query('INSERT INTO documents (content, embedding) VALUES ($1, $2)', [content, pgvector.toSql(embeddings[i])]);
 }
 
 const sql = `
@@ -54,9 +53,9 @@ ORDER BY score DESC
 LIMIT 5
 `;
 const query = 'growling bear'
-const embedding = await embed(query);
+const queryEmbedding = (await embed([query]))[0];
 const k = 60
-const { rows } = await client.query(sql, [query, pgvector.toSql(embedding), k]);
+const { rows } = await client.query(sql, [query, pgvector.toSql(queryEmbedding), k]);
 for (let row of rows) {
   console.log(row);
 }
