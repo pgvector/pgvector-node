@@ -728,6 +728,54 @@ Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distanc
 
 See a [full example](examples/bun/example.js)
 
+## Reference
+
+### Sparse Vectors
+
+Create a sparse vector from an array
+
+```javascript
+const vec = new SparseVector([1, 0, 2, 0, 3, 0]);
+```
+
+Or a map of non-zero elements
+
+```javascript
+const vec = new SparseVector({0: 1, 2: 2, 4: 3}, 6);
+// or
+const map = new Map();
+map.set(0, 1);
+map.set(2, 2);
+map.set(4, 3);
+const vec = new SparseVector(map, 6);
+```
+
+Note: Indices start at 0
+
+Get the number of dimensions
+
+```javascript
+const dim = vec.dimensions;
+```
+
+Get the indices of non-zero elements
+
+```javascript
+const indices = vec.indices;
+```
+
+Get the values of non-zero elements
+
+```javascript
+const values = vec.values;
+```
+
+Get an array
+
+```javascript
+const arr = vec.toArray();
+```
+
 ## History
 
 View the [changelog](https://github.com/pgvector/pgvector-node/blob/master/CHANGELOG.md)
