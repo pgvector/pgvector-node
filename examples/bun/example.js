@@ -10,13 +10,13 @@ await sql`CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3))`;
 const item = {
   embedding: pgvector.toSql([1, 2, 3])
 };
-await sql`INSERT INTO items (embedding) ${sql(item)}`;
+await sql`INSERT INTO items ${sql(item)}`;
 
 const items = [
   {embedding: pgvector.toSql([4, 5, 6])},
   {embedding: pgvector.toSql([7, 8, 9])}
 ];
-await sql`INSERT INTO items (embedding) ${sql(items)}`;
+await sql`INSERT INTO items ${sql(items)}`;
 
 await sql`CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)`;
 
