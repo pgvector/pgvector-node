@@ -1,3 +1,7 @@
+## 0.2.1 (unreleased)
+
+- Improved support for migrations with Sequelize
+
 ## 0.2.0 (2024-06-27)
 
 - Added support for `halfvec` and `sparsevec` types to node-postgres

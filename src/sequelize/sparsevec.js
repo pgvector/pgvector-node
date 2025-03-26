@@ -40,6 +40,9 @@ function registerSparsevec(Sequelize) {
   PgTypes.SPARSEVEC.parse = DataTypes.SPARSEVEC.parse;
   PgTypes.SPARSEVEC.types = {postgres: ['sparsevec']};
   DataTypes.postgres.SPARSEVEC.key = 'sparsevec';
+
+  // for migrations
+  Sequelize.SPARSEVEC ??= DataTypes.SPARSEVEC;
 }
 
 module.exports = {registerSparsevec};

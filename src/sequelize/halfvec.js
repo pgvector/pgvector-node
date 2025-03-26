@@ -40,6 +40,9 @@ function registerHalfvec(Sequelize) {
   PgTypes.HALFVEC.parse = DataTypes.HALFVEC.parse;
   PgTypes.HALFVEC.types = {postgres: ['halfvec']};
   DataTypes.postgres.HALFVEC.key = 'halfvec';
+
+  // for migrations
+  Sequelize.HALFVEC ??= DataTypes.HALFVEC;
 }
 
 module.exports = {registerHalfvec};

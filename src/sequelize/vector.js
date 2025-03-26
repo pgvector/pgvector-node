@@ -40,6 +40,9 @@ function registerVector(Sequelize) {
   PgTypes.VECTOR.parse = DataTypes.VECTOR.parse;
   PgTypes.VECTOR.types = {postgres: ['vector']};
   DataTypes.postgres.VECTOR.key = 'vector';
+
+  // for migrations
+  Sequelize.VECTOR ??= DataTypes.VECTOR;
 }
 
 module.exports = {registerVector};
