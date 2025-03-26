@@ -311,6 +311,8 @@ await Item.create({embedding: [1, 2, 3]});
 Get the nearest neighbors to a vector
 
 ```javascript
+import { l2Distance } from 'pgvector/sequelize';
+
 const items = await Item.findAll({
   order: l2Distance('embedding', [1, 1, 1], sequelize),
   limit: 5
