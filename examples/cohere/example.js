@@ -9,13 +9,13 @@ await client.query('CREATE EXTENSION IF NOT EXISTS vector');
 await pgvector.registerTypes(client);
 
 await client.query('DROP TABLE IF EXISTS documents');
-await client.query('CREATE TABLE documents (id bigserial PRIMARY KEY, content text, embedding bit(1024))');
+await client.query('CREATE TABLE documents (id bigserial PRIMARY KEY, content text, embedding bit(1536))');
 
 async function embed(texts, inputType) {
   const cohere = new CohereClient();
   const response = await cohere.embed({
     texts: texts,
-    model: 'embed-english-v3.0',
+    model: 'embed-v4.0',
     inputType: inputType,
     embeddingTypes: ['ubinary']
   });
