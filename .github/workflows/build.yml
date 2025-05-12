@@ -37,4 +37,5 @@ jobs:
       - uses: denoland/setup-deno@v1
         with:
           deno-version: v2.x
+      - run: deno install
       - run: deno task test
