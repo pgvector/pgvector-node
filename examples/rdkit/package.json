@@ -2,7 +2,7 @@
     "private": true,
     "type": "module",
     "dependencies": {
-        "@rdkit/rdkit": "^2023.9.2-1.0.0",
+        "@rdkit/rdkit": "^2025.3.2-1.0.0",
         "pg": "^8.11.3",
         "pgvector": "file:../.."
     }
