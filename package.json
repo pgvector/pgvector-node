@@ -1,6 +1,6 @@
 {
   "name": "pgvector",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "pgvector support for Node.js, Deno, and Bun (and TypeScript)",
   "homepage": "https://github.com/pgvector/pgvector-node",
   "license": "MIT",
