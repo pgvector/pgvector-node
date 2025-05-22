@@ -35,13 +35,13 @@ function copyRow(stream, line) {
 console.log(`Loading ${embeddings.length} rows`);
 const stream = client.query(copyFrom('COPY items (embedding) FROM STDIN'));
 for (const [i, embedding] of embeddings.entries()) {
+  const line = `${pgvector.toSql(embedding)}\n`;
+  await copyRow(stream, line);
+
   // show progress
   if (i % 10000 == 0) {
     stdout.write('.');
   }
-
-  const line = `${pgvector.toSql(embedding)}\n`;
-  await copyRow(stream, line);
 }
 
 stream.on('finish', async function () {
