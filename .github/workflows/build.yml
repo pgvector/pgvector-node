@@ -4,7 +4,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: ankane/setup-postgres@v1
         with:
           database: pgvector_node_test
@@ -17,7 +17,7 @@ jobs:
           sudo make install
 
       # Node.js
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
       - run: npm install
