@@ -405,13 +405,12 @@ Add the extension to the schema
 
 ```prisma
 generator client {
-  provider        = "prisma-client-js"
+  provider        = "prisma-client"
   previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
   provider   = "postgresql"
-  url        = env("DATABASE_URL")
   extensions = [vector]
 }
 ```
@@ -798,6 +797,7 @@ git clone https://github.com/pgvector/pgvector-node.git
 cd pgvector-node
 npm install
 createdb pgvector_node_test
+npx prisma generate
 npx prisma migrate dev
 npm test
 ```

@@ -2,10 +2,16 @@ import assert from 'node:assert';
 import test, { beforeEach } from 'node:test';
 import pgvector from 'pgvector';
 import { SparseVector } from 'pgvector';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '../prisma/generated/client.mts';
+import { PrismaPg } from '@prisma/adapter-pg';
+
+function prismaClient() {
+  const adapter = new PrismaPg({connectionString: 'postgresql://runner@localhost/pgvector_node_test'});
+  return new PrismaClient({adapter: adapter});
+}
 
 test('vector', async () => {
-  const prisma = new PrismaClient();
+  const prisma = prismaClient();
 
   // TODO use create when possible (field is not available in the generated client)
   // https://www.prisma.io/docs/concepts/components/prisma-schema/features-without-psl-equivalent#unsupported-field-types
@@ -21,10 +27,12 @@ test('vector', async () => {
   assert.deepEqual(pgvector.fromSql(items[0].embedding), [1, 1, 1]);
   assert.deepEqual(pgvector.fromSql(items[1].embedding), [1, 1, 2]);
   assert.deepEqual(pgvector.fromSql(items[2].embedding), [2, 2, 2]);
+
+  await prisma.$disconnect();
 });
 
 test('halfvec', async () => {
-  const prisma = new PrismaClient();
+  const prisma = prismaClient();
 
   // TODO use create when possible (field is not available in the generated client)
   // https://www.prisma.io/docs/concepts/components/prisma-schema/features-without-psl-equivalent#unsupported-field-types
@@ -40,10 +48,12 @@ test('halfvec', async () => {
   assert.deepEqual(pgvector.fromSql(items[0].half_embedding), [1, 1, 1]);
   assert.deepEqual(pgvector.fromSql(items[1].half_embedding), [1, 1, 2]);
   assert.deepEqual(pgvector.fromSql(items[2].half_embedding), [2, 2, 2]);
+
+  await prisma.$disconnect();
 });
 
 test('bit', async () => {
-  const prisma = new PrismaClient();
+  const prisma = prismaClient();
 
   await prisma.item.createMany({
     data: [
@@ -60,10 +70,12 @@ test('bit', async () => {
   assert.equal(items[0].binary_embedding, '101');
   assert.equal(items[1].binary_embedding, '111');
   assert.equal(items[2].binary_embedding, '000');
+
+  await prisma.$disconnect();
 });
 
 test('sparsevec', async () => {
-  const prisma = new PrismaClient();
+  const prisma = prismaClient();
 
   // TODO use create when possible (field is not available in the generated client)
   // https://www.prisma.io/docs/concepts/components/prisma-schema/features-without-psl-equivalent#unsupported-field-types
@@ -79,9 +91,12 @@ test('sparsevec', async () => {
   assert.deepEqual(pgvector.fromSql(items[0].sparse_embedding).toArray(), [1, 1, 1]);
   assert.deepEqual(pgvector.fromSql(items[1].sparse_embedding).toArray(), [1, 1, 2]);
   assert.deepEqual(pgvector.fromSql(items[2].sparse_embedding).toArray(), [2, 2, 2]);
+
+  await prisma.$disconnect();
 });
 
 beforeEach(async () => {
-  const prisma = new PrismaClient();
+  const prisma = prismaClient();
   await prisma.item.deleteMany({});
+  await prisma.$disconnect();
 });

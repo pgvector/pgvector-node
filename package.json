@@ -95,7 +95,8 @@
   "devDependencies": {
     "@mikro-orm/core": "^6.1.1",
     "@mikro-orm/postgresql": "^6.1.1",
-    "@prisma/client": "^6.2.1",
+    "@prisma/adapter-pg": "^7.1.0",
+    "@prisma/client": "^7.1.0",
     "drizzle-orm": "^0.45.0",
     "knex": "^3.1.0",
     "kysely": "^0.28.2",
@@ -103,7 +104,7 @@
     "pg": "^8.6.0",
     "pg-promise": "^12.3.0",
     "postgres": "^3.3.4",
-    "prisma": "^6.2.1",
+    "prisma": "^7.1.0",
     "sequelize": "^6.6.2",
     "slonik": "^48.8.7",
     "typeorm": "^0.3.17",

@@ -2,13 +2,15 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider        = "prisma-client-js"
+  provider        = "prisma-client"
+  output          = "./generated"
+  generatedFileExtension = "mts"
+  importFileExtension = "mts"
   previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
   provider   = "postgresql"
-  url        = "postgresql://runner@localhost/pgvector_node_test"
   extensions = [vector]
 }
 
