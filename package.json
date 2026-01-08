@@ -21,7 +21,10 @@
       "default": "./src/knex/index.js"
     },
     "./kysely": {
-      "types": "./types/kysely/index.d.ts",
+      "types": {
+        "import": "./types/kysely/index.d.mts",
+        "default": "./types/kysely/index.d.ts"
+      },
       "default": "./src/kysely/index.js"
     },
     "./mikro-orm": {
