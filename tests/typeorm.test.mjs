@@ -24,11 +24,12 @@ test('typeorm example', async () => {
         type: 'halfvec',
         length: 3
       },
+      binary_embedding: {
+        type: 'bit',
+        length: 3
+      },
       // custom types not supported
       // https://github.com/typeorm/typeorm/issues/10056
-      binary_embedding: {
-        type: String
-      },
       sparse_embedding: {
         type: String
       }
