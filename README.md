@@ -537,11 +537,7 @@ See a [full example](tests/slonik.test.mjs)
 
 ## TypeORM
 
-Import the library
-
-```javascript
-import pgvector from 'pgvector';
-```
+TypeORM 0.3.27+ has [built-in support](https://typeorm.io/docs/entity/entities#vector-columns) for pgvector :tada:
 
 Enable the extension
 
@@ -563,8 +559,8 @@ class Item {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column()
-  embedding: string
+  @Column('vector', {length: 3})
+  embedding: number[]
 }
 ```
 
@@ -572,12 +568,14 @@ Insert a vector
 
 ```javascript
 const itemRepository = AppDataSource.getRepository(Item);
-await itemRepository.save({embedding: pgvector.toSql([1, 2, 3])});
+await itemRepository.save({embedding: [1, 2, 3]});
 ```
 
 Get the nearest neighbors to a vector
 
 ```javascript
+import pgvector from 'pgvector';
+
 const items = await itemRepository
   .createQueryBuilder('item')
   .orderBy('embedding <-> :embedding')
