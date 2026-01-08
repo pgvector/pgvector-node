@@ -42,3 +42,7 @@ jobs:
           deno-version: v2.x
       - run: deno install
       - run: deno task test
+      - run: |
+          cd examples/deno
+          deno install
+          deno run --allow-env --allow-net example.js

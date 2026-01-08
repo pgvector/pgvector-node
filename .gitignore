@@ -5,3 +5,4 @@ package-lock.json
 pnpm-lock.yaml
 bun.lock
 bun.lockb
+deno.lock

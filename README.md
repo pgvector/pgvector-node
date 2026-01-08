@@ -2,7 +2,7 @@
 
 [pgvector](https://github.com/pgvector/pgvector) support for Node.js, Deno, and Bun (and TypeScript)
 
-Supports [node-postgres](https://github.com/brianc/node-postgres), [Knex.js](https://github.com/knex/knex), [Objection.js](https://github.com/vincit/objection.js), [Kysely](https://github.com/kysely-org/kysely), [Sequelize](https://github.com/sequelize/sequelize), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), [Slonik](https://github.com/gajus/slonik), [TypeORM](https://github.com/typeorm/typeorm), [MikroORM](https://github.com/mikro-orm/mikro-orm), [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm), and [Bun SQL](https://bun.sh/docs/api/sql)
+Supports [node-postgres](https://github.com/brianc/node-postgres), [Knex.js](https://github.com/knex/knex), [Objection.js](https://github.com/vincit/objection.js), [Kysely](https://github.com/kysely-org/kysely), [Sequelize](https://github.com/sequelize/sequelize), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), [Slonik](https://github.com/gajus/slonik), [TypeORM](https://github.com/typeorm/typeorm), [MikroORM](https://github.com/mikro-orm/mikro-orm), [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm), [deno-postgres](https://github.com/denodrivers/postgres), and [Bun SQL](https://bun.sh/docs/api/sql)
 
 [![Build Status](https://github.com/pgvector/pgvector-node/actions/workflows/build.yml/badge.svg)](https://github.com/pgvector/pgvector-node/actions)
 
@@ -28,6 +28,7 @@ And follow the instructions for your database library:
 - [TypeORM](#typeorm)
 - [MikroORM](#mikroorm)
 - [Drizzle ORM](#drizzle-orm)
+- [deno-postgres](#deno-postgres)
 - [Bun SQL](#bun-sql)
 
 Or check out some examples:
@@ -677,6 +678,52 @@ const allItems = await db.select()
 Also supports `innerProduct`, `cosineDistance`, `l1Distance`, `hammingDistance`, and `jaccardDistance`
 
 See a [full example](tests/drizzle-orm.test.mjs)
+
+## deno-postgres
+
+Import the library
+
+```javascript
+import pgvector from 'npm:pgvector';
+```
+
+Enable the extension
+
+```javascript
+await client.queryArray`CREATE EXTENSION IF NOT EXISTS vector`;
+```
+
+Create a table
+
+```javascript
+await client.queryArray`CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3))`;
+```
+
+Insert a vector
+
+```javascript
+const embedding = pgvector.toSql([1, 2, 3]);
+await client.queryArray`INSERT INTO items (embedding) VALUES (${embedding})`;
+```
+
+Get the nearest neighbors to a vector
+
+```javascript
+const embedding = pgvector.toSql([1, 2, 3]);
+const { rows } = await client.queryArray`SELECT * FROM items ORDER BY embedding <-> ${embedding} LIMIT 5`;
+```
+
+Add an approximate index
+
+```javascript
+await client.queryArray`CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)`;
+// or
+await client.queryArray`CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)`;
+```
+
+Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
+
+See a [full example](examples/deno/example.js)
 
 ## Bun SQL
 

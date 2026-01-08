@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "@db/postgres": "jsr:@db/postgres@^0.19.5",
+    "pgvector": "npm:pgvector@^0.2.1"
+  }
+}
