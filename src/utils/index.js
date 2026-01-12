@@ -1,6 +1,8 @@
 import util from 'node:util';
 import { SparseVector } from './sparse-vector.js';
 
+export { SparseVector } from './sparse-vector.js';
+
 export function vectorFromSql(value) {
   if (value === null) {
     return null;
@@ -15,8 +17,8 @@ export function vectorToSql(value) {
   return value;
 }
 
-export const halfvecFromSql = vectorFromSql;
-export const halfvecToSql = vectorToSql;
+export { vectorFromSql as halfvecFromSql };
+export { vectorToSql as halfvecToSql };
 
 export function sparsevecFromSql(value) {
   if (value === null) {
@@ -88,5 +90,3 @@ export function sparsevecType(dimensions) {
 export const sqlType = vectorType;
 
 export default { fromSql, toSql, sqlType };
-
-export { SparseVector };
