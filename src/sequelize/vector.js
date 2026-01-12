@@ -1,7 +1,7 @@
 import util from 'node:util';
 import { vectorType, vectorToSql, vectorFromSql } from '../utils/index.js';
 
-function registerVector(Sequelize) {
+export function registerVector(Sequelize) {
   const DataTypes = Sequelize.DataTypes;
   const PgTypes = DataTypes.postgres;
   const ABSTRACT = DataTypes.ABSTRACT.prototype.constructor;
@@ -44,5 +44,3 @@ function registerVector(Sequelize) {
   // for migrations
   Sequelize.VECTOR ??= DataTypes.VECTOR;
 }
-
-export { registerVector };

@@ -1,6 +1,6 @@
 import util from 'node:util';
 
-class SparseVector {
+export class SparseVector {
   constructor(value, dimensions) {
     if (typeof value === 'string') {
       this.#fromSql(value);
@@ -73,5 +73,3 @@ class SparseVector {
     }
   }
 }
-
-export { SparseVector };

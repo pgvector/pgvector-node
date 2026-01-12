@@ -1,7 +1,7 @@
 import util from 'node:util';
 import { halfvecType, halfvecToSql, halfvecFromSql } from '../utils/index.js';
 
-function registerHalfvec(Sequelize) {
+export function registerHalfvec(Sequelize) {
   const DataTypes = Sequelize.DataTypes;
   const PgTypes = DataTypes.postgres;
   const ABSTRACT = DataTypes.ABSTRACT.prototype.constructor;
@@ -44,5 +44,3 @@ function registerHalfvec(Sequelize) {
   // for migrations
   Sequelize.HALFVEC ??= DataTypes.HALFVEC;
 }
-
-export { registerHalfvec };
