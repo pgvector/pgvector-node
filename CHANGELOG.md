@@ -1,6 +1,7 @@
 ## 0.3.0 (unreleased)
 
 - Switched to ESM
+- Dropped support for Node < 20
 
 ## 0.2.1 (2025-05-20)
 
