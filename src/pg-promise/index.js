@@ -1,3 +1,1 @@
-const { registerType, registerTypes, toSql } = require('../pg');
-
-module.exports = {registerType, registerTypes, toSql};
+export { default } from '../pg/index.js';

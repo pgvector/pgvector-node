@@ -1,5 +1,10 @@
-export function registerType(Sequelize: any): void;
-export function registerTypes(Sequelize: any): void;
+declare namespace _default {
+    export { registerType };
+    export { registerTypes };
+}
+export default _default;
+declare function registerType(Sequelize: any): void;
+declare function registerTypes(Sequelize: any): void;
 export function l2Distance(column: any, value: any, sequelize: any): any;
 export function maxInnerProduct(column: any, value: any, sequelize: any): any;
 export function cosineDistance(column: any, value: any, sequelize: any): any;

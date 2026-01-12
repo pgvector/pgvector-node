@@ -1,5 +1,5 @@
-const util = require('node:util');
-const utils = require('../utils');
+import util from 'node:util';
+import { vectorType, vectorToSql, vectorFromSql } from '../utils/index.js';
 
 function registerVector(Sequelize) {
   const DataTypes = Sequelize.DataTypes;
@@ -13,15 +13,15 @@ function registerVector(Sequelize) {
     }
 
     toSql() {
-      return utils.vectorType(this._dimensions).toUpperCase();
+      return vectorType(this._dimensions).toUpperCase();
     }
 
     _stringify(value) {
-      return utils.vectorToSql(value);
+      return vectorToSql(value);
     }
 
     static parse(value) {
-      return utils.vectorFromSql(value);
+      return vectorFromSql(value);
     }
   }
 
@@ -45,4 +45,4 @@ function registerVector(Sequelize) {
   Sequelize.VECTOR ??= DataTypes.VECTOR;
 }
 
-module.exports = {registerVector};
+export { registerVector };

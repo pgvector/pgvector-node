@@ -1,10 +1,10 @@
-const { Type } = require('@mikro-orm/core');
-const utils = require('../utils');
+import { Type } from '@mikro-orm/core';
+import { bitType } from '../utils/index.js';
 
 class BitType extends Type {
   getColumnType(prop, platform) {
-    return utils.bitType(prop.length);
+    return bitType(prop.length);
   }
 }
 
-module.exports = {BitType};
+export { BitType };

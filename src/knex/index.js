@@ -1,5 +1,5 @@
-const knex = require('knex');
-const { fromSql, toSql, vectorType, halfvecType, sparsevecType } = require('../utils');
+import knex from 'knex';
+import { fromSql, toSql, vectorType, halfvecType, sparsevecType } from '../utils/index.js';
 
 knex.SchemaBuilder.extend('enableExtension', function (name) {
   return this.raw('CREATE EXTENSION IF NOT EXISTS ??', [name]);
@@ -44,4 +44,4 @@ knex.QueryBuilder.extend('jaccardDistance', function (column, value) {
   return this.client.raw('?? <%> ?', [column, value]);
 });
 
-module.exports = {fromSql, toSql};
+export default { fromSql, toSql };

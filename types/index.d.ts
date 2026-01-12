@@ -1,4 +1,9 @@
-import { fromSql } from "./utils";
-import { toSql } from "./utils";
-import { SparseVector } from "./utils";
-export { fromSql, toSql, SparseVector };
+declare namespace _default {
+    export { fromSql };
+    export { toSql };
+}
+export default _default;
+export { SparseVector };
+import { fromSql } from './utils/index.js';
+import { toSql } from './utils/index.js';
+import { SparseVector } from './utils/index.js';

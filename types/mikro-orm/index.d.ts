@@ -1,7 +1,7 @@
-import { VectorType } from "./vector";
-import { HalfvecType } from "./halfvec";
-import { BitType } from "./bit";
-import { SparsevecType } from "./sparsevec";
+import { VectorType } from './vector.js';
+import { HalfvecType } from './halfvec.js';
+import { BitType } from './bit.js';
+import { SparsevecType } from './sparsevec.js';
 export function l2Distance(column: any, value: any, em: any): any;
 export function maxInnerProduct(column: any, value: any, em: any): any;
 export function cosineDistance(column: any, value: any, em: any): any;

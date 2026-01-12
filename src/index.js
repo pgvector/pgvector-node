@@ -1,3 +1,5 @@
-const { fromSql, toSql, SparseVector } = require('./utils');
+import { fromSql, toSql, SparseVector } from './utils/index.js';
 
-module.exports = {fromSql, toSql, SparseVector};
+export default { fromSql, toSql };
+
+export { SparseVector };

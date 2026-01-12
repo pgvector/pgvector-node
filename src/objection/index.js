@@ -1,5 +1,6 @@
-const { fromSql, toSql } = require('../knex');
-const { raw } = require('objection');
+import { fromSql, toSql } from '../utils/index.js';
+import { raw } from 'objection';
+import '../knex/index.js';
 
 function l2Distance(column, value) {
   return raw('?? <-> ?', [column, toSql(value)]);
@@ -25,9 +26,12 @@ function jaccardDistance(column, value) {
   return raw('?? <%> ?', [column, value]);
 }
 
-module.exports = {
+export default {
   fromSql,
-  toSql,
+  toSql
+};
+
+export {
   l2Distance,
   maxInnerProduct,
   cosineDistance,

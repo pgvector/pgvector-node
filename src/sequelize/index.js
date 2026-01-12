@@ -1,8 +1,8 @@
-const { toSql } = require('../utils');
-const { Utils } = require('sequelize');
-const { registerHalfvec } = require('./halfvec');
-const { registerSparsevec } = require('./sparsevec');
-const { registerVector } = require('./vector');
+import { toSql } from '../utils/index.js';
+import { Utils } from 'sequelize';
+import { registerHalfvec } from './halfvec.js';
+import { registerSparsevec } from './sparsevec.js';
+import { registerVector } from './vector.js';
 
 function registerTypes(Sequelize) {
   registerVector(Sequelize);
@@ -42,9 +42,12 @@ function jaccardDistance(column, value, sequelize) {
 
 const registerType = registerTypes;
 
-module.exports = {
+export default {
   registerType,
-  registerTypes,
+  registerTypes
+};
+
+export {
   l2Distance,
   maxInnerProduct,
   cosineDistance,

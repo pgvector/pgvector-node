@@ -1,9 +1,9 @@
-const { raw } = require('@mikro-orm/core');
-const { BitType } = require('./bit');
-const { HalfvecType } = require('./halfvec');
-const { SparsevecType } = require('./sparsevec');
-const { VectorType } = require('./vector');
-const { toSql } = require('../utils');
+import { raw } from '@mikro-orm/core';
+import { BitType } from './bit.js';
+import { HalfvecType } from './halfvec.js';
+import { SparsevecType } from './sparsevec.js';
+import { VectorType } from './vector.js';
+import { toSql } from '../utils/index.js';
 
 function distance(op, column, value, em, binary) {
   if (raw) {
@@ -37,7 +37,7 @@ function jaccardDistance(column, value, em) {
   return distance('<%>', column, value, em, true);
 }
 
-module.exports = {
+export {
   VectorType,
   HalfvecType,
   BitType,

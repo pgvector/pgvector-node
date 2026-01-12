@@ -1,5 +1,5 @@
-const util = require('node:util');
-const { SparseVector } = require('./sparse-vector');
+import util from 'node:util';
+import { SparseVector } from './sparse-vector.js';
 
 function vectorFromSql(value) {
   if (value === null) {
@@ -87,7 +87,9 @@ function sparsevecType(dimensions) {
 // for backwards compatibility
 const sqlType = vectorType;
 
-module.exports = {
+export default { fromSql, toSql, sqlType };
+
+export {
   fromSql,
   toSql,
   vectorFromSql,

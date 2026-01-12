@@ -11,6 +11,7 @@
     "type": "git",
     "url": "https://github.com/pgvector/pgvector-node"
   },
+  "type": "module",
   "exports": {
     ".": {
       "types": "./types/index.d.ts",

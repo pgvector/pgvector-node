@@ -1,4 +1,4 @@
-const util = require('node:util');
+import util from 'node:util';
 
 class SparseVector {
   constructor(value, dimensions) {
@@ -74,4 +74,4 @@ class SparseVector {
   }
 }
 
-module.exports = {SparseVector};
+export { SparseVector };

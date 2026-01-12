@@ -1,24 +1,24 @@
-const { Type } = require('@mikro-orm/core');
-const utils = require('../utils');
+import { Type } from '@mikro-orm/core';
+import { halfvecFromSql, halfvecToSql, halfvecType } from '../utils/index.js';
 
 class HalfvecType extends Type {
   convertToDatabaseValue(value, platform) {
     if (value === null) {
       return null;
     }
-    return utils.halfvecToSql(value);
+    return halfvecToSql(value);
   }
 
   convertToJSValue(value, platform) {
     if (value === null) {
       return null;
     }
-    return utils.halfvecFromSql(value);
+    return halfvecFromSql(value);
   }
 
   getColumnType(prop, platform) {
-    return utils.halfvecType(prop.dimensions);
+    return halfvecType(prop.dimensions);
   }
 }
 
-module.exports = {HalfvecType};
+export { HalfvecType };

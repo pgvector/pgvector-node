@@ -1,5 +1,5 @@
-const util = require('node:util');
-const utils = require('../utils');
+import util from 'node:util';
+import { sparsevecType, sparsevecToSql, sparsevecFromSql } from '../utils/index.js';
 
 function registerSparsevec(Sequelize) {
   const DataTypes = Sequelize.DataTypes;
@@ -13,15 +13,15 @@ function registerSparsevec(Sequelize) {
     }
 
     toSql() {
-      return utils.sparsevecType(this._dimensions).toUpperCase();
+      return sparsevecType(this._dimensions).toUpperCase();
     }
 
     _stringify(value) {
-      return utils.sparsevecToSql(value);
+      return sparsevecToSql(value);
     }
 
     static parse(value) {
-      return utils.sparsevecFromSql(value);
+      return sparsevecFromSql(value);
     }
   }
 
@@ -45,4 +45,4 @@ function registerSparsevec(Sequelize) {
   Sequelize.SPARSEVEC ??= DataTypes.SPARSEVEC;
 }
 
-module.exports = {registerSparsevec};
+export { registerSparsevec };

@@ -1,5 +1,5 @@
-const { sql } = require('kysely');
-const { fromSql, toSql } = require('..');
+import { sql } from 'kysely';
+import { fromSql, toSql } from '../utils/index.js';
 
 function l2Distance(column, value) {
   return sql`${sql.ref(column)} <-> ${toSql(value)}`;
@@ -25,9 +25,12 @@ function jaccardDistance(column, value) {
   return sql`${sql.ref(column)} <%> ${value}`;
 }
 
-module.exports = {
+export default {
   fromSql,
-  toSql,
+  toSql
+};
+
+export {
   l2Distance,
   maxInnerProduct,
   cosineDistance,
