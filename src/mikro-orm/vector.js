@@ -1,7 +1,7 @@
 import { Type } from '@mikro-orm/core';
 import { vectorFromSql, vectorToSql, vectorType } from '../utils/index.js';
 
-class VectorType extends Type {
+export class VectorType extends Type {
   convertToDatabaseValue(value, platform) {
     if (value === null) {
       return null;
@@ -20,5 +20,3 @@ class VectorType extends Type {
     return vectorType(prop.dimensions);
   }
 }
-
-export { VectorType };

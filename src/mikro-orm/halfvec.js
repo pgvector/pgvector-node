@@ -1,7 +1,7 @@
 import { Type } from '@mikro-orm/core';
 import { halfvecFromSql, halfvecToSql, halfvecType } from '../utils/index.js';
 
-class HalfvecType extends Type {
+export class HalfvecType extends Type {
   convertToDatabaseValue(value, platform) {
     if (value === null) {
       return null;
@@ -20,5 +20,3 @@ class HalfvecType extends Type {
     return halfvecType(prop.dimensions);
   }
 }
-
-export { HalfvecType };

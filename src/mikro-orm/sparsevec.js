@@ -1,7 +1,7 @@
 import { Type } from '@mikro-orm/core';
 import { sparsevecFromSql, sparsevecToSql, sparsevecType } from '../utils/index.js';
 
-class SparsevecType extends Type {
+export class SparsevecType extends Type {
   convertToDatabaseValue(value, platform) {
     if (value === null) {
       return null;
@@ -20,5 +20,3 @@ class SparsevecType extends Type {
     return sparsevecType(prop.dimensions);
   }
 }
-
-export { SparsevecType };

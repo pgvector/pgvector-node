@@ -1,11 +1,10 @@
-import { VectorType } from './vector.js';
-import { HalfvecType } from './halfvec.js';
-import { BitType } from './bit.js';
-import { SparsevecType } from './sparsevec.js';
 export function l2Distance(column: any, value: any, em: any): any;
 export function maxInnerProduct(column: any, value: any, em: any): any;
 export function cosineDistance(column: any, value: any, em: any): any;
 export function l1Distance(column: any, value: any, em: any): any;
 export function hammingDistance(column: any, value: any, em: any): any;
 export function jaccardDistance(column: any, value: any, em: any): any;
-export { VectorType, HalfvecType, BitType, SparsevecType };
+export { BitType } from "./bit.js";
+export { HalfvecType } from "./halfvec.js";
+export { SparsevecType } from "./sparsevec.js";
+export { VectorType } from "./vector.js";
