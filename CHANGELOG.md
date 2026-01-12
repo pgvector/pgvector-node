@@ -1,3 +1,7 @@
+## 0.3.0 (unreleased)
+
+- Switched to ESM
+
 ## 0.2.1 (2025-05-20)
 
 - Improved support for migrations with Sequelize
