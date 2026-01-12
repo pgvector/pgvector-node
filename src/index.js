@@ -2,4 +2,4 @@ import { fromSql, toSql, SparseVector } from './utils/index.js';
 
 export default { fromSql, toSql };
 
-export { SparseVector };
+export { fromSql, toSql, SparseVector };
