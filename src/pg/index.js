@@ -31,4 +31,6 @@ async function registerTypes(client) {
 
 const registerType = registerTypes;
 
+export { registerType, registerTypes, toSql };
+
 export default { registerType, registerTypes, toSql };

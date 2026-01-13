@@ -1,6 +1,11 @@
 import { raw } from '@mikro-orm/core';
 import { toSql } from '../utils/index.js';
 
+export { BitType } from './bit.js';
+export { HalfvecType } from './halfvec.js';
+export { SparsevecType } from './sparsevec.js';
+export { VectorType } from './vector.js';
+
 function distance(op, column, value, em, binary) {
   if (raw) {
     return raw(`?? ${op} ?`, [column, binary ? value : toSql(value)]);
@@ -8,11 +13,6 @@ function distance(op, column, value, em, binary) {
     return em.raw(`?? ${op} ?`, [column, binary ? value : toSql(value)]);
   }
 }
-
-export { BitType } from './bit.js';
-export { HalfvecType } from './halfvec.js';
-export { SparsevecType } from './sparsevec.js';
-export { VectorType } from './vector.js';
 
 export function l2Distance(column, value, em) {
   return distance('<->', column, value, em);

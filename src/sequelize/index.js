@@ -42,7 +42,6 @@ export function jaccardDistance(column, value, sequelize) {
 
 const registerType = registerTypes;
 
-export default {
-  registerType,
-  registerTypes
-};
+export { registerType, registerTypes };
+
+export default { registerType, registerTypes };

@@ -9,5 +9,5 @@ declare namespace _default {
     export { registerTypes };
 }
 export default _default;
-declare function registerType(Sequelize: any): void;
-declare function registerTypes(Sequelize: any): void;
+export function registerType(Sequelize: any): void;
+export function registerTypes(Sequelize: any): void;

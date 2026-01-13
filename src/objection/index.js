@@ -26,7 +26,6 @@ export function jaccardDistance(column, value) {
   return raw('?? <%> ?', [column, value]);
 }
 
-export default {
-  fromSql,
-  toSql
-};
+export { fromSql, toSql };
+
+export default { fromSql, toSql };

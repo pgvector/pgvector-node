@@ -44,4 +44,6 @@ knex.QueryBuilder.extend('jaccardDistance', function (column, value) {
   return this.client.raw('?? <%> ?', [column, value]);
 });
 
+export { fromSql, toSql };
+
 export default { fromSql, toSql };

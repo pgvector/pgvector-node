@@ -1,8 +1,6 @@
 import { sql } from 'kysely';
 import { fromSql, toSql } from '../utils/index.js';
 
-export default { fromSql, toSql };
-
 export function l2Distance(column, value) {
   return sql`${sql.ref(column)} <-> ${toSql(value)}`;
 }
@@ -26,3 +24,7 @@ export function hammingDistance(column, value) {
 export function jaccardDistance(column, value) {
   return sql`${sql.ref(column)} <%> ${value}`;
 }
+
+export { fromSql, toSql };
+
+export default { fromSql, toSql };
