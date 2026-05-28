@@ -1,38 +1,40 @@
-const util = require('node:util');
-const { SparseVector } = require('./sparse-vector');
+import util from 'node:util';
+import { SparseVector } from './sparse-vector.js';
 
-function vectorFromSql(value) {
+export { SparseVector } from './sparse-vector.js';
+
+export function vectorFromSql(value) {
   if (value === null) {
     return null;
   }
   return value.substring(1, value.length - 1).split(',').map((v) => parseFloat(v));
 }
 
-function vectorToSql(value) {
+export function vectorToSql(value) {
   if (Array.isArray(value)) {
     return JSON.stringify(value.map((v) => Number(v)));
   }
   return value;
 }
 
-const halfvecFromSql = vectorFromSql;
-const halfvecToSql = vectorToSql;
+export { vectorFromSql as halfvecFromSql };
+export { vectorToSql as halfvecToSql };
 
-function sparsevecFromSql(value) {
+export function sparsevecFromSql(value) {
   if (value === null) {
     return null;
   }
   return new SparseVector(value);
 }
 
-function sparsevecToSql(value) {
+export function sparsevecToSql(value) {
   if (value instanceof SparseVector) {
     return value.toPostgres();
   }
   return value;
 }
 
-function fromSql(value) {
+export function fromSql(value) {
   if (value === null) {
     return null;
   } else if (value[0] == '[') {
@@ -44,7 +46,7 @@ function fromSql(value) {
   }
 }
 
-function toSql(value) {
+export function toSql(value) {
   if (value === null) {
     return null;
   } else if (Array.isArray(value)) {
@@ -68,38 +70,23 @@ function typeWithDimensions(name, dimensions) {
   return util.format('%s(%d)', name, dimensions);
 }
 
-function vectorType(dimensions) {
+export function vectorType(dimensions) {
   return typeWithDimensions('vector', dimensions);
 }
 
-function halfvecType(dimensions) {
+export function halfvecType(dimensions) {
   return typeWithDimensions('halfvec', dimensions);
 }
 
-function bitType(dimensions) {
+export function bitType(dimensions) {
   return typeWithDimensions('bit', dimensions);
 }
 
-function sparsevecType(dimensions) {
+export function sparsevecType(dimensions) {
   return typeWithDimensions('sparsevec', dimensions);
 }
 
 // for backwards compatibility
-const sqlType = vectorType;
+export const sqlType = vectorType;
 
-module.exports = {
-  fromSql,
-  toSql,
-  vectorFromSql,
-  vectorToSql,
-  halfvecFromSql,
-  halfvecToSql,
-  sparsevecFromSql,
-  sparsevecToSql,
-  sqlType,
-  vectorType,
-  halfvecType,
-  bitType,
-  sparsevecType,
-  SparseVector
-};
+export default { fromSql, toSql, sqlType };

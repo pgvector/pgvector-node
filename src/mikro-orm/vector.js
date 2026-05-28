@@ -1,24 +1,22 @@
-const { Type } = require('@mikro-orm/core');
-const utils = require('../utils');
+import { Type } from '@mikro-orm/core';
+import { vectorFromSql, vectorToSql, vectorType } from '../utils/index.js';
 
-class VectorType extends Type {
+export class VectorType extends Type {
   convertToDatabaseValue(value, platform) {
     if (value === null) {
       return null;
     }
-    return utils.vectorToSql(value);
+    return vectorToSql(value);
   }
 
   convertToJSValue(value, platform) {
     if (value === null) {
       return null;
     }
-    return utils.vectorFromSql(value);
+    return vectorFromSql(value);
   }
 
   getColumnType(prop, platform) {
-    return utils.vectorType(prop.dimensions);
+    return vectorType(prop.dimensions);
   }
 }
-
-module.exports = {VectorType};

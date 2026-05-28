@@ -1,6 +1,6 @@
-const util = require('node:util');
+import util from 'node:util';
 
-class SparseVector {
+export class SparseVector {
   constructor(value, dimensions) {
     this.indices = [];
     this.values = [];
@@ -70,5 +70,3 @@ class SparseVector {
     }
   }
 }
-
-module.exports = {SparseVector};

@@ -1,4 +1,1 @@
-import { registerType } from "../pg";
-import { registerTypes } from "../pg";
-import { toSql } from "../pg";
-export { registerType, registerTypes, toSql };
+export { default } from "../pg/index.js";

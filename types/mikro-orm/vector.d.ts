@@ -4,4 +4,4 @@ export class VectorType extends Type<string, string> {
     convertToJSValue(value: any, platform: any): any;
     getColumnType(prop: any, platform: any): any;
 }
-import { Type } from "@mikro-orm/core/types";
+import { Type } from '@mikro-orm/core';

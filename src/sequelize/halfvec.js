@@ -1,7 +1,7 @@
-const util = require('node:util');
-const utils = require('../utils');
+import util from 'node:util';
+import { halfvecType, halfvecToSql, halfvecFromSql } from '../utils/index.js';
 
-function registerHalfvec(Sequelize) {
+export function registerHalfvec(Sequelize) {
   const DataTypes = Sequelize.DataTypes;
   const PgTypes = DataTypes.postgres;
   const ABSTRACT = DataTypes.ABSTRACT.prototype.constructor;
@@ -13,15 +13,15 @@ function registerHalfvec(Sequelize) {
     }
 
     toSql() {
-      return utils.halfvecType(this._dimensions).toUpperCase();
+      return halfvecType(this._dimensions).toUpperCase();
     }
 
     _stringify(value) {
-      return utils.halfvecToSql(value);
+      return halfvecToSql(value);
     }
 
     static parse(value) {
-      return utils.halfvecFromSql(value);
+      return halfvecFromSql(value);
     }
   }
 
@@ -44,5 +44,3 @@ function registerHalfvec(Sequelize) {
   // for migrations
   Sequelize.HALFVEC ??= DataTypes.HALFVEC;
 }
-
-module.exports = {registerHalfvec};
