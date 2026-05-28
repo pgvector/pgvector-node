@@ -32,7 +32,7 @@ jobs:
       - run: bun run test
       - run: |
           cd examples/bun
-          bun install
+          bun install --force
           createdb pgvector_example
           bun run example.js
 
