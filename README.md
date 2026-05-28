@@ -94,7 +94,7 @@ await client.query('CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops
 
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
 
-See a [full example](tests/pg.test.mjs)
+See a [full example](tests/pg.test.js)
 
 ## Knex.js
 
@@ -149,7 +149,7 @@ await knex.schema.alterTable('items', function (table) {
 
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
 
-See a [full example](tests/knex.test.mjs)
+See a [full example](tests/knex.test.js)
 
 ## Objection.js
 
@@ -206,7 +206,7 @@ await knex.schema.alterTable('items', function (table) {
 
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
 
-See a [full example](tests/objection.test.mjs)
+See a [full example](tests/objection.test.js)
 
 ## Kysely
 
@@ -272,7 +272,7 @@ await db.schema.createIndex('index_name')
 
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
 
-See a [full example](tests/kysely.test.mjs)
+See a [full example](tests/kysely.test.js)
 
 ## Sequelize
 
@@ -336,7 +336,7 @@ const Item = sequelize.define('Item', ..., {
 
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
 
-See a [full example](tests/sequelize.test.mjs)
+See a [full example](tests/sequelize.test.js)
 
 ## pg-promise
 
@@ -388,7 +388,7 @@ await db.none('CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WIT
 
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
 
-See a [full example](tests/pg-promise.test.mjs)
+See a [full example](tests/pg-promise.test.js)
 
 ## Prisma
 
@@ -437,7 +437,7 @@ const embedding = pgvector.toSql([1, 2, 3])
 const items = await prisma.$queryRaw`SELECT id, embedding::text FROM items ORDER BY embedding <-> ${embedding}::vector LIMIT 5`
 ```
 
-See a [full example](tests/prisma.test.mjs) (and the [schema](prisma/schema.prisma))
+See a [full example](tests/prisma.test.js) (and the [schema](prisma/schema.prisma))
 
 ## Postgres.js
 
@@ -486,7 +486,7 @@ await sql`CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (li
 
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
 
-See a [full example](tests/postgres.test.mjs)
+See a [full example](tests/postgres.test.js)
 
 ## Slonik
 
@@ -532,7 +532,7 @@ await pool.query(sql.unsafe`CREATE INDEX ON items USING ivfflat (embedding vecto
 
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
 
-See a [full example](tests/slonik.test.mjs)
+See a [full example](tests/slonik.test.js)
 
 ## TypeORM
 
@@ -583,7 +583,7 @@ const items = await itemRepository
   .getMany();
 ```
 
-See a [full example](tests/typeorm.test.mjs)
+See a [full example](tests/typeorm.test.js)
 
 ## MikroORM
 
@@ -627,7 +627,7 @@ const items = await em.createQueryBuilder(Item)
 
 Also supports `maxInnerProduct`, `cosineDistance`, `l1Distance`, `hammingDistance`, and `jaccardDistance`
 
-See a [full example](tests/mikro-orm.test.mjs)
+See a [full example](tests/mikro-orm.test.js)
 
 ## Drizzle ORM
 
@@ -675,7 +675,7 @@ const allItems = await db.select()
 
 Also supports `innerProduct`, `cosineDistance`, `l1Distance`, `hammingDistance`, and `jaccardDistance`
 
-See a [full example](tests/drizzle-orm.test.mjs)
+See a [full example](tests/drizzle-orm.test.js)
 
 ## deno-postgres
 
