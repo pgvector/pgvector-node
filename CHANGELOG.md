@@ -1,7 +1,7 @@
 ## 0.3.0 (unreleased)
 
 - Switched to ESM
-- Removed `enableExtension` for Knex.js and Objection.js (use `createExtensionIfNotExists` instead)
+- Removed `enableExtension` function for Knex.js and Objection.js (use `createExtensionIfNotExists` instead)
 - Dropped support for Node < 22
 
 ## 0.2.1 (2025-05-20)
