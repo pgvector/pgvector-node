@@ -2,6 +2,9 @@ const util = require('node:util');
 
 class SparseVector {
   constructor(value, dimensions) {
+    this.indices = [];
+    this.values = [];
+
     if (typeof value === 'string') {
       this.#fromSql(value);
     } else if (dimensions !== undefined) {
@@ -33,8 +36,6 @@ class SparseVector {
     const parts = value.split('/', 2);
 
     this.dimensions = parseInt(parts[1]);
-    this.indices = [];
-    this.values = [];
 
     const elements = parts[0].slice(1, -1).split(',');
     for (const element of elements) {
@@ -46,8 +47,6 @@ class SparseVector {
 
   #fromDense(value) {
     this.dimensions = value.length;
-    this.indices = [];
-    this.values = [];
 
     for (const [i, v] of value.entries()) {
       const f = Number(v);
@@ -60,8 +59,6 @@ class SparseVector {
 
   #fromMap(map, dimensions) {
     this.dimensions = Number(dimensions);
-    this.indices = [];
-    this.values = [];
 
     const entries = map instanceof Map ? map.entries() : Object.entries(map);
     for (const [i, v] of entries) {
