@@ -1,4 +1,4 @@
-import util from 'node:util';
+import { inherits } from 'node:util';
 import { sparsevecType, sparsevecToSql, sparsevecFromSql } from '../utils/index.js';
 
 export function registerSparsevec(Sequelize) {
@@ -36,7 +36,7 @@ export function registerSparsevec(Sequelize) {
     }
     DataTypes.SPARSEVEC.apply(this, arguments);
   };
-  util.inherits(PgTypes.SPARSEVEC, DataTypes.SPARSEVEC);
+  inherits(PgTypes.SPARSEVEC, DataTypes.SPARSEVEC);
   PgTypes.SPARSEVEC.parse = DataTypes.SPARSEVEC.parse;
   PgTypes.SPARSEVEC.types = {postgres: ['sparsevec']};
   DataTypes.postgres.SPARSEVEC.key = 'sparsevec';

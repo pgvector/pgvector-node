@@ -1,4 +1,4 @@
-import util from 'node:util';
+import { inherits } from 'node:util';
 import { halfvecType, halfvecToSql, halfvecFromSql } from '../utils/index.js';
 
 export function registerHalfvec(Sequelize) {
@@ -36,7 +36,7 @@ export function registerHalfvec(Sequelize) {
     }
     DataTypes.HALFVEC.apply(this, arguments);
   };
-  util.inherits(PgTypes.HALFVEC, DataTypes.HALFVEC);
+  inherits(PgTypes.HALFVEC, DataTypes.HALFVEC);
   PgTypes.HALFVEC.parse = DataTypes.HALFVEC.parse;
   PgTypes.HALFVEC.types = {postgres: ['halfvec']};
   DataTypes.postgres.HALFVEC.key = 'halfvec';

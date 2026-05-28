@@ -1,8 +1,8 @@
 import knex from 'knex';
-import util from 'node:util';
+import { deprecate } from 'node:util';
 import { fromSql, toSql, vectorType, halfvecType, sparsevecType } from '../utils/index.js';
 
-knex.SchemaBuilder.extend('enableExtension', util.deprecate(function (name) {
+knex.SchemaBuilder.extend('enableExtension', deprecate(function (name) {
   return this.raw('CREATE EXTENSION IF NOT EXISTS ??', [name]);
 }, 'enableExtension() is deprecated. Use createExtensionIfNotExists() instead.'));
 

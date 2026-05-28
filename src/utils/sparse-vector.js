@@ -1,4 +1,4 @@
-import util from 'node:util';
+import { format } from 'node:util';
 
 export class SparseVector {
   constructor(value, dimensions) {
@@ -16,8 +16,8 @@ export class SparseVector {
 
   toPostgres() {
     const values = this.values;
-    const elements = this.indices.map((index, i) => util.format('%i:%f', index + 1, values[i])).join(',');
-    return util.format('{%s}/%d', elements, this.dimensions);
+    const elements = this.indices.map((index, i) => format('%i:%f', index + 1, values[i])).join(',');
+    return format('{%s}/%d', elements, this.dimensions);
   }
 
   toString() {

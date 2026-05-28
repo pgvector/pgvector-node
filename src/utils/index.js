@@ -1,4 +1,4 @@
-import util from 'node:util';
+import { format } from 'node:util';
 import { SparseVector } from './sparse-vector.js';
 
 export { SparseVector } from './sparse-vector.js';
@@ -67,7 +67,7 @@ function typeWithDimensions(name, dimensions) {
     throw new Error('expected integer');
   }
 
-  return util.format('%s(%d)', name, dimensions);
+  return format('%s(%d)', name, dimensions);
 }
 
 export function vectorType(dimensions) {

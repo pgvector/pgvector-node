@@ -1,4 +1,4 @@
-import util from 'node:util';
+import { inherits } from 'node:util';
 import { vectorType, vectorToSql, vectorFromSql } from '../utils/index.js';
 
 export function registerVector(Sequelize) {
@@ -36,7 +36,7 @@ export function registerVector(Sequelize) {
     }
     DataTypes.VECTOR.apply(this, arguments);
   };
-  util.inherits(PgTypes.VECTOR, DataTypes.VECTOR);
+  inherits(PgTypes.VECTOR, DataTypes.VECTOR);
   PgTypes.VECTOR.parse = DataTypes.VECTOR.parse;
   PgTypes.VECTOR.types = {postgres: ['vector']};
   DataTypes.postgres.VECTOR.key = 'vector';
