@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import test from 'node:test';
-import { SparseVector } from 'pgvector/utils';
+import { SparseVector } from 'pgvector';
 
 test('fromSql', () => {
   const vec = new SparseVector('{1:1,3:2,5:3}/6');
