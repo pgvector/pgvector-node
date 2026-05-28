@@ -63,7 +63,7 @@ await pgvector.registerTypes(client);
 or a pool
 
 ```javascript
-new pg.Pool({onConnect: async (client) => await pgvector.registerType(client)});
+new pg.Pool({onConnect: async (client) => await pgvector.registerTypes(client)});
 ```
 
 Create a table

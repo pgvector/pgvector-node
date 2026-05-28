@@ -39,7 +39,7 @@ test('pool', async () => {
     database: 'pgvector_node_test',
     onConnect: async (client) => {
       await client.query('CREATE EXTENSION IF NOT EXISTS vector');
-      await pgvector.registerType(client);
+      await pgvector.registerTypes(client);
     }
   });
 
