@@ -4,6 +4,7 @@
     "allowJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,
+    "rootDir": "src",
     "outDir": "types",
     "declarationMap": false,
     "esModuleInterop": true,

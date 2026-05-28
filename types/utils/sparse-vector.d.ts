@@ -4,7 +4,7 @@ export class SparseVector {
     toString(): string;
     toArray(): any[];
     dimensions: any;
-    indices: any[];
-    values: any[];
+    indices: any[] | undefined;
+    values: any[] | undefined;
     #private;
 }
