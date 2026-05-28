@@ -93,8 +93,8 @@
     "test": "node --test"
   },
   "devDependencies": {
-    "@mikro-orm/core": "^6.1.1",
-    "@mikro-orm/postgresql": "^6.1.1",
+    "@mikro-orm/core": "^7.1.0",
+    "@mikro-orm/postgresql": "^7.1.0",
     "@prisma/adapter-pg": "^7.1.0",
     "@prisma/client": "^7.1.0",
     "drizzle-orm": "^0.45.0",
@@ -107,7 +107,7 @@
     "prisma": "^7.1.0",
     "sequelize": "^6.6.2",
     "slonik": "^48.8.7",
-    "typeorm": "^0.3.17",
+    "typeorm": "^1.0.0",
     "typescript": "^5.0.3"
   }
 }
