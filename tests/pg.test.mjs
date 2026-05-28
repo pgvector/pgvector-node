@@ -35,10 +35,12 @@ test('pg example', async () => {
 });
 
 test('pool', async () => {
-  const pool = new pg.Pool({database: 'pgvector_node_test'});
-  pool.on('connect', async function (client) {
-    await client.query('CREATE EXTENSION IF NOT EXISTS vector');
-    await pgvector.registerType(client);
+  const pool = new pg.Pool({
+    database: 'pgvector_node_test',
+    onConnect: async (client) => {
+      await client.query('CREATE EXTENSION IF NOT EXISTS vector');
+      await pgvector.registerType(client);
+    }
   });
 
   await pool.query('DROP TABLE IF EXISTS pg_items');
