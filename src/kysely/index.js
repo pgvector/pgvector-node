@@ -1,5 +1,5 @@
 import { sql } from 'kysely';
-import { fromSql, toSql } from '../utils/index.js';
+import { fromSql, toSql } from '../index.js';
 
 export function l2Distance(column, value) {
   return sql`${sql.ref(column)} <-> ${toSql(value)}`;

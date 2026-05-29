@@ -9,6 +9,6 @@ declare namespace _default {
     export { toSql };
 }
 export default _default;
-import { fromSql } from '../utils/index.js';
-import { toSql } from '../utils/index.js';
+import { fromSql } from '../index.js';
+import { toSql } from '../index.js';
 export { fromSql, toSql };

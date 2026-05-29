@@ -1,5 +1,5 @@
 import { raw } from '@mikro-orm/core';
-import { toSql } from '../utils/index.js';
+import { toSql } from '../index.js';
 
 export { BitType } from './bit.js';
 export { HalfvecType } from './halfvec.js';

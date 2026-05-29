@@ -1,4 +1,4 @@
-import { fromSql, toSql } from '../utils/index.js';
+import { fromSql, toSql } from '../index.js';
 import { raw } from 'objection';
 import '../knex/index.js';
 

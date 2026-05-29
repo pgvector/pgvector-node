@@ -1,5 +1,5 @@
 import { deprecate } from 'node:util';
-import { toSql } from '../utils/index.js';
+import { toSql } from '../index.js';
 import { Utils } from 'sequelize';
 import './halfvec.js';
 import './sparsevec.js';

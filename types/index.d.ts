@@ -3,7 +3,7 @@ declare namespace _default {
     export { toSql };
 }
 export default _default;
-import { fromSql } from './utils/index.js';
-import { toSql } from './utils/index.js';
+export function fromSql(value: any): any;
+export function toSql(value: any): any;
 import { SparseVector } from './sparse-vector.js';
-export { fromSql, toSql, SparseVector };
+export { SparseVector };
