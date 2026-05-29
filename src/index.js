@@ -1,4 +1,5 @@
-import { fromSql, toSql, SparseVector } from './utils/index.js';
+import { SparseVector } from './sparse-vector.js';
+import { fromSql, toSql } from './utils/index.js';
 
 export { fromSql, toSql, SparseVector };
 

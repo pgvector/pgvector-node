@@ -5,5 +5,5 @@ declare namespace _default {
 export default _default;
 import { fromSql } from './utils/index.js';
 import { toSql } from './utils/index.js';
-import { SparseVector } from './utils/index.js';
+import { SparseVector } from './sparse-vector.js';
 export { fromSql, toSql, SparseVector };
