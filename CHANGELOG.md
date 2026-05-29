@@ -5,6 +5,7 @@
 - Deprecated `registerTypes` function for Sequelize (use `import 'pgvector/sequelize'` instead)
 - Deprecated `enableExtension` function for Knex.js and Objection.js (use `createExtensionIfNotExists` instead)
 - Dropped support for Node < 22
+- Dropped support for TypeScript < 4.7
 
 ## 0.2.1 (2025-05-20)
 

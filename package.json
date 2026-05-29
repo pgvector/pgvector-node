@@ -51,37 +51,6 @@
     },
     "./package.json": "./package.json"
   },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "types/index.d.ts"
-      ],
-      "knex": [
-        "types/knex/index.d.ts"
-      ],
-      "kysely": [
-        "types/kysely/index.d.ts"
-      ],
-      "mikro-orm": [
-        "types/mikro-orm/index.d.ts"
-      ],
-      "objection": [
-        "types/objection/index.d.ts"
-      ],
-      "pg": [
-        "types/pg/index.d.ts"
-      ],
-      "pg-promise": [
-        "types/pg-promise/index.d.ts"
-      ],
-      "sequelize": [
-        "types/sequelize/index.d.ts"
-      ],
-      "utils": [
-        "types/index.d.ts"
-      ]
-    }
-  },
   "files": [
     "src",
     "types"
