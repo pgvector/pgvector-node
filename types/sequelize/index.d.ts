@@ -11,3 +11,7 @@ declare namespace _default {
 export default _default;
 export function registerType(Sequelize: any): void;
 export function registerTypes(Sequelize: any): void;
+import HALFVEC from './halfvec.js';
+import SPARSEVEC from './sparsevec.js';
+import VECTOR from './vector.js';
+export { HALFVEC, SPARSEVEC, VECTOR };

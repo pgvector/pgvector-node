@@ -1,9 +1,9 @@
 import { deprecate } from 'node:util';
 import { toSql } from '../index.js';
 import { Utils } from 'sequelize';
-import './halfvec.js';
-import './sparsevec.js';
-import './vector.js';
+import HALFVEC from './halfvec.js';
+import SPARSEVEC from './sparsevec.js';
+import VECTOR from './vector.js';
 
 const registerType = deprecate((Sequelize) => {}, "registerType() is deprecated. Use import 'pgvector/sequelize' instead.");
 const registerTypes = deprecate((Sequelize) => {}, "registerTypes() is deprecated. Use import 'pgvector/sequelize' instead.");
@@ -38,6 +38,6 @@ export function jaccardDistance(column, value, sequelize) {
   return distance('<%>', column, value, sequelize, true);
 }
 
-export { registerType, registerTypes };
+export { registerType, registerTypes, HALFVEC, SPARSEVEC, VECTOR };
 
 export default { registerType, registerTypes };

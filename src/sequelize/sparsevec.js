@@ -26,7 +26,9 @@ class SPARSEVEC extends ABSTRACT {
 
 SPARSEVEC.prototype.key = SPARSEVEC.key = 'sparsevec';
 
-DataTypes.SPARSEVEC = Utils.classToInvokable(SPARSEVEC);
+const SPARSEVEC_TYPE = Utils.classToInvokable(SPARSEVEC);
+
+DataTypes.SPARSEVEC = SPARSEVEC_TYPE;
 DataTypes.SPARSEVEC.types.postgres = ['sparsevec'];
 
 PgTypes.SPARSEVEC = function SPARSEVEC() {
@@ -42,3 +44,5 @@ DataTypes.postgres.SPARSEVEC.key = 'sparsevec';
 
 // for migrations
 Sequelize.SPARSEVEC ??= DataTypes.SPARSEVEC;
+
+export default SPARSEVEC_TYPE;

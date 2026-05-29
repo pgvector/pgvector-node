@@ -1,7 +1,7 @@
 import assert from 'node:assert';
 import test from 'node:test';
 import { Sequelize, DataTypes } from 'sequelize';
-import 'pgvector/sequelize';
+import { VECTOR, HALFVEC, SPARSEVEC } from 'pgvector/sequelize';
 import { l2Distance, maxInnerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'pgvector/sequelize';
 import { SparseVector } from 'pgvector';
 
@@ -19,16 +19,16 @@ test('sequelize example', async () => {
 
   const Item = sequelize.define('Item', {
     embedding: {
-      type: DataTypes.VECTOR(3)
+      type: VECTOR(3)
     },
     half_embedding: {
-      type: DataTypes.HALFVEC(3)
+      type: HALFVEC(3)
     },
     binary_embedding: {
       type: 'BIT(3)'
     },
     sparse_embedding: {
-      type: DataTypes.SPARSEVEC(3)
+      type: SPARSEVEC(3)
     }
   }, {
     modelName: 'Item',

@@ -26,7 +26,9 @@ class HALFVEC extends ABSTRACT {
 
 HALFVEC.prototype.key = HALFVEC.key = 'halfvec';
 
-DataTypes.HALFVEC = Utils.classToInvokable(HALFVEC);
+const HALFVEC_TYPE = Utils.classToInvokable(HALFVEC);
+
+DataTypes.HALFVEC = HALFVEC_TYPE;
 DataTypes.HALFVEC.types.postgres = ['halfvec'];
 
 PgTypes.HALFVEC = function HALFVEC() {
@@ -42,3 +44,5 @@ DataTypes.postgres.HALFVEC.key = 'halfvec';
 
 // for migrations
 Sequelize.HALFVEC ??= DataTypes.HALFVEC;
+
+export default HALFVEC_TYPE;

@@ -26,7 +26,9 @@ class VECTOR extends ABSTRACT {
 
 VECTOR.prototype.key = VECTOR.key = 'vector';
 
-DataTypes.VECTOR = Utils.classToInvokable(VECTOR);
+const VECTOR_TYPE = Utils.classToInvokable(VECTOR);
+
+DataTypes.VECTOR = VECTOR_TYPE;
 DataTypes.VECTOR.types.postgres = ['vector'];
 
 PgTypes.VECTOR = function VECTOR() {
@@ -42,3 +44,5 @@ DataTypes.postgres.VECTOR.key = 'vector';
 
 // for migrations
 Sequelize.VECTOR ??= DataTypes.VECTOR;
+
+export default VECTOR_TYPE;
