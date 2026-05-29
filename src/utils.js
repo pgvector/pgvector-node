@@ -1,5 +1,5 @@
 import { format } from 'node:util';
-import { SparseVector } from '../sparse-vector.js';
+import { SparseVector } from './sparse-vector.js';
 
 export function vectorFromSql(value) {
   if (value === null) {

@@ -1,5 +1,5 @@
 import { SparseVector } from './sparse-vector.js';
-import { vectorFromSql, sparsevecFromSql, vectorToSql, sparsevecToSql } from './utils/index.js';
+import { vectorFromSql, sparsevecFromSql, vectorToSql, sparsevecToSql } from './utils.js';
 
 function fromSql(value) {
   if (value === null) {

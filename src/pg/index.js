@@ -1,6 +1,6 @@
 import { deprecate } from 'node:util';
 import { toSql } from '../index.js';
-import { vectorFromSql, halfvecFromSql, sparsevecFromSql } from '../utils/index.js';
+import { vectorFromSql, halfvecFromSql, sparsevecFromSql } from '../utils.js';
 
 async function registerTypes(client) {
   const result = await client.query('SELECT typname, oid FROM pg_type WHERE typname IN ($1, $2, $3)', ['vector', 'halfvec', 'sparsevec']);

@@ -1,6 +1,6 @@
 import { inherits } from 'node:util';
 import { Sequelize, DataTypes, Utils } from 'sequelize';
-import { halfvecType, halfvecToSql, halfvecFromSql } from '../utils/index.js';
+import { halfvecType, halfvecToSql, halfvecFromSql } from '../utils.js';
 
 const PgTypes = DataTypes.postgres;
 const ABSTRACT = DataTypes.ABSTRACT.prototype.constructor;

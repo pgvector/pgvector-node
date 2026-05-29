@@ -1,7 +1,7 @@
 import knex from 'knex';
 import { deprecate } from 'node:util';
 import { fromSql, toSql } from '../index.js';
-import { vectorType, halfvecType, sparsevecType } from '../utils/index.js';
+import { vectorType, halfvecType, sparsevecType } from '../utils.js';
 
 knex.SchemaBuilder.extend('enableExtension', deprecate(function (name) {
   return this.raw('CREATE EXTENSION IF NOT EXISTS ??', [name]);

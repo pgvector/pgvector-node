@@ -6,5 +6,5 @@ export function vectorType(dimensions: any): any;
 export function halfvecType(dimensions: any): any;
 export function bitType(dimensions: any): any;
 export function sparsevecType(dimensions: any): any;
-import { SparseVector } from '../sparse-vector.js';
+import { SparseVector } from './sparse-vector.js';
 export { vectorFromSql as halfvecFromSql, vectorToSql as halfvecToSql };

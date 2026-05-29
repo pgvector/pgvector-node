@@ -1,5 +1,5 @@
 import { Type } from '@mikro-orm/core';
-import { sparsevecFromSql, sparsevecToSql, sparsevecType } from '../utils/index.js';
+import { sparsevecFromSql, sparsevecToSql, sparsevecType } from '../utils.js';
 
 export class SparsevecType extends Type {
   convertToDatabaseValue(value, platform) {

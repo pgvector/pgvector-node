@@ -1,5 +1,5 @@
 import { Type } from '@mikro-orm/core';
-import { vectorFromSql, vectorToSql, vectorType } from '../utils/index.js';
+import { vectorFromSql, vectorToSql, vectorType } from '../utils.js';
 
 export class VectorType extends Type {
   convertToDatabaseValue(value, platform) {
