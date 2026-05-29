@@ -1,7 +1,7 @@
 import assert from 'node:assert';
 import test from 'node:test';
-import pgvector from 'pgvector/utils';
-import { SparseVector } from 'pgvector/utils';
+import pgvector from 'pgvector';
+import { SparseVector } from 'pgvector';
 
 test('fromSql', () => {
   assert.deepEqual(pgvector.fromSql('[1,2,3]'), [1, 2, 3]);

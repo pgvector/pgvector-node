@@ -841,6 +841,18 @@ with
 import 'pgvector/sequelize';
 ```
 
+Also, the `utils` module has been removed. Replace
+
+```javascript
+import pgvector from 'pgvector/utils';
+```
+
+with
+
+```javascript
+import pgvector from 'pgvector';
+```
+
 ## History
 
 View the [changelog](https://github.com/pgvector/pgvector-node/blob/master/CHANGELOG.md)
