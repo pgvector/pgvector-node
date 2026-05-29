@@ -46,8 +46,8 @@
       "default": "./src/sequelize/index.js"
     },
     "./utils": {
-      "types": "./types/utils/index.d.ts",
-      "default": "./src/utils/index.js"
+      "types": "./types/index.d.ts",
+      "default": "./src/index.js"
     },
     "./package.json": "./package.json"
   },

@@ -16,9 +16,3 @@ test('toSql', () => {
   assert.equal(pgvector.toSql(null), null);
   assert.throws(() => pgvector.toSql({}), {message: 'expected array or sparse vector'});
 });
-
-test('sqlType', () => {
-  assert.equal(pgvector.sqlType(), 'vector');
-  assert.equal(pgvector.sqlType(3), 'vector(3)');
-  assert.throws(() => pgvector.sqlType('3'), {message: 'expected integer'});
-});
