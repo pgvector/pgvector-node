@@ -78,7 +78,7 @@
         "types/sequelize/index.d.ts"
       ],
       "utils": [
-        "types/utils/index.d.ts"
+        "types/index.d.ts"
       ]
     }
   },
