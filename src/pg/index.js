@@ -1,3 +1,4 @@
+import { deprecate } from 'node:util';
 import { toSql, vectorFromSql, halfvecFromSql, sparsevecFromSql } from '../utils/index.js';
 
 async function registerTypes(client) {
@@ -29,7 +30,7 @@ async function registerTypes(client) {
   }
 }
 
-const registerType = registerTypes;
+const registerType = deprecate(registerTypes, 'registerType() is deprecated. Use registerTypes() instead.');
 
 export { registerType, registerTypes, toSql };
 
