@@ -301,6 +301,8 @@ const Item = sequelize.define('Item', {
 }, ...);
 ```
 
+Also supports `HALFVEC` and `SPARSEVEC`
+
 Insert a vector
 
 ```javascript
