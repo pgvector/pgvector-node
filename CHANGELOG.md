@@ -1,6 +1,7 @@
 ## 0.3.0 (unreleased)
 
 - Switched to ESM
+- Deprecated `registerTypes` function for Sequelize (use `import 'pgvector/sequelize'` instead)
 - Deprecated `enableExtension` function for Knex.js and Objection.js (use `createExtensionIfNotExists` instead)
 - Dropped support for Node < 22
 

@@ -822,6 +822,25 @@ Get an array
 const arr = vec.toArray();
 ```
 
+## Upgrading
+
+### 0.3.0
+
+`registerTypes` is deprecated for Sequelize. Replace
+
+```javascript
+import { Sequelize } from 'sequelize';
+import pgvector from 'pgvector/sequelize';
+
+pgvector.registerTypes(Sequelize);
+```
+
+with
+
+```javascript
+import 'pgvector/sequelize';
+```
+
 ## History
 
 View the [changelog](https://github.com/pgvector/pgvector-node/blob/master/CHANGELOG.md)

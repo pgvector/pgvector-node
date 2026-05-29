@@ -1,14 +1,12 @@
+import { deprecate } from 'node:util';
 import { toSql } from '../utils/index.js';
 import { Utils } from 'sequelize';
-import { registerHalfvec } from './halfvec.js';
-import { registerSparsevec } from './sparsevec.js';
-import { registerVector } from './vector.js';
+import './halfvec.js';
+import './sparsevec.js';
+import './vector.js';
 
-function registerTypes(Sequelize) {
-  registerVector(Sequelize);
-  registerHalfvec(Sequelize);
-  registerSparsevec(Sequelize);
-}
+const registerType = deprecate((Sequelize) => {}, "registerType() is deprecated. Use import 'pgvector/sequelize' instead.");
+const registerTypes = deprecate((Sequelize) => {}, "registerTypes() is deprecated. Use import 'pgvector/sequelize' instead.");
 
 function distance(op, column, value, sequelize, binary) {
   const quotedColumn = column instanceof Utils.Literal ? column.val : sequelize.dialect.queryGenerator.quoteIdentifier(column);
@@ -39,8 +37,6 @@ export function hammingDistance(column, value, sequelize) {
 export function jaccardDistance(column, value, sequelize) {
   return distance('<%>', column, value, sequelize, true);
 }
-
-const registerType = registerTypes;
 
 export { registerType, registerTypes };
 

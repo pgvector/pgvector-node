@@ -1,46 +1,44 @@
 import { inherits } from 'node:util';
+import { Sequelize, DataTypes, Utils } from 'sequelize';
 import { halfvecType, halfvecToSql, halfvecFromSql } from '../utils/index.js';
 
-export function registerHalfvec(Sequelize) {
-  const DataTypes = Sequelize.DataTypes;
-  const PgTypes = DataTypes.postgres;
-  const ABSTRACT = DataTypes.ABSTRACT.prototype.constructor;
+const PgTypes = DataTypes.postgres;
+const ABSTRACT = DataTypes.ABSTRACT.prototype.constructor;
 
-  class HALFVEC extends ABSTRACT {
-    constructor(dimensions) {
-      super();
-      this._dimensions = dimensions;
-    }
-
-    toSql() {
-      return halfvecType(this._dimensions).toUpperCase();
-    }
-
-    _stringify(value) {
-      return halfvecToSql(value);
-    }
-
-    static parse(value) {
-      return halfvecFromSql(value);
-    }
+class HALFVEC extends ABSTRACT {
+  constructor(dimensions) {
+    super();
+    this._dimensions = dimensions;
   }
 
-  HALFVEC.prototype.key = HALFVEC.key = 'halfvec';
+  toSql() {
+    return halfvecType(this._dimensions).toUpperCase();
+  }
 
-  DataTypes.HALFVEC = Sequelize.Utils.classToInvokable(HALFVEC);
-  DataTypes.HALFVEC.types.postgres = ['halfvec'];
+  _stringify(value) {
+    return halfvecToSql(value);
+  }
 
-  PgTypes.HALFVEC = function HALFVEC() {
-    if (!(this instanceof PgTypes.HALFVEC)) {
-      return new PgTypes.HALFVEC();
-    }
-    DataTypes.HALFVEC.apply(this, arguments);
-  };
-  inherits(PgTypes.HALFVEC, DataTypes.HALFVEC);
-  PgTypes.HALFVEC.parse = DataTypes.HALFVEC.parse;
-  PgTypes.HALFVEC.types = {postgres: ['halfvec']};
-  DataTypes.postgres.HALFVEC.key = 'halfvec';
-
-  // for migrations
-  Sequelize.HALFVEC ??= DataTypes.HALFVEC;
+  static parse(value) {
+    return halfvecFromSql(value);
+  }
 }
+
+HALFVEC.prototype.key = HALFVEC.key = 'halfvec';
+
+DataTypes.HALFVEC = Utils.classToInvokable(HALFVEC);
+DataTypes.HALFVEC.types.postgres = ['halfvec'];
+
+PgTypes.HALFVEC = function HALFVEC() {
+  if (!(this instanceof PgTypes.HALFVEC)) {
+    return new PgTypes.HALFVEC();
+  }
+  DataTypes.HALFVEC.apply(this, arguments);
+};
+inherits(PgTypes.HALFVEC, DataTypes.HALFVEC);
+PgTypes.HALFVEC.parse = DataTypes.HALFVEC.parse;
+PgTypes.HALFVEC.types = {postgres: ['halfvec']};
+DataTypes.postgres.HALFVEC.key = 'halfvec';
+
+// for migrations
+Sequelize.HALFVEC ??= DataTypes.HALFVEC;

@@ -1,13 +1,11 @@
 import assert from 'node:assert';
 import test from 'node:test';
 import { Sequelize, DataTypes } from 'sequelize';
-import pgvector from 'pgvector/sequelize';
+import 'pgvector/sequelize';
 import { l2Distance, maxInnerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'pgvector/sequelize';
 import { SparseVector } from 'pgvector';
 
 test('sequelize example', async () => {
-  pgvector.registerTypes(Sequelize);
-
   let sequelize = new Sequelize('postgres://localhost/pgvector_node_test', {
     logging: false
   });
