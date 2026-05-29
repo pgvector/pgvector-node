@@ -84,7 +84,4 @@ export function sparsevecType(dimensions) {
   return typeWithDimensions('sparsevec', dimensions);
 }
 
-// for backwards compatibility
-export const sqlType = vectorType;
-
-export default { fromSql, toSql, sqlType };
+export default { fromSql, toSql };
