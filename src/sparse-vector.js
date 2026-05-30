@@ -1,10 +1,16 @@
 import { format } from 'node:util';
 
 export class SparseVector {
-  constructor(value, dimensions) {
-    this.indices = [];
-    this.values = [];
+  /** @type {number} */
+  dimensions = 0;
 
+  /** @type {number[]} */
+  indices = [];
+
+  /** @type {number[]} */
+  values = [];
+
+  constructor(value, dimensions) {
     if (typeof value === 'string') {
       this.#fromSql(value);
     } else if (dimensions !== undefined) {
@@ -24,6 +30,9 @@ export class SparseVector {
     return this.toPostgres();
   }
 
+  /**
+   * @returns {number[]}
+   */
   toArray() {
     const arr = Array(this.dimensions).fill(0.0);
     for (const [i, index] of this.indices.entries()) {

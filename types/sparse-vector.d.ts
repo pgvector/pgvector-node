@@ -1,10 +1,10 @@
 export class SparseVector {
     constructor(value: any, dimensions: any);
-    indices: any[];
-    values: any[];
+    dimensions: number;
+    indices: number[];
+    values: number[];
     toPostgres(): string;
     toString(): string;
-    toArray(): any[];
-    dimensions: any;
+    toArray(): number[];
     #private;
 }

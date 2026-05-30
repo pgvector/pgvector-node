@@ -1,6 +1,10 @@
 import { SparseVector } from './sparse-vector.js';
 import { vectorFromSql, sparsevecFromSql, vectorToSql, sparsevecToSql } from './utils.js';
 
+/**
+ * @param {?string} value
+ * @returns {number[] | SparseVector | null}
+ */
 function fromSql(value) {
   if (value === null) {
     return null;
@@ -13,6 +17,10 @@ function fromSql(value) {
   }
 }
 
+/**
+ * @param {number[] | SparseVector | null} value
+ * @returns {?string}
+ */
 function toSql(value) {
   if (value === null) {
     return null;
