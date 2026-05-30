@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { inherits } from 'node:util';
 import { Sequelize, DataTypes, Utils } from 'sequelize';
 import { sparsevecType, sparsevecToSql, sparsevecFromSql } from '../utils.js';

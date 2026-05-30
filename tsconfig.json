@@ -2,6 +2,7 @@
   "include": ["src/**/*"],
   "compilerOptions": {
     "allowJs": true,
+    "checkJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,
     "rootDir": "src",
@@ -10,6 +11,7 @@
     "esModuleInterop": true,
     "target": "es6",
     "module": "nodenext",
-    "moduleResolution": "nodenext"
+    "moduleResolution": "nodenext",
+    "noImplicitAny": false
   }
 }

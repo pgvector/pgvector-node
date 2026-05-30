@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { inherits } from 'node:util';
 import { Sequelize, DataTypes, Utils } from 'sequelize';
 import { vectorType, vectorToSql, vectorFromSql } from '../utils.js';

@@ -24,6 +24,7 @@ jobs:
       - run: npx prisma generate
       - run: npx prisma migrate dev
       - run: npm test
+      - run: npm build
 
       # Bun
       - uses: oven-sh/setup-bun@v2
