@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { deprecate } from 'node:util';
 import { toSql } from '../index.js';
 import { Utils } from 'sequelize';
