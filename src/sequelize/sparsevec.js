@@ -54,8 +54,7 @@ inherits(PgTypes.SPARSEVEC, DataTypes.SPARSEVEC);
 // @ts-ignore
 PgTypes.SPARSEVEC.parse = DataTypes.SPARSEVEC.parse;
 PgTypes.SPARSEVEC.types = {postgres: ['sparsevec']};
-// @ts-ignore
-DataTypes.postgres.SPARSEVEC.key = 'sparsevec';
+PgTypes.SPARSEVEC.key = 'sparsevec';
 
 // for migrations
 // @ts-ignore

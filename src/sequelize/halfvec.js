@@ -52,8 +52,7 @@ inherits(PgTypes.HALFVEC, DataTypes.HALFVEC);
 // @ts-ignore
 PgTypes.HALFVEC.parse = DataTypes.HALFVEC.parse;
 PgTypes.HALFVEC.types = {postgres: ['halfvec']};
-// @ts-ignore
-DataTypes.postgres.HALFVEC.key = 'halfvec';
+PgTypes.HALFVEC.key = 'halfvec';
 
 // for migrations
 // @ts-ignore

@@ -52,8 +52,7 @@ inherits(PgTypes.VECTOR, DataTypes.VECTOR);
 // @ts-ignore
 PgTypes.VECTOR.parse = DataTypes.VECTOR.parse;
 PgTypes.VECTOR.types = {postgres: ['vector']};
-// @ts-ignore
-DataTypes.postgres.VECTOR.key = 'vector';
+PgTypes.VECTOR.key = 'vector';
 
 // for migrations
 // @ts-ignore
