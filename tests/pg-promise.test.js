@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import assert from 'node:assert';
 import test from 'node:test';
 import pgpromise from 'pg-promise';

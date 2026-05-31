@@ -1,0 +1,14 @@
+{
+  "include": ["tests/**/*"],
+  "compilerOptions": {
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": true,
+    "rootDir": "tests",
+    "esModuleInterop": true,
+    "target": "es6",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "skipLibCheck": true
+  }
+}

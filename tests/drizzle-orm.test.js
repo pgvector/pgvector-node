@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import assert from 'node:assert';
 import test from 'node:test';
 import { l2Distance, innerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'drizzle-orm';

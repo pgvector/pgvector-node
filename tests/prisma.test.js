@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import assert from 'node:assert';
 import test, { beforeEach } from 'node:test';
 import pgvector from 'pgvector';

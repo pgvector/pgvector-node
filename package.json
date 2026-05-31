@@ -56,6 +56,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "check": "tsc --project tsconfig.test.json",
     "test": "node --test"
   },
   "devDependencies": {
