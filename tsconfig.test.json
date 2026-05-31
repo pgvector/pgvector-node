@@ -4,10 +4,6 @@
     "noEmit": true,
     "allowJs": true,
     "checkJs": true,
-    "esModuleInterop": true,
-    "target": "es6",
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
     "skipLibCheck": true,
     "strictPropertyInitialization": false,
     "allowImportingTsExtensions": true

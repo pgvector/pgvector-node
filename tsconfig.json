@@ -7,11 +7,6 @@
     "emitDeclarationOnly": true,
     "removeComments": true,
     "rootDir": "src",
-    "outDir": "types",
-    "declarationMap": false,
-    "esModuleInterop": true,
-    "target": "es6",
-    "module": "nodenext",
-    "moduleResolution": "nodenext"
+    "outDir": "types"
   }
 }
