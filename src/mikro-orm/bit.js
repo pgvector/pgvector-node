@@ -5,6 +5,7 @@ import { bitType } from '../utils.js';
 
 export class BitType extends Type {
   /**
+   * @param {any} prop
    * @param {Platform} platform
    * @return {string}
    */

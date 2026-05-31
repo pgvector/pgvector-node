@@ -5,6 +5,7 @@ import '../knex/index.js';
 /** @import { SparseVector } from '../index.js' */
 
 /**
+ * @param {any} column
  * @param {number[] | SparseVector | null} value
  */
 export function l2Distance(column, value) {
@@ -12,6 +13,7 @@ export function l2Distance(column, value) {
 }
 
 /**
+ * @param {any} column
  * @param {number[] | SparseVector | null} value
  */
 export function maxInnerProduct(column, value) {
@@ -19,6 +21,7 @@ export function maxInnerProduct(column, value) {
 }
 
 /**
+ * @param {any} column
  * @param {number[] | SparseVector | null} value
  */
 export function cosineDistance(column, value) {
@@ -26,6 +29,7 @@ export function cosineDistance(column, value) {
 }
 
 /**
+ * @param {any} column
  * @param {number[] | SparseVector | null} value
  */
 export function l1Distance(column, value) {
@@ -33,6 +37,7 @@ export function l1Distance(column, value) {
 }
 
 /**
+ * @param {any} column
  * @param {string} value
  */
 export function hammingDistance(column, value) {
@@ -40,6 +45,7 @@ export function hammingDistance(column, value) {
 }
 
 /**
+ * @param {any} column
  * @param {string} value
  */
 export function jaccardDistance(column, value) {

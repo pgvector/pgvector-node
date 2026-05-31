@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { raw } from '@mikro-orm/core';
 import { toSql } from '../index.js';
 

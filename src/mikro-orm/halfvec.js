@@ -29,6 +29,7 @@ export class HalfvecType extends Type {
   }
 
   /**
+   * @param {any} prop
    * @param {Platform} platform
    * @return {string}
    */

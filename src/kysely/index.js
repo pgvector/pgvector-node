@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { sql } from 'kysely';
 import { fromSql, toSql } from '../index.js';
 

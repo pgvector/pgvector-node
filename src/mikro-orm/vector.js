@@ -29,6 +29,7 @@ export class VectorType extends Type {
   }
 
   /**
+   * @param {any} prop
    * @param {Platform} platform
    * @return {string}
    */

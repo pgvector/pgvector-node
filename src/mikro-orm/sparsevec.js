@@ -18,6 +18,7 @@ export class SparsevecType extends Type {
   }
 
   /**
+   * @param {any} prop
    * @param {Platform} platform
    * @return {string}
    */
