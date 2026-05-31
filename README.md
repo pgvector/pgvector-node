@@ -827,7 +827,7 @@ const arr = vec.toArray();
 
 `registerType` is deprecated for node-postgres. Use `registerTypes` instead.
 
-`registerType` and `registerTypes` is deprecated for Sequelize. Replace
+`registerType` and `registerTypes` are deprecated for Sequelize. Replace
 
 ```javascript
 import { Sequelize } from 'sequelize';
