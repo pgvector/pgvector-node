@@ -200,7 +200,7 @@ Add an approximate index
 
 ```javascript
 await knex.schema.alterTable('items', function (table) {
-  table.index(knex.raw('embedding vector_l2_ops'), 'index_name', 'hnsw');
+  table.index([knex.raw('embedding vector_l2_ops')], 'index_name', 'hnsw');
 });
 ```
 

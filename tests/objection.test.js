@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import assert from 'node:assert';
 import test from 'node:test';
 import Knex from 'knex';
@@ -17,18 +15,30 @@ test('objection example', async () => {
   Model.knex(knex);
 
   class Item extends Model {
+    /** @type {number} */
+    id;
+
+    /** @type {string} */
+    embedding;
+
     static get tableName() {
       return 'objection_items';
     }
   }
 
+  // @ts-ignore
+  // https://github.com/knex/knex/issues/3853#issuecomment-628955467
   await knex.schema.createExtensionIfNotExists('vector');
   await knex.schema.dropTableIfExists('objection_items');
   await knex.schema.createTable('objection_items', (table) => {
     table.increments('id');
+    // @ts-ignore
     table.vector('embedding', 3);
+    // @ts-ignore
     table.halfvec('half_embedding', 3);
+    // @ts-ignore
     table.bit('binary_embedding', {length: 3});
+    // @ts-ignore
     table.sparsevec('sparse_embedding', 3);
   });
 
@@ -38,6 +48,7 @@ test('objection example', async () => {
     {embedding: pgvector.toSql([1, 1, 2]), half_embedding: pgvector.toSql([1, 1, 2]), binary_embedding: '111', sparse_embedding: new SparseVector([1, 1, 2])},
     {embedding: null}
   ];
+  // @ts-ignore
   await Item.query().insert(newItems);
 
   // L2 distance
@@ -92,7 +103,7 @@ test('objection example', async () => {
   assert.deepEqual(items.map(v => v.id), [2, 3, 1, 4]);
 
   await knex.schema.alterTable('objection_items', function (table) {
-    table.index(knex.raw('embedding vector_l2_ops'), 'objection_items_embedding_idx', 'hnsw');
+    table.index([knex.raw('embedding vector_l2_ops')], 'objection_items_embedding_idx', 'hnsw');
   });
 
   await knex.destroy();

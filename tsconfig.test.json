@@ -9,6 +9,7 @@
     "target": "es6",
     "module": "nodenext",
     "moduleResolution": "nodenext",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "strictPropertyInitialization": false
   }
 }
