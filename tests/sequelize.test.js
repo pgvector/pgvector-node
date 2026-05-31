@@ -98,7 +98,6 @@ test('sequelize example', async () => {
     order: cosineDistance('embedding', [1, 1, 1], sequelize),
     limit: 5
   });
-  // @ts-ignore
   assert.deepEqual(items.map(v => v.id).slice(2), [3, 4]);
 
   // L1 distance
