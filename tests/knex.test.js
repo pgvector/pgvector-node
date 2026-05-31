@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import assert from 'node:assert';
 import test from 'node:test';
 import Knex from 'knex';
@@ -12,13 +10,18 @@ test('knex example', async () => {
     connection: {database: 'pgvector_node_test'}
   });
 
+  // @ts-ignore
+  // https://github.com/knex/knex/issues/3853#issuecomment-628955467
   await knex.schema.createExtensionIfNotExists('vector');
   await knex.schema.dropTableIfExists('knex_items');
   await knex.schema.createTable('knex_items', (table) => {
     table.increments('id');
+    // @ts-ignore
     table.vector('embedding', {dimensions: 3});
+    // @ts-ignore
     table.halfvec('half_embedding', {dimensions: 3});
     table.bit('binary_embedding', {length: 3});
+    // @ts-ignore
     table.sparsevec('sparse_embedding', {dimensions: 3});
   });
 
@@ -32,6 +35,7 @@ test('knex example', async () => {
 
   // L2 distance
   let items = await knex('knex_items')
+    // @ts-ignore
     .orderBy(knex.l2Distance('embedding', [1, 1, 1]))
     .limit(5);
   assert.deepEqual(items.map(v => v.id), [1, 3, 2, 4]);
@@ -41,48 +45,55 @@ test('knex example', async () => {
 
   // L2 distance - halfvec
   items = await knex('knex_items')
+    // @ts-ignore
     .orderBy(knex.l2Distance('half_embedding', [1, 1, 1]))
     .limit(5);
   assert.deepEqual(items.map(v => v.id), [1, 3, 2, 4]);
 
   // L2 distance - sparsevec
   items = await knex('knex_items')
+    // @ts-ignore
     .orderBy(knex.l2Distance('sparse_embedding', new SparseVector([1, 1, 1])))
     .limit(5);
   assert.deepEqual(items.map(v => v.id), [1, 3, 2, 4]);
 
   // max inner product
   items = await knex('knex_items')
+    // @ts-ignore
     .orderBy(knex.maxInnerProduct('embedding', [1, 1, 1]))
     .limit(5);
   assert.deepEqual(items.map(v => v.id), [2, 3, 1, 4]);
 
   // cosine distance
   items = await knex('knex_items')
+    // @ts-ignore
     .orderBy(knex.cosineDistance('embedding', [1, 1, 1]))
     .limit(5);
   assert.deepEqual(items.map(v => v.id).slice(2), [3, 4]);
 
   // L1 distance
   items = await knex('knex_items')
+    // @ts-ignore
     .orderBy(knex.l1Distance('embedding', [1, 1, 1]))
     .limit(5);
   assert.deepEqual(items.map(v => v.id), [1, 3, 2, 4]);
 
   // Hamming distance
   items = await knex('knex_items')
+    // @ts-ignore
     .orderBy(knex.hammingDistance('binary_embedding', '101'))
     .limit(5);
   assert.deepEqual(items.map(v => v.id), [2, 3, 1, 4]);
 
   // Jaccard distance
   items = await knex('knex_items')
+    // @ts-ignore
     .orderBy(knex.jaccardDistance('binary_embedding', '101'))
     .limit(5);
   assert.deepEqual(items.map(v => v.id), [2, 3, 1, 4]);
 
   await knex.schema.alterTable('knex_items', function (table) {
-    table.index(knex.raw('embedding vector_l2_ops'), 'knex_items_embedding_idx', 'hnsw');
+    table.index([knex.raw('embedding vector_l2_ops')], 'knex_items_embedding_idx', 'hnsw');
   });
 
   await knex.destroy();
