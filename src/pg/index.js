@@ -2,8 +2,10 @@ import { deprecate } from 'node:util';
 import { toSql } from '../index.js';
 import { vectorFromSql, halfvecFromSql, sparsevecFromSql } from '../utils.js';
 
+/** @import { ClientBase } from 'pg' */
+
 /**
- * @param {any} client
+ * @param {ClientBase} client
  */
 async function registerTypes(client) {
   const result = await client.query('SELECT typname, oid FROM pg_type WHERE typname IN ($1, $2, $3)', ['vector', 'halfvec', 'sparsevec']);

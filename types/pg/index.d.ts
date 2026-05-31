@@ -4,7 +4,8 @@ declare namespace _default {
     export { toSql };
 }
 export default _default;
-export function registerType(client: any): Promise<void>;
-export function registerTypes(client: any): Promise<void>;
+export function registerType(client: ClientBase): Promise<void>;
+export function registerTypes(client: ClientBase): Promise<void>;
 import { toSql } from '../index.js';
+import type { ClientBase } from 'pg';
 export { toSql };

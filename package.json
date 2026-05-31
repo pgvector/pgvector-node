@@ -64,6 +64,7 @@
     "@mikro-orm/postgresql": "^7.1.0",
     "@prisma/adapter-pg": "^7.1.0",
     "@prisma/client": "^7.1.0",
+    "@types/pg": "^8.20.0",
     "drizzle-orm": "^0.45.0",
     "knex": "^3.1.0",
     "kysely": "^0.29.2",

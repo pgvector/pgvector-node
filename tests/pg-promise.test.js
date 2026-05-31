@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import assert from 'node:assert';
 import test from 'node:test';
 import pgpromise from 'pg-promise';
@@ -8,7 +6,7 @@ import { SparseVector } from 'pgvector';
 
 test('pg-promise example', async () => {
   const initOptions = {
-    async connect(e) {
+    /** @type {function(any): Promise<void>} */ async connect(e) {
       await pgvector.registerTypes(e.client);
     }
   };

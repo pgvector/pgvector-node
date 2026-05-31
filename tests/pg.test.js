@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import assert from 'node:assert';
 import test from 'node:test';
 import pg from 'pg';
@@ -25,7 +23,7 @@ test('pg example', async () => {
   await client.query('INSERT INTO pg_items (embedding, half_embedding, binary_embedding, sparse_embedding) VALUES ($1, $2, $3, $4), ($5, $6, $7, $8), ($9, $10, $11, $12), ($13, $14, $15, $16)', params);
 
   const { rows } = await client.query('SELECT * FROM pg_items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql([1, 1, 1])]);
-  assert.deepEqual(rows.map(v => v.id), [1, 3, 2, 4]);
+  assert.deepEqual(rows.map(/** @type {function(any): number} */ v => v.id), [1, 3, 2, 4]);
   assert.deepEqual(rows[0].embedding, [1, 1, 1]);
   assert.deepEqual(rows[0].half_embedding, [1, 1, 1]);
   assert.deepEqual(rows[0].binary_embedding, '000');
@@ -57,7 +55,7 @@ test('pool', async () => {
   await pool.query('INSERT INTO pg_items (embedding) VALUES ($1), ($2), ($3), ($4)', params);
 
   const { rows } = await pool.query('SELECT * FROM pg_items ORDER BY embedding <-> $1 LIMIT 5', [pgvector.toSql([1, 1, 1])]);
-  assert.deepEqual(rows.map(v => v.id), [1, 3, 2, 4]);
+  assert.deepEqual(rows.map(/** @type {function(any): number} */ v => v.id), [1, 3, 2, 4]);
   assert.deepEqual(rows[0].embedding, [1, 1, 1]);
   assert.deepEqual(rows[1].embedding, [1, 1, 2]);
   assert.deepEqual(rows[2].embedding, [2, 2, 2]);
