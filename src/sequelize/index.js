@@ -5,6 +5,8 @@ import './halfvec.js';
 import './sparsevec.js';
 import './vector.js';
 
+/** @import { Sequelize } from 'sequelize' */
+
 const registerType = deprecate(/** @type {function(any): void} */ (Sequelize) => {}, "registerType() is deprecated. Use import 'pgvector/sequelize' instead.");
 const registerTypes = deprecate(/** @type {function(any): void} */ (Sequelize) => {}, "registerTypes() is deprecated. Use import 'pgvector/sequelize' instead.");
 
@@ -12,10 +14,11 @@ const registerTypes = deprecate(/** @type {function(any): void} */ (Sequelize) =
  * @param {string} op
  * @param {any} column
  * @param {any} value
- * @param {any} sequelize
+ * @param {Sequelize} sequelize
  * @param {boolean} [binary]
  */
 function distance(op, column, value, sequelize, binary) {
+  // @ts-ignore
   const quotedColumn = column instanceof Utils.Literal ? column.val : sequelize.dialect.queryGenerator.quoteIdentifier(column);
   const escapedValue = sequelize.escape(binary ? value : toSql(value));
   return sequelize.literal(`${quotedColumn} ${op} ${escapedValue}`);
@@ -24,7 +27,7 @@ function distance(op, column, value, sequelize, binary) {
 /**
  * @param {any} column
  * @param {any} value
- * @param {any} sequelize
+ * @param {Sequelize} sequelize
  */
 export function l2Distance(column, value, sequelize) {
   return distance('<->', column, value, sequelize);
@@ -33,7 +36,7 @@ export function l2Distance(column, value, sequelize) {
 /**
  * @param {any} column
  * @param {any} value
- * @param {any} sequelize
+ * @param {Sequelize} sequelize
  */
 export function maxInnerProduct(column, value, sequelize) {
   return distance('<#>', column, value, sequelize);
@@ -42,7 +45,7 @@ export function maxInnerProduct(column, value, sequelize) {
 /**
  * @param {any} column
  * @param {any} value
- * @param {any} sequelize
+ * @param {Sequelize} sequelize
  */
 export function cosineDistance(column, value, sequelize) {
   return distance('<=>', column, value, sequelize);
@@ -51,7 +54,7 @@ export function cosineDistance(column, value, sequelize) {
 /**
  * @param {any} column
  * @param {any} value
- * @param {any} sequelize
+ * @param {Sequelize} sequelize
  */
 export function l1Distance(column, value, sequelize) {
   return distance('<+>', column, value, sequelize);
@@ -60,7 +63,7 @@ export function l1Distance(column, value, sequelize) {
 /**
  * @param {any} column
  * @param {string} value
- * @param {any} sequelize
+ * @param {Sequelize} sequelize
  */
 export function hammingDistance(column, value, sequelize) {
   return distance('<~>', column, value, sequelize, true);
@@ -69,7 +72,7 @@ export function hammingDistance(column, value, sequelize) {
 /**
  * @param {any} column
  * @param {string} value
- * @param {any} sequelize
+ * @param {Sequelize} sequelize
  */
 export function jaccardDistance(column, value, sequelize) {
   return distance('<%>', column, value, sequelize, true);
