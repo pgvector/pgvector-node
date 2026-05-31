@@ -10,9 +10,6 @@ export class HalfvecType extends Type {
   }
 
   convertToJSValue(value, platform) {
-    if (value === null) {
-      return null;
-    }
     return halfvecFromSql(value);
   }
 

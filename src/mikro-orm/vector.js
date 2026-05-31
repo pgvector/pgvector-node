@@ -10,9 +10,6 @@ export class VectorType extends Type {
   }
 
   convertToJSValue(value, platform) {
-    if (value === null) {
-      return null;
-    }
     return vectorFromSql(value);
   }
 

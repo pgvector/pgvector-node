@@ -11,9 +11,6 @@ export class SparsevecType extends Type {
 
   // @ts-ignore
   convertToJSValue(value, platform) {
-    if (value === null) {
-      return null;
-    }
     return sparsevecFromSql(value);
   }
 
