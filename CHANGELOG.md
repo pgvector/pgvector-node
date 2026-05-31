@@ -7,6 +7,7 @@
 - Removed `utils` module (use main module instead)
 - Dropped support for Node < 22
 - Dropped support for TypeScript < 4.7
+- Dropped support for MikroORM < 6
 
 ## 0.2.1 (2025-05-20)
 

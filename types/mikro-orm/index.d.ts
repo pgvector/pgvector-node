@@ -1,9 +1,9 @@
-export function l2Distance(column: any, value: any, em: any): any;
-export function maxInnerProduct(column: any, value: any, em: any): any;
-export function cosineDistance(column: any, value: any, em: any): any;
-export function l1Distance(column: any, value: any, em: any): any;
-export function hammingDistance(column: any, value: any, em: any): any;
-export function jaccardDistance(column: any, value: any, em: any): any;
+export function l2Distance(column: any, value: any): import("@mikro-orm/core").RawQueryFragment<string> & symbol;
+export function maxInnerProduct(column: any, value: any): import("@mikro-orm/core").RawQueryFragment<string> & symbol;
+export function cosineDistance(column: any, value: any): import("@mikro-orm/core").RawQueryFragment<string> & symbol;
+export function l1Distance(column: any, value: any): import("@mikro-orm/core").RawQueryFragment<string> & symbol;
+export function hammingDistance(column: any, value: any): import("@mikro-orm/core").RawQueryFragment<string> & symbol;
+export function jaccardDistance(column: any, value: any): import("@mikro-orm/core").RawQueryFragment<string> & symbol;
 export { BitType } from "./bit.js";
 export { HalfvecType } from "./halfvec.js";
 export { SparsevecType } from "./sparsevec.js";
