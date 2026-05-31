@@ -1,7 +1,8 @@
 export class VectorType extends Type<number[] | null, string | null> {
     constructor();
-    convertToDatabaseValue(value: number[] | null, platform: any): string | null;
-    convertToJSValue(value: string, platform: any): number[];
-    getColumnType(prop: any, platform: any): string;
+    convertToDatabaseValue(value: number[] | null, platform: Platform): string | null;
+    convertToJSValue(value: string, platform: Platform): number[];
+    getColumnType(prop: any, platform: Platform): string;
 }
 import { Type } from '@mikro-orm/core';
+import type { Platform } from '@mikro-orm/core';

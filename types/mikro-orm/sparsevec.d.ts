@@ -2,6 +2,7 @@ export class SparsevecType extends Type<string, string> {
     constructor();
     convertToDatabaseValue(value: any, platform: any): string | null;
     convertToJSValue(value: any, platform: any): import("../sparse-vector.js").SparseVector | null;
-    getColumnType(prop: any, platform: any): string;
+    getColumnType(prop: any, platform: Platform): string;
 }
 import { Type } from '@mikro-orm/core';
+import type { Platform } from '@mikro-orm/core';

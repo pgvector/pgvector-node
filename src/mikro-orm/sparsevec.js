@@ -1,6 +1,8 @@
 import { Type } from '@mikro-orm/core';
 import { sparsevecFromSql, sparsevecToSql, sparsevecType } from '../utils.js';
 
+/** @import { Platform } from '@mikro-orm/core' */
+
 export class SparsevecType extends Type {
   // @ts-ignore
   convertToDatabaseValue(value, platform) {
@@ -16,6 +18,7 @@ export class SparsevecType extends Type {
   }
 
   /**
+   * @param {Platform} platform
    * @return {string}
    */
   getColumnType(prop, platform) {
