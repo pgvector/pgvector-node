@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import assert from 'node:assert';
 import test from 'node:test';
 import { l2Distance, innerProduct, cosineDistance, l1Distance, hammingDistance, jaccardDistance } from 'drizzle-orm';
@@ -30,6 +28,7 @@ test('drizzle-orm example', async () => {
     {embedding: [1, 1, 2], halfEmbedding: [1, 1, 2], binaryEmbedding: '111', sparseEmbedding: new SparseVector([1, 1, 2])},
     {embedding: null}
   ];
+  // @ts-ignore
   await db.insert(items).values(newItems);
 
   // L2 distance
@@ -52,6 +51,7 @@ test('drizzle-orm example', async () => {
   // L2 distance - sparsevec
   allItems = await db.select()
     .from(items)
+    // @ts-ignore
     .orderBy(l2Distance(items.sparseEmbedding, new SparseVector([1, 1, 1])))
     .limit(5);
   assert.deepEqual(allItems.map(v => v.id), [1, 3, 2, 4]);
