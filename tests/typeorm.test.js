@@ -63,8 +63,7 @@ test('typeorm example', async () => {
   assert.deepEqual(items[0].embedding, [1, 1, 1]);
   assert.deepEqual(items[0].half_embedding, [1, 1, 1]);
   assert.equal(items[0].binary_embedding, '000');
-  // @ts-ignore
-  assert.deepEqual((new SparseVector(items[0].sparse_embedding).toArray()), [1, 1, 1]);
+  assert.deepEqual(items[0].sparse_embedding, (new SparseVector([1, 1, 1])).toString());
 
   await AppDataSource.destroy();
 });
