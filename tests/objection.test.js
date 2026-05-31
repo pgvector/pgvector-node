@@ -18,7 +18,7 @@ test('objection example', async () => {
     /** @type {number} */
     id;
 
-    /** @type {string} */
+    /** @type {?string} */
     embedding;
 
     static get tableName() {
@@ -45,7 +45,6 @@ test('objection example', async () => {
     {embedding: pgvector.toSql([1, 1, 2]), half_embedding: pgvector.toSql([1, 1, 2]), binary_embedding: '111', sparse_embedding: new SparseVector([1, 1, 2])},
     {embedding: null}
   ];
-  // @ts-ignore
   await Item.query().insert(newItems);
 
   // L2 distance
