@@ -1,4 +1,4 @@
-## 0.3.0 (unreleased)
+## 0.3.0 (2026-05-31)
 
 - Switched to ESM
 - Improved types

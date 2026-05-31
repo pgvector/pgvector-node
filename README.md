@@ -285,10 +285,7 @@ await sequelize.query('CREATE EXTENSION IF NOT EXISTS vector');
 Register the types
 
 ```javascript
-import { Sequelize } from 'sequelize';
-import pgvector from 'pgvector/sequelize';
-
-pgvector.registerTypes(Sequelize);
+import 'pgvector/sequelize';
 ```
 
 Add a vector field
