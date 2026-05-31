@@ -1,3 +1,5 @@
+/// <reference path="./index.d.ts" preserve="true" />
+
 import knex from 'knex';
 import { deprecate } from 'node:util';
 import { fromSql, toSql } from '../index.js';

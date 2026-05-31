@@ -1,3 +1,4 @@
+/// <reference path="../../src/knex/index.d.ts" preserve="true" />
 declare namespace _default {
     export { fromSql };
     export { toSql };

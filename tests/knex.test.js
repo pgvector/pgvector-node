@@ -16,13 +16,10 @@ test('knex example', async () => {
   await knex.schema.dropTableIfExists('knex_items');
   await knex.schema.createTable('knex_items', (table) => {
     table.increments('id');
-    // @ts-ignore
     table.vector('embedding', {dimensions: 3});
-    // @ts-ignore
     table.halfvec('half_embedding', {dimensions: 3});
     // @ts-ignore
     table.bit('binary_embedding', {length: 3});
-    // @ts-ignore
     table.sparsevec('sparse_embedding', {dimensions: 3});
   });
 
