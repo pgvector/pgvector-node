@@ -22,7 +22,7 @@ export class VectorType extends Type {
   /**
    * @param {string} value
    * @param {Platform} platform
-   * @return {number[]}
+   * @return {?number[]}
    */
   convertToJSValue(value, platform) {
     return vectorFromSql(value);

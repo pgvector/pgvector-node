@@ -1,5 +1,4 @@
-export function vectorFromSql(value: string): number[];
-export function vectorFromSql(value: null): null;
+export function vectorFromSql(value: string | null): number[] | null;
 export function vectorToSql(value: number[] | null): string | null;
 export function sparsevecFromSql(value: string | null): SparseVector | null;
 export function sparsevecToSql(value: SparseVector | null): string | null;
