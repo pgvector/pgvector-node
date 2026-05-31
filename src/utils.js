@@ -1,6 +1,15 @@
 import { format } from 'node:util';
 import { SparseVector } from './sparse-vector.js';
 
+/**
+ * @overload
+ * @param {string} value
+ * @returns {number[]}
+ *
+ * @overload
+ * @param {null} value
+ * @returns {null}
+ */
 export function vectorFromSql(value) {
   if (value === null) {
     return null;
@@ -8,6 +17,10 @@ export function vectorFromSql(value) {
   return value.substring(1, value.length - 1).split(',').map((v) => parseFloat(v));
 }
 
+/**
+ * @param {?number[]} value
+ * @returns {?string}
+ */
 export function vectorToSql(value) {
   if (Array.isArray(value)) {
     return JSON.stringify(value.map((v) => Number(v)));
@@ -19,6 +32,7 @@ export { vectorFromSql as halfvecFromSql };
 export { vectorToSql as halfvecToSql };
 
 /**
+ * @param {?string} value
  * @returns {?SparseVector}
  */
 export function sparsevecFromSql(value) {
@@ -28,6 +42,10 @@ export function sparsevecFromSql(value) {
   return new SparseVector(value);
 }
 
+/**
+ * @param {?SparseVector} value
+ * @returns {?string}
+ */
 export function sparsevecToSql(value) {
   if (value instanceof SparseVector) {
     return value.toPostgres();

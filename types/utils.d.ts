@@ -1,7 +1,8 @@
-export function vectorFromSql(value: any): any;
-export function vectorToSql(value: any): any;
-export function sparsevecFromSql(value: any): SparseVector | null;
-export function sparsevecToSql(value: any): any;
+export function vectorFromSql(value: string): number[];
+export function vectorFromSql(value: null): null;
+export function vectorToSql(value: number[] | null): string | null;
+export function sparsevecFromSql(value: string | null): SparseVector | null;
+export function sparsevecToSql(value: SparseVector | null): string | null;
 export function vectorType(dimensions: number | null | undefined): string;
 export function halfvecType(dimensions: number | null | undefined): string;
 export function bitType(dimensions: number | null | undefined): string;
