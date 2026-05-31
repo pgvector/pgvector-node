@@ -30,7 +30,7 @@ test('pg-promise example', async () => {
   assert.deepEqual(items[0].embedding, [1, 1, 1]);
   assert.deepEqual(items[0].half_embedding, [1, 1, 1]);
   assert.equal(items[0].binary_embedding, '000');
-  assert.deepEqual(items[0].sparse_embedding.toArray(), [1, 1, 1]);
+  assert.deepEqual(items[0].sparse_embedding, new SparseVector([1, 1, 1]));
 
   await db.none('CREATE INDEX ON pg_promise_items USING hnsw (embedding vector_l2_ops)');
 
