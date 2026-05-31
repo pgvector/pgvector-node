@@ -4,6 +4,8 @@
 
 Supports [node-postgres](https://github.com/brianc/node-postgres), [Knex.js](https://github.com/knex/knex), [Objection.js](https://github.com/vincit/objection.js), [Kysely](https://github.com/kysely-org/kysely), [Sequelize](https://github.com/sequelize/sequelize), [pg-promise](https://github.com/vitaly-t/pg-promise), [Prisma](https://github.com/prisma/prisma), [Postgres.js](https://github.com/porsager/postgres), [Slonik](https://github.com/gajus/slonik), [TypeORM](https://github.com/typeorm/typeorm), [MikroORM](https://github.com/mikro-orm/mikro-orm), [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm), [deno-postgres](https://github.com/denodrivers/postgres), and [Bun SQL](https://bun.sh/docs/api/sql)
 
+**pgvector-node 0.3.0 was recently released** - see [how to upgrade](#upgrading)
+
 [![Build Status](https://github.com/pgvector/pgvector-node/actions/workflows/build.yml/badge.svg)](https://github.com/pgvector/pgvector-node/actions)
 
 ## Installation
@@ -823,7 +825,9 @@ const arr = vec.toArray();
 
 ### 0.3.0
 
-`registerTypes` is deprecated for Sequelize. Replace
+`registerType` is deprecated for node-postgres. Use `registerTypes` instead.
+
+`registerType` and `registerTypes` is deprecated for Sequelize. Replace
 
 ```javascript
 import { Sequelize } from 'sequelize';
