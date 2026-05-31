@@ -1,3 +1,4 @@
+/// <reference path="../../src/sequelize/index.d.ts" preserve="true" />
 export function l2Distance(column: any, value: any, sequelize: Sequelize): Utils.Literal;
 export function maxInnerProduct(column: any, value: any, sequelize: Sequelize): Utils.Literal;
 export function cosineDistance(column: any, value: any, sequelize: Sequelize): Utils.Literal;

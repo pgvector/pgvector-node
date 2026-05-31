@@ -19,18 +19,15 @@ test('sequelize example', async () => {
 
   const Item = sequelize.define('Item', {
     embedding: {
-      // @ts-ignore
       type: DataTypes.VECTOR(3)
     },
     half_embedding: {
-      // @ts-ignore
       type: DataTypes.HALFVEC(3)
     },
     binary_embedding: {
       type: 'BIT(3)'
     },
     sparse_embedding: {
-      // @ts-ignore
       type: DataTypes.SPARSEVEC(3)
     }
   }, {

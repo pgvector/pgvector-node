@@ -1,3 +1,5 @@
+/// <reference path="./index.d.ts" preserve="true" />
+
 import { deprecate } from 'node:util';
 import { toSql } from '../index.js';
 import { Utils } from 'sequelize';
