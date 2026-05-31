@@ -23,12 +23,11 @@ test('drizzle-orm example', async () => {
   });
 
   const newItems = [
-    {embedding: [1, 1, 1], halfEmbedding: [1, 1, 1], binaryEmbedding: '000', sparseEmbedding: new SparseVector([1, 1, 1])},
-    {embedding: [2, 2, 2], halfEmbedding: [2, 2, 2], binaryEmbedding: '101', sparseEmbedding: new SparseVector([2, 2, 2])},
-    {embedding: [1, 1, 2], halfEmbedding: [1, 1, 2], binaryEmbedding: '111', sparseEmbedding: new SparseVector([1, 1, 2])},
+    {embedding: [1, 1, 1], halfEmbedding: [1, 1, 1], binaryEmbedding: '000', sparseEmbedding: (new SparseVector([1, 1, 1])).toString()},
+    {embedding: [2, 2, 2], halfEmbedding: [2, 2, 2], binaryEmbedding: '101', sparseEmbedding: (new SparseVector([2, 2, 2])).toString()},
+    {embedding: [1, 1, 2], halfEmbedding: [1, 1, 2], binaryEmbedding: '111', sparseEmbedding: (new SparseVector([1, 1, 2])).toString()},
     {embedding: null}
   ];
-  // @ts-ignore
   await db.insert(items).values(newItems);
 
   // L2 distance
@@ -51,8 +50,7 @@ test('drizzle-orm example', async () => {
   // L2 distance - sparsevec
   allItems = await db.select()
     .from(items)
-    // @ts-ignore
-    .orderBy(l2Distance(items.sparseEmbedding, new SparseVector([1, 1, 1])))
+    .orderBy(l2Distance(items.sparseEmbedding, (new SparseVector([1, 1, 1])).toString()))
     .limit(5);
   assert.deepEqual(allItems.map(v => v.id), [1, 3, 2, 4]);
 
