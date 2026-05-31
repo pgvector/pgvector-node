@@ -17,12 +17,12 @@ export class SparseVector {
 
   /**
    * @overload
-   * @param {Map<number, number>} value
+   * @param {Map<number, number> | object} value
    * @param {number} dimensions
    */
 
   /**
-   * @param {string | number[] | Map<number, number>} value
+   * @param {string | number[] | Map<number, number> | object} value
    * @param {number} [dimensions]
    */
   constructor(value, dimensions) {
