@@ -1,33 +1,34 @@
-// @ts-nocheck
-
 import { deprecate } from 'node:util';
 import { toSql } from '../index.js';
 import { vectorFromSql, halfvecFromSql, sparsevecFromSql } from '../utils.js';
 
+/**
+ * @param {any} client
+ */
 async function registerTypes(client) {
   const result = await client.query('SELECT typname, oid FROM pg_type WHERE typname IN ($1, $2, $3)', ['vector', 'halfvec', 'sparsevec']);
   const rows = result.rows;
 
-  const vector = rows.find((v) => v.typname == 'vector');
-  const halfvec = rows.find((v) => v.typname == 'halfvec');
-  const sparsevec = rows.find((v) => v.typname == 'sparsevec');
+  const vector = rows.find(/** @type {function(any): any} */ (v) => v.typname == 'vector');
+  const halfvec = rows.find(/** @type {function(any): any} */ (v) => v.typname == 'halfvec');
+  const sparsevec = rows.find(/** @type {function(any): any} */ (v) => v.typname == 'sparsevec');
 
   if (!vector) {
     throw new Error('vector type not found in the database');
   }
 
-  client.setTypeParser(vector.oid, 'text', function (value) {
+  client.setTypeParser(vector.oid, 'text', /** @type {function(any): any} */ function (value) {
     return vectorFromSql(value);
   });
 
   if (halfvec) {
-    client.setTypeParser(halfvec.oid, 'text', function (value) {
+    client.setTypeParser(halfvec.oid, 'text', /** @type {function(any): any} */ function (value) {
       return halfvecFromSql(value);
     });
   }
 
   if (sparsevec) {
-    client.setTypeParser(sparsevec.oid, 'text', function (value) {
+    client.setTypeParser(sparsevec.oid, 'text', /** @type {function(any): any} */ function (value) {
       return sparsevecFromSql(value);
     });
   }
