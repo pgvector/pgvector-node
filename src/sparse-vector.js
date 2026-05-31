@@ -10,22 +10,36 @@ export class SparseVector {
   /** @type {number[]} */
   values = [];
 
+  /**
+   * @overload
+   * @param {string | number[]} value
+   *
+   * @overload
+   * @param {Map<number, number>} value
+   * @param {number} dimensions
+   */
   constructor(value, dimensions) {
-    if (typeof value === 'string') {
-      this.#fromSql(value);
-    } else if (dimensions !== undefined) {
+    if (dimensions !== undefined) {
       this.#fromMap(value, dimensions);
+    } else if (typeof value === 'string') {
+      this.#fromSql(value);
     } else {
       this.#fromDense(value);
     }
   }
 
+  /**
+   * @returns {string}
+   */
   toPostgres() {
     const values = this.values;
     const elements = this.indices.map((index, i) => format('%i:%f', index + 1, values[i])).join(',');
     return format('{%s}/%d', elements, this.dimensions);
   }
 
+  /**
+   * @returns {string}
+   */
   toString() {
     return this.toPostgres();
   }
@@ -41,6 +55,9 @@ export class SparseVector {
     return arr;
   }
 
+  /**
+   * @param {string} value
+   */
   #fromSql(value) {
     const parts = value.split('/', 2);
 
@@ -54,6 +71,9 @@ export class SparseVector {
     }
   }
 
+  /**
+   * @param {number[]} value
+   */
   #fromDense(value) {
     this.dimensions = value.length;
 
@@ -66,6 +86,10 @@ export class SparseVector {
     }
   }
 
+  /**
+   * @param {Map<number, number>} map
+   * @param {number} dimensions
+   */
   #fromMap(map, dimensions) {
     this.dimensions = Number(dimensions);
 

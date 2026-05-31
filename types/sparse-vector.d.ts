@@ -1,5 +1,6 @@
 export class SparseVector {
-    constructor(value: any, dimensions: any);
+    constructor(value: string | number[]);
+    constructor(value: Map<number, number>, dimensions: number);
     dimensions: number;
     indices: number[];
     values: number[];

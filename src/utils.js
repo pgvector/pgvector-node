@@ -18,6 +18,9 @@ export function vectorToSql(value) {
 export { vectorFromSql as halfvecFromSql };
 export { vectorToSql as halfvecToSql };
 
+/**
+ * @returns {?SparseVector}
+ */
 export function sparsevecFromSql(value) {
   if (value === null) {
     return null;
@@ -32,6 +35,11 @@ export function sparsevecToSql(value) {
   return value;
 }
 
+/**
+ * @param {string} name
+ * @param {number | null | undefined} dimensions
+ * @returns {string}
+ */
 function typeWithDimensions(name, dimensions) {
   if (dimensions === undefined || dimensions === null) {
     return name;
@@ -44,18 +52,34 @@ function typeWithDimensions(name, dimensions) {
   return format('%s(%d)', name, dimensions);
 }
 
+/**
+ * @param {number | null | undefined} dimensions
+ * @returns {string}
+ */
 export function vectorType(dimensions) {
   return typeWithDimensions('vector', dimensions);
 }
 
+/**
+ * @param {number | null | undefined} dimensions
+ * @returns {string}
+ */
 export function halfvecType(dimensions) {
   return typeWithDimensions('halfvec', dimensions);
 }
 
+/**
+ * @param {number | null | undefined} dimensions
+ * @returns {string}
+ */
 export function bitType(dimensions) {
   return typeWithDimensions('bit', dimensions);
 }
 
+/**
+ * @param {number | null | undefined} dimensions
+ * @returns {string}
+ */
 export function sparsevecType(dimensions) {
   return typeWithDimensions('sparsevec', dimensions);
 }
