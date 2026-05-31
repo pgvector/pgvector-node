@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import assert from 'node:assert';
 import test from 'node:test';
 import { Sequelize, DataTypes } from 'sequelize';
@@ -21,15 +19,18 @@ test('sequelize example', async () => {
 
   const Item = sequelize.define('Item', {
     embedding: {
+      // @ts-ignore
       type: DataTypes.VECTOR(3)
     },
     half_embedding: {
+      // @ts-ignore
       type: DataTypes.HALFVEC(3)
     },
     binary_embedding: {
       type: 'BIT(3)'
     },
     sparse_embedding: {
+      // @ts-ignore
       type: DataTypes.SPARSEVEC(3)
     }
   }, {
@@ -55,9 +56,13 @@ test('sequelize example', async () => {
     order: l2Distance('embedding', [1, 1, 1], sequelize),
     limit: 5
   });
+  // @ts-ignore
   assert.deepEqual(items.map(v => v.id), [1, 3, 2]);
+  // @ts-ignore
   assert.deepEqual(items[0].embedding, [1, 1, 1]);
+  // @ts-ignore
   assert.deepEqual(items[1].embedding, [1, 1, 2]);
+  // @ts-ignore
   assert.deepEqual(items[2].embedding, [2, 2, 2]);
 
   // L2 distance - halfvec
@@ -65,6 +70,7 @@ test('sequelize example', async () => {
     order: l2Distance('half_embedding', [1, 1, 1], sequelize),
     limit: 5
   });
+  // @ts-ignore
   assert.deepEqual(items.map(v => v.id), [1, 3, 2]);
 
   // L2 distance - sparsevec
@@ -72,6 +78,7 @@ test('sequelize example', async () => {
     order: l2Distance('sparse_embedding', new SparseVector([1, 1, 1]), sequelize),
     limit: 5
   });
+  // @ts-ignore
   assert.deepEqual(items.map(v => v.id), [1, 3, 2]);
 
   await Item.create({});
@@ -81,6 +88,7 @@ test('sequelize example', async () => {
     order: maxInnerProduct(sequelize.literal('"Item".embedding'), [1, 1, 1], sequelize),
     limit: 5
   });
+  // @ts-ignore
   assert.deepEqual(items.map(v => v.id), [2, 3, 1, 4]);
 
   // cosine distance
@@ -88,6 +96,7 @@ test('sequelize example', async () => {
     order: cosineDistance('embedding', [1, 1, 1], sequelize),
     limit: 5
   });
+  // @ts-ignore
   assert.deepEqual(items.map(v => v.id).slice(2), [3, 4]);
 
   // L1 distance
@@ -95,6 +104,7 @@ test('sequelize example', async () => {
     order: l1Distance('embedding', [1, 1, 1], sequelize),
     limit: 5
   });
+  // @ts-ignore
   assert.deepEqual(items.map(v => v.id), [1, 3, 2, 4]);
 
   // Hamming distance
@@ -102,6 +112,7 @@ test('sequelize example', async () => {
     order: hammingDistance('binary_embedding', '101', sequelize),
     limit: 5
   });
+  // @ts-ignore
   assert.deepEqual(items.map(v => v.id), [2, 3, 1, 4]);
 
   // Jaccard distance
@@ -109,6 +120,7 @@ test('sequelize example', async () => {
     order: jaccardDistance('binary_embedding', '101', sequelize),
     limit: 5
   });
+  // @ts-ignore
   assert.deepEqual(items.map(v => v.id), [2, 3, 1, 4]);
 
   // bad value
@@ -118,15 +130,18 @@ test('sequelize example', async () => {
 });
 
 test('dimensions', () => {
+  // @ts-ignore
   assert.equal(DataTypes.VECTOR(3).toSql(), 'VECTOR(3)');
 });
 
 test('no dimensions', () => {
+  // @ts-ignore
   assert.equal(DataTypes.VECTOR().toSql(), 'VECTOR');
 });
 
 test('bad dimensions', () => {
   assert.throws(() => {
+    // @ts-ignore
     DataTypes.VECTOR('bad').toSql();
   }, {message: 'expected integer'});
 });
