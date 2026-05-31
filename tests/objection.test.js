@@ -32,13 +32,10 @@ test('objection example', async () => {
   await knex.schema.dropTableIfExists('objection_items');
   await knex.schema.createTable('objection_items', (table) => {
     table.increments('id');
-    // @ts-ignore
     table.vector('embedding', 3);
-    // @ts-ignore
     table.halfvec('half_embedding', 3);
     // @ts-ignore
     table.bit('binary_embedding', {length: 3});
-    // @ts-ignore
     table.sparsevec('sparse_embedding', 3);
   });
 
