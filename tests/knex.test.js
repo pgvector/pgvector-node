@@ -33,7 +33,6 @@ test('knex example', async () => {
 
   // L2 distance
   let items = await knex('knex_items')
-    // @ts-ignore
     .orderBy(knex.l2Distance('embedding', [1, 1, 1]))
     .limit(5);
   assert.deepEqual(items.map(v => v.id), [1, 3, 2, 4]);
@@ -43,49 +42,42 @@ test('knex example', async () => {
 
   // L2 distance - halfvec
   items = await knex('knex_items')
-    // @ts-ignore
     .orderBy(knex.l2Distance('half_embedding', [1, 1, 1]))
     .limit(5);
   assert.deepEqual(items.map(v => v.id), [1, 3, 2, 4]);
 
   // L2 distance - sparsevec
   items = await knex('knex_items')
-    // @ts-ignore
     .orderBy(knex.l2Distance('sparse_embedding', new SparseVector([1, 1, 1])))
     .limit(5);
   assert.deepEqual(items.map(v => v.id), [1, 3, 2, 4]);
 
   // max inner product
   items = await knex('knex_items')
-    // @ts-ignore
     .orderBy(knex.maxInnerProduct('embedding', [1, 1, 1]))
     .limit(5);
   assert.deepEqual(items.map(v => v.id), [2, 3, 1, 4]);
 
   // cosine distance
   items = await knex('knex_items')
-    // @ts-ignore
     .orderBy(knex.cosineDistance('embedding', [1, 1, 1]))
     .limit(5);
   assert.deepEqual(items.map(v => v.id).slice(2), [3, 4]);
 
   // L1 distance
   items = await knex('knex_items')
-    // @ts-ignore
     .orderBy(knex.l1Distance('embedding', [1, 1, 1]))
     .limit(5);
   assert.deepEqual(items.map(v => v.id), [1, 3, 2, 4]);
 
   // Hamming distance
   items = await knex('knex_items')
-    // @ts-ignore
     .orderBy(knex.hammingDistance('binary_embedding', '101'))
     .limit(5);
   assert.deepEqual(items.map(v => v.id), [2, 3, 1, 4]);
 
   // Jaccard distance
   items = await knex('knex_items')
-    // @ts-ignore
     .orderBy(knex.jaccardDistance('binary_embedding', '101'))
     .limit(5);
   assert.deepEqual(items.map(v => v.id), [2, 3, 1, 4]);
