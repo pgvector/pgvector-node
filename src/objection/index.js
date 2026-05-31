@@ -2,26 +2,46 @@ import { fromSql, toSql } from '../index.js';
 import { raw } from 'objection';
 import '../knex/index.js';
 
+/** @import { SparseVector } from '../index.js' */
+
+/**
+ * @param {number[] | SparseVector | null} value
+ */
 export function l2Distance(column, value) {
   return raw('?? <-> ?', [column, toSql(value)]);
 }
 
+/**
+ * @param {number[] | SparseVector | null} value
+ */
 export function maxInnerProduct(column, value) {
   return raw('?? <#> ?', [column, toSql(value)]);
 }
 
+/**
+ * @param {number[] | SparseVector | null} value
+ */
 export function cosineDistance(column, value) {
   return raw('?? <=> ?', [column, toSql(value)]);
 }
 
+/**
+ * @param {number[] | SparseVector | null} value
+ */
 export function l1Distance(column, value) {
   return raw('?? <+> ?', [column, toSql(value)]);
 }
 
+/**
+ * @param {string} value
+ */
 export function hammingDistance(column, value) {
   return raw('?? <~> ?', [column, value]);
 }
 
+/**
+ * @param {string} value
+ */
 export function jaccardDistance(column, value) {
   return raw('?? <%> ?', [column, value]);
 }
