@@ -127,12 +127,10 @@ test('sequelize example', async () => {
 });
 
 test('dimensions', () => {
-  // @ts-ignore
   assert.equal(DataTypes.VECTOR(3).toSql(), 'VECTOR(3)');
 });
 
 test('no dimensions', () => {
-  // @ts-ignore
   assert.equal(DataTypes.VECTOR().toSql(), 'VECTOR');
 });
 
