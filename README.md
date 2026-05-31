@@ -842,6 +842,8 @@ with
 import 'pgvector/sequelize';
 ```
 
+`enableExtension` is deprecated for Knex.js and Objection.js. Use `createExtensionIfNotExists` instead.
+
 Also, the `utils` module has been removed. Replace
 
 ```javascript
