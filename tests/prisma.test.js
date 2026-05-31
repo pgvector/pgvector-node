@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import assert from 'node:assert';
 import test, { beforeEach } from 'node:test';
 import pgvector from 'pgvector';
@@ -26,8 +24,11 @@ test('vector', async () => {
   // https://github.com/prisma/prisma/issues/5848
   const embedding = pgvector.toSql([1, 1, 1]);
   const items = await prisma.$queryRaw`SELECT id, embedding::text FROM prisma_items ORDER BY embedding <-> ${embedding}::vector LIMIT 5`;
+  // @ts-ignore
   assert.deepEqual(pgvector.fromSql(items[0].embedding), [1, 1, 1]);
+  // @ts-ignore
   assert.deepEqual(pgvector.fromSql(items[1].embedding), [1, 1, 2]);
+  // @ts-ignore
   assert.deepEqual(pgvector.fromSql(items[2].embedding), [2, 2, 2]);
 
   await prisma.$disconnect();
@@ -47,8 +48,11 @@ test('halfvec', async () => {
   // https://github.com/prisma/prisma/issues/5848
   const embedding = pgvector.toSql([1, 1, 1]);
   const items = await prisma.$queryRaw`SELECT id, half_embedding::text FROM prisma_items ORDER BY half_embedding <-> ${embedding}::halfvec LIMIT 5`;
+  // @ts-ignore
   assert.deepEqual(pgvector.fromSql(items[0].half_embedding), [1, 1, 1]);
+  // @ts-ignore
   assert.deepEqual(pgvector.fromSql(items[1].half_embedding), [1, 1, 2]);
+  // @ts-ignore
   assert.deepEqual(pgvector.fromSql(items[2].half_embedding), [2, 2, 2]);
 
   await prisma.$disconnect();
@@ -69,8 +73,11 @@ test('bit', async () => {
   // https://github.com/prisma/prisma/issues/5848
   const embedding = '101';
   const items = await prisma.$queryRaw`SELECT id, binary_embedding::text FROM prisma_items ORDER BY binary_embedding <~> ${embedding}::varbit LIMIT 5`;
+  // @ts-ignore
   assert.equal(items[0].binary_embedding, '101');
+  // @ts-ignore
   assert.equal(items[1].binary_embedding, '111');
+  // @ts-ignore
   assert.equal(items[2].binary_embedding, '000');
 
   await prisma.$disconnect();
@@ -90,8 +97,11 @@ test('sparsevec', async () => {
   // https://github.com/prisma/prisma/issues/5848
   const embedding = pgvector.toSql(new SparseVector([1, 1, 1]));
   const items = await prisma.$queryRaw`SELECT id, sparse_embedding::text FROM prisma_items ORDER BY sparse_embedding <-> ${embedding}::sparsevec LIMIT 5`;
+  // @ts-ignore
   assert.deepEqual(pgvector.fromSql(items[0].sparse_embedding).toArray(), [1, 1, 1]);
+  // @ts-ignore
   assert.deepEqual(pgvector.fromSql(items[1].sparse_embedding).toArray(), [1, 1, 2]);
+  // @ts-ignore
   assert.deepEqual(pgvector.fromSql(items[2].sparse_embedding).toArray(), [2, 2, 2]);
 
   await prisma.$disconnect();
