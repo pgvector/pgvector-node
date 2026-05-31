@@ -31,8 +31,7 @@ test('slonik example', async () => {
   assert.deepEqual(pgvector.fromSql(items.rows[0].embedding), [1, 1, 1]);
   assert.deepEqual(pgvector.fromSql(items.rows[0].half_embedding), [1, 1, 1]);
   assert.equal(items.rows[0].binary_embedding, '000');
-  // @ts-ignore
-  assert.deepEqual(pgvector.fromSql(items.rows[0].sparse_embedding).toArray(), [1, 1, 1]);
+  assert.deepEqual(pgvector.fromSql(items.rows[0].sparse_embedding), new SparseVector([1, 1, 1]));
 
   await pool.query(sql.unsafe`CREATE INDEX ON slonik_items USING hnsw (embedding vector_l2_ops)`);
 
