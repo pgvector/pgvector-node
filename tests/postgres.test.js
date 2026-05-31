@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import assert from 'node:assert';
 import test from 'node:test';
 import postgres from 'postgres';
@@ -18,6 +16,7 @@ test('postgres example', async () => {
     {embedding: pgvector.toSql([2, 2, 2]), half_embedding: pgvector.toSql([2, 2, 2]), binary_embedding: '101', sparse_embedding: new SparseVector([2, 2, 2])},
     {embedding: pgvector.toSql([1, 1, 2]), half_embedding: pgvector.toSql([1, 1, 2]), binary_embedding: '111', sparse_embedding: new SparseVector([1, 1, 2])}
   ];
+  // @ts-ignore
   await sql`INSERT INTO postgres_items ${ sql(newItems, 'embedding', 'half_embedding', 'binary_embedding', 'sparse_embedding') }`;
 
   const embedding = pgvector.toSql([1, 1, 1]);
