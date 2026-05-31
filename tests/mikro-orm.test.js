@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import assert from 'node:assert';
 import test from 'node:test';
 import { MikroORM, EntitySchema } from '@mikro-orm/postgresql';
@@ -12,9 +10,12 @@ test('mikro-orm example', async () => {
     tableName: 'mikro_items',
     properties: {
       id: {type: Number, primary: true},
+      // @ts-ignore
       embedding: {type: VectorType, dimensions: 3, nullable: true},
+      // @ts-ignore
       half_embedding: {type: HalfvecType, dimensions: 3, nullable: true},
       binary_embedding: {type: BitType, length: 3, nullable: true},
+      // @ts-ignore
       sparse_embedding: {type: SparsevecType, dimensions: 3, nullable: true}
     },
   });
