@@ -34,6 +34,6 @@ export class HalfvecType extends Type {
    * @return {string}
    */
   getColumnType(prop, platform) {
-    return halfvecType(prop.dimensions);
+    return halfvecType(prop.dimensions ?? prop.length);
   }
 }

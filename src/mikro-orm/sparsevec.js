@@ -35,6 +35,6 @@ export class SparsevecType extends Type {
    * @return {string}
    */
   getColumnType(prop, platform) {
-    return sparsevecType(prop.dimensions);
+    return sparsevecType(prop.dimensions ?? prop.length);
   }
 }

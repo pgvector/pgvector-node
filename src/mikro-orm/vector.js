@@ -34,6 +34,6 @@ export class VectorType extends Type {
    * @return {string}
    */
   getColumnType(prop, platform) {
-    return vectorType(prop.dimensions);
+    return vectorType(prop.dimensions ?? prop.length);
   }
 }
