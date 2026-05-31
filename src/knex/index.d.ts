@@ -10,13 +10,13 @@ declare module 'knex' {
     }
 
     // https://knexjs.org/guide/query-builder.html#extending-query-builder
-    interface QueryInterface {
-      l2Distance<TRecord, TResult>(column: any, value: any): Knex.QueryBuilder<TRecord, TResult>;
-      maxInnerProduct<TRecord, TResult>(column: any, value: any): Knex.QueryBuilder<TRecord, TResult>;
-      cosineDistance<TRecord, TResult>(column: any, value: any): Knex.QueryBuilder<TRecord, TResult>;
-      l1Distance<TRecord, TResult>(column: any, value: any): Knex.QueryBuilder<TRecord, TResult>;
-      hammingDistance<TRecord, TResult>(column: any, value: any): Knex.QueryBuilder<TRecord, TResult>;
-      jaccardDistance<TRecord, TResult>(column: any, value: any): Knex.QueryBuilder<TRecord, TResult>;
+    interface QueryInterface<TRecord extends {} = any, TResult = any> {
+      l2Distance(column: any, value: any): Knex.QueryBuilder<TRecord, TResult>;
+      maxInnerProduct(column: any, value: any): Knex.QueryBuilder<TRecord, TResult>;
+      cosineDistance(column: any, value: any): Knex.QueryBuilder<TRecord, TResult>;
+      l1Distance(column: any, value: any): Knex.QueryBuilder<TRecord, TResult>;
+      hammingDistance(column: any, value: any): Knex.QueryBuilder<TRecord, TResult>;
+      jaccardDistance(column: any, value: any): Knex.QueryBuilder<TRecord, TResult>;
     }
   }
 }
