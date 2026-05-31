@@ -5,10 +5,17 @@ import { SparseVector } from './sparse-vector.js';
  * @overload
  * @param {string} value
  * @returns {number[]}
- *
+ */
+
+/**
  * @overload
  * @param {null} value
  * @returns {null}
+ */
+
+/**
+ * @param {?string} value
+ * @returns {?number[]}
  */
 export function vectorFromSql(value) {
   if (value === null) {

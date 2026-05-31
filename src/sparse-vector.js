@@ -13,17 +13,26 @@ export class SparseVector {
   /**
    * @overload
    * @param {string | number[]} value
-   *
+   */
+
+  /**
    * @overload
    * @param {Map<number, number>} value
    * @param {number} dimensions
    */
+
+  /**
+   * @param {string | number[] | Map<number, number>} value
+   * @param {number} [dimensions]
+   */
   constructor(value, dimensions) {
-    if (dimensions !== undefined) {
+    if (typeof dimensions !== 'undefined') {
+      // @ts-ignore
       this.#fromMap(value, dimensions);
     } else if (typeof value === 'string') {
       this.#fromSql(value);
     } else {
+      // @ts-ignore
       this.#fromDense(value);
     }
   }
