@@ -4,8 +4,7 @@ import pgvector from 'pgvector/pg';
 import { SparseVector } from 'pgvector';
 
 function isDeno() {
-  // @ts-ignore
-  return typeof Deno !== 'undefined';
+  return 'Deno' in globalThis;
 }
 
 test('pg-native example', {skip: isDeno()}, async () => {
