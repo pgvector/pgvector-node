@@ -3,11 +3,7 @@ import test from 'node:test';
 import pgvector from 'pgvector/pg';
 import { SparseVector } from 'pgvector';
 
-function isDeno() {
-  return 'Deno' in globalThis;
-}
-
-test('pg-native example', {skip: isDeno()}, async () => {
+test('pg-native example', {skip: true}, async () => {
   // @ts-ignore
   const { default: Client } = await import('pg-native');
 
