@@ -1,7 +1,5 @@
 import assert from 'node:assert';
 import test from 'node:test';
-// @ts-ignore
-import Client from 'pg-native';
 import pgvector from 'pgvector/pg';
 import { SparseVector } from 'pgvector';
 
@@ -10,7 +8,10 @@ function isDeno() {
   return typeof Deno !== 'undefined';
 }
 
-test('pg-native example', {skip: isDeno()}, () => {
+test('pg-native example', {skip: isDeno()}, async () => {
+  // @ts-ignore
+  const { default: Client } = await import('pg-native');
+
   const client = new Client();
   client.connectSync('postgres://localhost/pgvector_node_test');
 
