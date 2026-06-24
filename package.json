@@ -4,14 +4,9 @@
   "description": "pgvector support for Node.js, Deno, and Bun (and TypeScript)",
   "homepage": "https://github.com/pgvector/pgvector-node",
   "license": "MIT",
-  "authors": [
-    "ankane"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/pgvector/pgvector-node"
-  },
+  "author": "Andrew Kane",
   "type": "module",
+  "files": ["src", "types"],
   "exports": {
     ".": {
       "types": "./types/index.d.ts",
@@ -47,17 +42,8 @@
     },
     "./package.json": "./package.json"
   },
-  "files": [
-    "src",
-    "types"
-  ],
   "engines": {
     "node": ">=22"
-  },
-  "scripts": {
-    "build": "tsc",
-    "check": "tsc --project tsconfig.test.json",
-    "test": "node --test"
   },
   "devDependencies": {
     "@mikro-orm/core": "^7.1.0",
@@ -77,5 +63,10 @@
     "slonik": "^48.8.7",
     "typeorm": "^1.0.0",
     "typescript": "^6.0.3"
+  },
+  "scripts": {
+    "build": "tsc",
+    "check": "tsc --project tsconfig.test.json",
+    "test": "node --test"
   }
 }
