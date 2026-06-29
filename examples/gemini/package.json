@@ -1,0 +1,9 @@
+{
+  "name": "pgvector-example-gemini",
+  "type": "module",
+  "dependencies": {
+    "@google/genai": "^0.1.1",
+    "pg": "^8.11.0",
+    "pgvector": "file:../.."
+  }
+}
