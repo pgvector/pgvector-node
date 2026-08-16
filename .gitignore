@@ -3,6 +3,7 @@ node_modules/
 prisma/generated/
 package-lock.json
 pnpm-lock.yaml
+pnpm-workspace.yaml
 bun.lock
 bun.lockb
 deno.lock
