@@ -1,9 +1,9 @@
-declare namespace _default {
-    export { fromSql };
-    export { toSql };
-}
-export default _default;
-export function fromSql(value: string | null): number[] | SparseVector | null;
-export function toSql(value: number[] | SparseVector | null): string | null;
 import { SparseVector } from './sparse-vector.js';
-export { SparseVector };
+declare function fromSql(value: string | null): number[] | SparseVector | null;
+declare function toSql(value: number[] | SparseVector | null): string | null;
+export { fromSql, toSql, SparseVector };
+declare const _default: {
+    fromSql: typeof fromSql;
+    toSql: typeof toSql;
+};
+export default _default;

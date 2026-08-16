@@ -65,7 +65,7 @@
     "sequelize": "^6.6.2",
     "slonik": "^48.8.7",
     "typeorm": "^1.0.0",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "scripts": {
     "build": "tsc",

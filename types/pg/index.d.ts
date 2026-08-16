@@ -1,11 +1,11 @@
-declare namespace _default {
-    export { registerType };
-    export { registerTypes };
-    export { toSql };
-}
-export default _default;
-export function registerType(client: ClientBase): Promise<void>;
-export function registerTypes(client: ClientBase): Promise<void>;
 import { toSql } from '../index.js';
 import type { ClientBase } from 'pg';
-export { toSql };
+declare function registerTypes(client: ClientBase): Promise<void>;
+declare const registerType: typeof registerTypes;
+export { registerType, registerTypes, toSql };
+declare const _default: {
+    registerType: typeof registerTypes;
+    registerTypes: typeof registerTypes;
+    toSql: typeof toSql;
+};
+export default _default;
