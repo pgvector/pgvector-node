@@ -9,8 +9,8 @@ import './vector.js';
 
 /** @import { Sequelize } from 'sequelize' */
 
-const registerType = deprecate(/** @type {function(any): void} */ (Sequelize) => {}, "registerType() is deprecated. Use import 'pgvector/sequelize' instead.");
-const registerTypes = deprecate(/** @type {function(any): void} */ (Sequelize) => {}, "registerTypes() is deprecated. Use import 'pgvector/sequelize' instead.");
+const registerType = deprecate(/** @type {(Sequelize: any) => void} */ (Sequelize) => {}, "registerType() is deprecated. Use import 'pgvector/sequelize' instead.");
+const registerTypes = deprecate(/** @type {(Sequelize: any) => void} */ (Sequelize) => {}, "registerTypes() is deprecated. Use import 'pgvector/sequelize' instead.");
 
 /**
  * @param {string} op

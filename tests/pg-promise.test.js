@@ -6,7 +6,7 @@ import { SparseVector } from 'pgvector';
 
 test('pg-promise example', async () => {
   const initOptions = {
-    /** @type {function(any): Promise<void>} */ async connect(e) {
+    /** @type {(e: any) => Promise<void>} */ async connect(e) {
       await pgvector.registerTypes(e.client);
     }
   };
