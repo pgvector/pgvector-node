@@ -72,11 +72,13 @@ export class SparseVector {
 
     this.dimensions = parseInt(parts[1]);
 
-    const elements = parts[0].slice(1, -1).split(',');
-    for (const element of elements) {
-      const ep = element.split(':', 2);
-      this.indices.push(parseInt(ep[0]) - 1);
-      this.values.push(parseFloat(ep[1]));
+    if (parts[0].length > 2) {
+      const elements = parts[0].slice(1, -1).split(',');
+      for (const element of elements) {
+        const ep = element.split(':', 2);
+        this.indices.push(parseInt(ep[0]) - 1);
+        this.values.push(parseFloat(ep[1]));
+      }
     }
   }
 

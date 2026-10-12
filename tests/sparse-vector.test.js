@@ -10,6 +10,14 @@ test('fromSql', () => {
   assert.deepEqual(vec.values, [1, 2, 3]);
 });
 
+test('fromSqlZero', () => {
+  const vec = new SparseVector('{}/3');
+  assert.deepEqual(vec.toArray(), [0, 0, 0]);
+  assert.equal(vec.dimensions, 3);
+  assert.deepEqual(vec.indices, []);
+  assert.deepEqual(vec.values, []);
+});
+
 test('fromDense', () => {
   const vec = new SparseVector([1, 0, 2, 0, 3, 0]);
   assert.equal(vec.toPostgres(), '{1:1,3:2,5:3}/6');

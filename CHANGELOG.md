@@ -1,3 +1,7 @@
+## 0.3.1 (unreleased)
+
+- Fixed parsing for zero sparse vectors
+
 ## 0.3.0 (2026-05-31)
 
 - Switched to ESM
