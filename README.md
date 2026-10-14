@@ -278,16 +278,22 @@ See a [full example](tests/kysely.test.js)
 
 ## Sequelize
 
+Register the types **before** establishing the database connection.
+
+```javascript
+import 'pgvector/sequelize';
+```
+
+Initialize the connection to the database.
+
+```javascript
+let sequelize = new Sequelize(/* ... */);
+```
+
 Enable the extension
 
 ```javascript
 await sequelize.query('CREATE EXTENSION IF NOT EXISTS vector');
-```
-
-Register the types
-
-```javascript
-import 'pgvector/sequelize';
 ```
 
 Add a vector field
