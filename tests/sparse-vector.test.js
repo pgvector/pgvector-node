@@ -46,6 +46,21 @@ test('fromMapObject', () => {
   assert.deepEqual(vec.values, [1, 2, 3]);
 });
 
+// TODO uncomment in 0.4.0
+// test('fromMapNegativeIndex', () => {
+//   assert.throws(() => new SparseVector({'-1': 1}, 3), {message: 'sparsevec index out of bounds'});
+// });
+
+// TODO uncomment in 0.4.0
+// test('fromMapHigherIndex', () => {
+//   assert.throws(() => new SparseVector({3: 1}, 3), {message: 'sparsevec index out of bounds'});
+// });
+
+// TODO uncomment in 0.4.0
+// test('fromMapNegativeDimensions', () => {
+//   assert.throws(() => new SparseVector({}, -1), {message: 'sparsevec cannot have negative dimensions'});
+// });
+
 test('toPostgres', () => {
   const vec = new SparseVector([1.23456789]);
   assert.equal(vec.toPostgres(), '{1:1.23456789}/1');

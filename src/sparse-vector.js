@@ -80,6 +80,9 @@ export class SparseVector {
         this.values.push(parseFloat(ep[1]));
       }
     }
+
+    // TODO uncomment in 0.4.0
+    // this.#validate();
   }
 
   /**
@@ -111,6 +114,19 @@ export class SparseVector {
         this.indices.push(Number(i));
         this.values.push(f);
       }
+    }
+
+    // TODO uncomment in 0.4.0
+    // this.#validate();
+  }
+
+  #validate() {
+    if (this.dimensions < 0) {
+      throw new Error('sparsevec cannot have negative dimensions');
+    }
+
+    if (this.indices.some(i => i < 0 || i >= this.dimensions)) {
+      throw new Error('sparsevec index out of bounds');
     }
   }
 }
