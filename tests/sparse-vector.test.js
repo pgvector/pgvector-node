@@ -34,8 +34,19 @@ test('fromMap', () => {
   map.set(3, 0);
   const vec = new SparseVector(map, 6);
   assert.equal(vec.dimensions, 6);
-  assert.deepEqual(vec.indices, [2, 4, 0]);
-  assert.deepEqual(vec.values, [2, 3, 1]);
+  assert.deepEqual(vec.indices, [0, 2, 4]);
+  assert.deepEqual(vec.values, [1, 2, 3]);
+  assert.equal(vec.toPostgres(), '{1:1,3:2,5:3}/6');
+  assert.deepEqual(vec.toArray(), [1, 0, 2, 0, 3, 0]);
+});
+
+test('fromMapUnsortedNegativeValues', () => {
+  const map = new Map([[5, -4.5], [1, 0], [3, -2], [0, 1.25]]);
+  const vec = new SparseVector(map, 7);
+  assert.deepEqual(vec.indices, [0, 3, 5]);
+  assert.deepEqual(vec.values, [1.25, -2, -4.5]);
+  assert.equal(vec.toPostgres(), '{1:1.25,4:-2,6:-4.5}/7');
+  assert.deepEqual([...map], [[5, -4.5], [1, 0], [3, -2], [0, 1.25]]);
 });
 
 test('fromMapObject', () => {

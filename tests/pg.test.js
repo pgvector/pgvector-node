@@ -29,6 +29,11 @@ test('pg example', async () => {
   assert.deepEqual(rows[0].binary_embedding, '000');
   assert.deepEqual(rows[0].sparse_embedding.toArray(), [1, 1, 1]);
 
+  // Map insertion order is not necessarily the order required by sparsevec.
+  const sparse = new SparseVector(new Map([[2, 3], [0, 1]]), 3);
+  const result = await client.query('INSERT INTO pg_items (sparse_embedding) VALUES ($1) RETURNING sparse_embedding', [sparse]);
+  assert.deepEqual(result.rows[0].sparse_embedding.toArray(), [1, 0, 3]);
+
   await client.query('CREATE INDEX ON pg_items USING hnsw (embedding vector_l2_ops)');
 
   await client.end();

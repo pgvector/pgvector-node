@@ -108,12 +108,20 @@ export class SparseVector {
     this.dimensions = Number(dimensions);
 
     const entries = map instanceof Map ? map.entries() : Object.entries(map);
+    /** @type {Array<[number, number]>} */
+    const elements = [];
     for (const [i, v] of entries) {
       const f = Number(v);
       if (f != 0) {
-        this.indices.push(Number(i));
-        this.values.push(f);
+        elements.push([Number(i), f]);
       }
+    }
+
+    // PostgreSQL requires sparsevec indices in ascending order.
+    elements.sort((a, b) => a[0] - b[0]);
+    for (const [i, v] of elements) {
+      this.indices.push(i);
+      this.values.push(v);
     }
 
     // TODO uncomment in 0.4.0
