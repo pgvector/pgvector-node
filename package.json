@@ -57,7 +57,7 @@
     "drizzle-orm": "^0.45.0",
     "knex": "^3.1.0",
     "kysely": "^0.29.2",
-    "objection": "^3.1.3",
+    "objection": "^4.0.0",
     "pg": "^8.6.0",
     "pg-promise": "^12.3.0",
     "postgres": "^3.3.4",
