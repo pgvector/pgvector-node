@@ -11,13 +11,13 @@ jobs:
           dev-files: true
       - run: |
           cd /tmp
-          git clone --branch v0.8.5 https://github.com/pgvector/pgvector.git
+          git clone --branch v0.8.7 https://github.com/pgvector/pgvector.git
           cd pgvector
           make
           sudo make install
 
       # Node.js
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
       - run: npm install
