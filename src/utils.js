@@ -9,6 +9,7 @@ export function vectorFromSql(value) {
   if (value === null) {
     return null;
   }
+  // TODO check brackets in 0.4.0
   return value.substring(1, value.length - 1).split(',').map((v) => parseFloat(v));
 }
 

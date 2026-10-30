@@ -68,6 +68,7 @@ export class SparseVector {
    * @param {string} value
    */
   #fromSql(value) {
+    // TODO check brackets in 0.4.0
     const parts = value.split('/', 2);
 
     this.dimensions = parseInt(parts[1]);
