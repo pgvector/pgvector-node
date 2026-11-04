@@ -5,13 +5,13 @@ import { SparseVector } from 'pgvector';
 import { pgvectorTypes } from 'pgvector/postgres';
 
 test('postgres example', async () => {
-  const sql = postgres({
-    database: 'pgvector_node_test',
-    types: pgvectorTypes,
-    onnotice: function () { }
-  });
-
+  let sql = postgres({database: 'pgvector_node_test', onnotice: function () { }});
   await sql`CREATE EXTENSION IF NOT EXISTS vector`;
+
+  // need to reconnect after the vector extension has been created
+  await sql.end();
+  sql = postgres({database: 'pgvector_node_test', types: pgvectorTypes, onnotice: function () { }});
+
   await sql`DROP TABLE IF EXISTS postgres_items`;
   await sql`CREATE TABLE postgres_items (id serial PRIMARY KEY, embedding vector(3), half_embedding halfvec(3), binary_embedding bit(3), sparse_embedding sparsevec(3))`;
 
