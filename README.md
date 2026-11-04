@@ -442,16 +442,19 @@ See a [full example](tests/prisma.test.js) (and the [schema](prisma/schema.prism
 
 ## Postgres.js
 
-Import the library
-
-```javascript
-import pgvector from 'pgvector';
-```
-
 Enable the extension
 
 ```javascript
 await sql`CREATE EXTENSION IF NOT EXISTS vector`;
+```
+
+Register the types
+
+```javascript
+import postgres from 'postgres';
+import { pgvectorTypes } from 'pgvector/postgres';
+
+const sql = postgres({types: pgvectorTypes});
 ```
 
 Create a table
@@ -464,8 +467,8 @@ Insert vectors
 
 ```javascript
 const newItems = [
-  {embedding: pgvector.toSql([1, 2, 3])},
-  {embedding: pgvector.toSql([4, 5, 6])}
+  {embedding: [1, 2, 3]},
+  {embedding: [4, 5, 6]}
 ];
 await sql`INSERT INTO items ${ sql(newItems, 'embedding') }`;
 ```
@@ -473,7 +476,7 @@ await sql`INSERT INTO items ${ sql(newItems, 'embedding') }`;
 Get the nearest neighbors to a vector
 
 ```javascript
-const embedding = pgvector.toSql([1, 2, 3]);
+const embedding = [1, 2, 3];
 const items = await sql`SELECT * FROM items ORDER BY embedding <-> ${ embedding } LIMIT 5`;
 ```
 
