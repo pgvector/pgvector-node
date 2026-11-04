@@ -1,5 +1,6 @@
 ## 0.3.1 (unreleased)
 
+- Added `postgres` module
 - Fixed parsing for zero sparse vectors
 
 ## 0.3.0 (2026-05-31)

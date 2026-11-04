@@ -39,6 +39,10 @@
       "types": "./types/pg-promise/index.d.ts",
       "default": "./src/pg-promise/index.js"
     },
+    "./postgres": {
+      "types": "./types/postgres/index.d.ts",
+      "default": "./src/postgres/index.js"
+    },
     "./sequelize": {
       "types": "./types/sequelize/index.d.ts",
       "default": "./src/sequelize/index.js"
@@ -60,7 +64,7 @@
     "objection": "^4.0.0",
     "pg": "^8.6.0",
     "pg-promise": "^12.3.0",
-    "postgres": "^3.3.4",
+    "postgres": "^4.0.0",
     "prisma": "^7.1.0",
     "sequelize": "^6.6.2",
     "slonik": "^48.8.7",
