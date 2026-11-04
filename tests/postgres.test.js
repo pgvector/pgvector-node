@@ -7,9 +7,9 @@ import { pgvectorTypes } from 'pgvector/postgres';
 test('postgres example', async () => {
   let sql = postgres({database: 'pgvector_node_test', onnotice: function () { }});
   await sql`CREATE EXTENSION IF NOT EXISTS vector`;
-
-  // need to reconnect after the vector extension has been created
   await sql.end();
+
+  // need to reconnect after the extension has been created
   sql = postgres({database: 'pgvector_node_test', types: pgvectorTypes, onnotice: function () { }});
 
   await sql`DROP TABLE IF EXISTS postgres_items`;

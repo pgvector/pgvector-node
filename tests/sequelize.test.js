@@ -21,9 +21,9 @@ test('sequelize example', async () => {
     logging: false
   });
   await sequelize.query('CREATE EXTENSION IF NOT EXISTS vector');
-
-  // need to reconnect after the vector extension has been created
   sequelize.close();
+
+  // need to reconnect after the extension has been created
   sequelize = new Sequelize('postgres://localhost/pgvector_node_test', {
     logging: false
   });
