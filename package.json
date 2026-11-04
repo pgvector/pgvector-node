@@ -67,7 +67,7 @@
     "postgres": "^4.0.0",
     "prisma": "^7.1.0",
     "sequelize": "^6.6.2",
-    "slonik": "^48.8.7",
+    "slonik": "^49.0.0",
     "typeorm": "^1.0.0",
     "typescript": "^7.0.2"
   },
